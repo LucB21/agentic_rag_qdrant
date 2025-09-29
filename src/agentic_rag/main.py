@@ -38,7 +38,7 @@ class RagFlow(Flow[GuideOutline]):
         """
         self.state.sector = ["Basket", "Francia"]    # Qui definisci il settore su cui lavorare
         print(f"\n=== RAG Tool on: {self.state.sector} ===\n")
-        self.state.question = input("Insert your question: ")
+        self.state.question ="Who is James Naismith?" #input("Insert your question: ")
         
         return self.state
     
@@ -73,9 +73,21 @@ class RagFlow(Flow[GuideOutline]):
         state : GuideOutline
             Current flow state. The question is read from ``self.state``.
         """
-        response = RagCrew().crew().kickoff(inputs={"question":self.state.question})
+        chunk = rag_tool(self.state.question)
+        print("AAAAAAAAAAAAAAAAAAAAAA")
+        print(chunk)
+        print(type(chunk))
+        print("BBBBBBBBBBBBBBBBBB")
+        rag_crew = RagCrew().crew()
+        response = rag_crew.kickoff(inputs={"question":self.state.question, "context": chunk})
         print(f"\n🤖 RAG Answer: {response}")
         # state["rag_answer"] = response
+
+        return {
+            "crew": rag_crew,
+            "output": response,
+            "chunk": chunk
+            }
 
         # # Salva la risposta in un file .md
         # os.makedirs("outputs", exist_ok=True)
@@ -108,6 +120,16 @@ class RagFlow(Flow[GuideOutline]):
     #     result = crew.kickoff(task_id="validate_web", inputs=state)
     #     state["validated_info"] = result["output"]
     #     return state
+
+    @listen(rag_search)
+    def save_response(self, payload):
+        """Save response locally and return payload for Opik eval visibility."""
+        print("Saving response")
+        # with open("response.txt", "w", encoding="utf-8") as f:
+        #     f.write(payload["output"])
+        # print("Response saved to response.txt")
+
+        return payload
 
 def kickoff():
     """Run the guide creator flow"""

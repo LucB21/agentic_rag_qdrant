@@ -1,20 +1,18 @@
 rag_search:
   description: >
-    Perform a RAG-based search over the domain documents 
-    and provide a detailed answer with source references.
-    Don't change the question provided to the RAG system.
+    Provide a detailed answer using the provided context.
   agent: rag_researcher
   expected_output: >
-    Detailed answer including references to the retrieved RAG sources.
+    Detailed answer.
   output_file: output/report.md
 
-evaluation:
-  description: >
-    Evaluate the generated answer using RAGAS metrics. Assess faithfulness, 
-    context precision, recall, and overall relevance.
-  agent: rag_evaluator
-  expected_output: >
-    Evaluation metrics (faithfulness, precision, recall, relevance)
+# evaluation:
+#   description: >
+#     Evaluate the generated answer using RAGAS metrics. Assess faithfulness, 
+#     context precision, recall, and overall relevance.
+#   agent: rag_evaluator
+#   expected_output: >
+#     Evaluation metrics (faithfulness, precision, recall, relevance)
 
 # web_search:
 #   description: >

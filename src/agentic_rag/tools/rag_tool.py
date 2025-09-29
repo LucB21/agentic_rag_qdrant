@@ -1381,7 +1381,7 @@ def build_rag_chain(llm):
 # =========================
 
 @tool("rag_tool")
-def rag_tool(question: str)->str:
+def rag_tool(question: str) -> Dict[str, Any]:
     """
     Main execution function demonstrating the complete RAG pipeline with Azure OpenAI.
     
@@ -1519,8 +1519,8 @@ def rag_tool(question: str)->str:
     # 2) Dati -> chunk
     #docs = simulate_corpus()
 
-    docs = load_documents_from_dir(r"C:\Users\NG448ES\OneDrive - EY\Desktop\EY - privata\Academy\deposito_battaglione\RAG_qdrant\document")
-    
+    docs = load_documents_from_dir(r"C:\Users\NG448ES\OneDrive - EY\Desktop\EY - privata\Academy\deposito_battaglione\agentic_rag_qdrant\document")
+ 
     chunks = split_documents(docs, s)
 
     # 3) Crea (o ricrea) collection
@@ -1532,31 +1532,70 @@ def rag_tool(question: str)->str:
     upsert_chunks_azure(client, s, chunks, embeddings)
     print(f"Upserted {len(chunks)} chunks to Qdrant collection '{s.collection}'")
 
-    # 5) Query ibrida
+    # 5) Query ibrida - process single question
+    hits = hybrid_search_azure(client, s, question, embeddings)
+    print("=" * 80)
+    print("Q:", question)
     
-    for q in question:
-        hits = hybrid_search_azure(client, s, q, embeddings)
-        print("=" * 80)
-        print("Q:", q)
-        if not hits:
-            print("Nessun risultato.")
-            continue
+    if not hits:
+        print("Nessun risultato.")
+        return {
+            "status": "no_results",
+            "question": question,
+            "context": "",
+            "sources": [],
+            "retrieval_scores": [],
+            "error": "No relevant documents found for the query"
+        }
 
-        # Mostra id/score di debug
-        for p in hits:
-            print(f"- id={p.id} score={p.score:.4f} src={p.payload.get('source')}")
+    # Extract structured information from hits
+    sources = []
+    retrieval_scores = []
+    context_chunks = []
+    
+    for p in hits:
+        source_info = {
+            "id": p.id,
+            "source": p.payload.get('source', 'unknown'),
+            "score": float(p.score),
+            "text_preview": p.payload.get('text', '')[:200] + "..." if len(p.payload.get('text', '')) > 200 else p.payload.get('text', '')
+        }
+        sources.append(source_info)
+        retrieval_scores.append(float(p.score))
+        context_chunks.append({
+            "id": p.id,
+            "source": p.payload.get('source', 'unknown'),
+            "text": p.payload.get('text', ''),
+            "score": float(p.score)
+        })
 
-        # Se LLM configurato: genera
-      
-        try:
-            ctx = format_docs_for_prompt(hits)
-            return(ctx)
-        except Exception as e:
-            print(f"\nLLM generation failed: {e}")
-            print("Falling back to content display...")
-            print("\nContenuto recuperato:\n")
-            print(format_docs_for_prompt(hits))
-            print()
+    # Format context for LLM
+    try:
+        ctx = format_docs_for_prompt(hits)
+        
+        return {
+            "status": "success",
+            "question": question,
+            "context": ctx,
+            "sources": sources,
+            "retrieval_scores": retrieval_scores,
+            "context_chunks": context_chunks,
+            "num_results": len(hits),
+            "avg_score": sum(retrieval_scores) / len(retrieval_scores) if retrieval_scores else 0.0,
+            "max_score": max(retrieval_scores) if retrieval_scores else 0.0
+        }
+        
+    except Exception as e:
+        print(f"\nContext formatting failed: {e}")
+        return {
+            "status": "error",
+            "question": question,
+            "context": "",
+            "sources": sources,
+            "retrieval_scores": retrieval_scores,
+            "context_chunks": context_chunks,
+            "error": f"Context formatting failed: {str(e)}"
+        }
         
 
     

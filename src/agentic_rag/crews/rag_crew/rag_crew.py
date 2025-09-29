@@ -4,7 +4,6 @@ from crewai.project import CrewBase, agent, task, crew
 from crewai.agents.agent_builder.base_agent import BaseAgent
 from crewai import Task
 from typing import List
-from agentic_rag.tools.rag_tool import rag_tool
 
 @CrewBase
 class RagCrew():
@@ -24,23 +23,22 @@ class RagCrew():
         """
         return Agent(
             config=self.agents_config['rag_researcher'],
-            tools=[rag_tool],
             verbose=True
         )
 
-    @agent 
-    def rag_evaluator(self):
-        """Create the RAG evaluator agent.
+    # @agent 
+    # def rag_evaluator(self):
+    #     """Create the RAG evaluator agent.
 
-        Returns
-        -------
-        crewai.Agent
-            Agent responsible for assessing outputs with evaluation criteria.
-        """
-        return Agent(
-            config=self.agents_config['rag_evaluator'],
-            verbose=True
-        )
+    #     Returns
+    #     -------
+    #     crewai.Agent
+    #         Agent responsible for assessing outputs with evaluation criteria.
+    #     """
+    #     return Agent(
+    #         config=self.agents_config['rag_evaluator'],
+    #         verbose=True
+    #     )
 
     @task
     def rag_search(self):
