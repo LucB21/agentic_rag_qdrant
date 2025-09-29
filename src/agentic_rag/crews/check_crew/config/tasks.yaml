@@ -1,0 +1,6 @@
+check_relevance:
+  description: >
+    Check if the user's {question} is relevant to the defined {sector}.  
+  agent: sector_guard
+  expected_output: >
+    A json file providing a boolean response (True or False) where True means relevant and False means not relevant. ex.  { \"relevant\": True } or { \"relevant\": False }

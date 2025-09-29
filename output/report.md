@@ -1,0 +1,5 @@
+James Naismith is credited as the inventor of basketball. As a physical education teacher, he created the basic rules and designed the sport, utilizing walled-in gymnasiums as the field of play. He nailed a peach basket onto a 10-foot elevated track to serve as the goal, which laid the foundation for what is now modern basketball hoops. Initially, the basket had a closed bottom, requiring manual retrieval of the ball after scoring. Over time, the bottom was removed, allowing the ball to be knocked out with a long dowel. Basketball was originally played with a soccer ball, and its equipment evolved significantly over the years.
+
+Naismith's invention caught on quickly despite initial resistance from institutions like the YMCA, which discouraged the sport due to rough play and rowdy crowds. The sport eventually gained popularity among amateur sports clubs, colleges, and professional organizations. By the early 20th century, basketball had become established as a dominant sport in many parts of America.
+
+(Source: Document titled "History_of_basketball.pdf")

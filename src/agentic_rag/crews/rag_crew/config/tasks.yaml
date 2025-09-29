@@ -1,0 +1,33 @@
+rag_search:
+  description: >
+    Perform a RAG-based search over the domain documents 
+    and provide a detailed answer with source references.
+    Don't change the question provided to the RAG system.
+  agent: rag_researcher
+  expected_output: >
+    Detailed answer including references to the retrieved RAG sources.
+  output_file: output/report.md
+
+evaluation:
+  description: >
+    Evaluate the generated answer using RAGAS metrics. Assess faithfulness, 
+    context precision, recall, and overall relevance.
+  agent: rag_evaluator
+  expected_output: >
+    Evaluation metrics (faithfulness, precision, recall, relevance)
+
+# web_search:
+#   description: >
+#     Perform a complementary web search to enrich the RAG-based answer 
+#     with fresh and broader information.
+#   agent: web_researcher
+#   expected_output: >
+#     Combined answer including both internal (RAG) and external (web) sources.
+
+# validate_web:
+#   description: >
+#     Verify the correctness and reliability of the information found online 
+#     and integrate it into the RAG system if valid.
+#   agent: web_validator
+#   expected_output: >
+#     Validated set of web information, integrated into the RAG knowledge base.

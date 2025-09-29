@@ -1,0 +1,836 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>agentic_rag.tools.rag_tool &mdash; agentic_rag  documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=e59714d7" />
+
+  
+      <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../../_static/documentation_options.js?v=5929fcd5"></script>
+      <script src="../../../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../index.html" class="icon icon-home">
+            agentic_rag
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Table of Contents</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../usage.html">Getting started</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../usage.html#installation">Installation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../usage.html#build-the-faiss-index-and-run-the-flow">Build the FAISS index and run the flow</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../usage.html#generate-docs">Generate docs</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/index.html">API Reference</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/agentic_rag.html">agentic_rag package</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/agentic_rag.html#subpackages">Subpackages</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/agentic_rag.tools.html">agentic_rag.tools package</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/agentic_rag.tools.html#module-agentic_rag.tools.rag_tool">rag_tool module</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/agentic_rag.crews.html">agentic_rag.crews package</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/agentic_rag.crews.html#subpackages">Subpackages</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/agentic_rag.crews.check_crew.html">agentic_rag.crews.check_crew package</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/agentic_rag.crews.check_crew.html#module-agentic_rag.crews.check_crew.check_crew">check_crew module</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/agentic_rag.crews.rag_crew.html">agentic_rag.crews.rag_crew package</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/agentic_rag.crews.rag_crew.html#module-agentic_rag.crews.rag_crew.rag_crew">rag_crew module</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">agentic_rag</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content style-external-links">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">agentic_rag.tools.rag_tool</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for agentic_rag.tools.rag_tool</h1><div class="highlight"><pre>
+<span></span><span class="kn">from</span><span class="w"> </span><span class="nn">__future__</span><span class="w"> </span><span class="kn">import</span> <span class="n">annotations</span>
+
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">RAG adattato per Azure OpenAI (chat + embeddings),</span>
+<span class="sd">con caricamento di documenti REALI (pdf/txt/md/docx) con split robusto,</span>
+<span class="sd">+ test per verificare e migliorare il prompt</span>
+<span class="sd">+ **valutazione automatica con RAGAS**.</span>
+
+<span class="sd">Esecuzione:</span>
+<span class="sd">  python rag_azure_real_docs.py --docs ./cartella_documenti \</span>
+<span class="sd">    --persist ./faiss_index_azure \</span>
+<span class="sd">    --search-type mmr --k 5 --fetch-k 30 --lambda 0.3</span>
+
+<span class="sd">Test &quot;anti-confusione&quot;:</span>
+<span class="sd">  python rag_azure_real_docs.py --run-tests</span>
+
+<span class="sd">Dipendenze aggiuntive per la valutazione:</span>
+<span class="sd">  pip install ragas pandas</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">argparse</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">dataclasses</span><span class="w"> </span><span class="kn">import</span> <span class="n">dataclass</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pathlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">Path</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">List</span><span class="p">,</span> <span class="n">Iterable</span><span class="p">,</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">Optional</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">dotenv</span><span class="w"> </span><span class="kn">import</span> <span class="n">load_dotenv</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Type</span>
+ 
+<span class="kn">from</span><span class="w"> </span><span class="nn">crewai.tools</span><span class="w"> </span><span class="kn">import</span> <span class="n">BaseTool</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pydantic</span><span class="w"> </span><span class="kn">import</span> <span class="n">BaseModel</span><span class="p">,</span> <span class="n">Field</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">crewai.tools</span><span class="w"> </span><span class="kn">import</span> <span class="n">tool</span>
+
+<span class="c1"># LangChain core</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">langchain.schema</span><span class="w"> </span><span class="kn">import</span> <span class="n">Document</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">langchain.text_splitter</span><span class="w"> </span><span class="kn">import</span> <span class="n">RecursiveCharacterTextSplitter</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">langchain_core.prompts</span><span class="w"> </span><span class="kn">import</span> <span class="n">ChatPromptTemplate</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">langchain_core.output_parsers</span><span class="w"> </span><span class="kn">import</span> <span class="n">StrOutputParser</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">langchain_core.runnables</span><span class="w"> </span><span class="kn">import</span> <span class="n">RunnablePassthrough</span>
+
+<span class="c1"># Azure OpenAI</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">langchain_openai</span><span class="w"> </span><span class="kn">import</span> <span class="n">AzureChatOpenAI</span><span class="p">,</span> <span class="n">AzureOpenAIEmbeddings</span>
+
+<span class="c1"># Vector store</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">langchain_community.vectorstores</span><span class="w"> </span><span class="kn">import</span> <span class="n">FAISS</span>
+
+<span class="c1"># Loaders</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">langchain_community.document_loaders</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
+    <span class="n">PyPDFLoader</span><span class="p">,</span>
+    <span class="n">TextLoader</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="k">try</span><span class="p">:</span>
+    <span class="kn">from</span><span class="w"> </span><span class="nn">langchain_community.document_loaders</span><span class="w"> </span><span class="kn">import</span> <span class="n">Docx2txtLoader</span>
+    <span class="n">HAS_DOCX</span> <span class="o">=</span> <span class="kc">True</span>
+<span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
+    <span class="n">HAS_DOCX</span> <span class="o">=</span> <span class="kc">False</span>
+
+<span class="c1"># --- RAGAS ---</span>
+<span class="c1"># from ragas import evaluate, EvaluationDataset</span>
+<span class="c1"># from ragas.metrics import (</span>
+<span class="c1">#     context_precision,   # precision@k sui chunk recuperati</span>
+<span class="c1">#     context_recall,      # copertura dei chunk rilevanti</span>
+<span class="c1">#     faithfulness,        # ancoraggio della risposta al contesto</span>
+<span class="c1">#     answer_relevancy,    # pertinenza della risposta vs domanda</span>
+<span class="c1">#     answer_correctness,  # usa questa solo se hai ground_truth</span>
+<span class="c1"># )</span>
+
+<span class="n">load_dotenv</span><span class="p">()</span>
+
+<div class="viewcode-block" id="Settings">
+<a class="viewcode-back" href="../../../api/agentic_rag.tools.html#agentic_rag.tools.rag_tool.Settings">[docs]</a>
+<span class="nd">@dataclass</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">Settings</span><span class="p">:</span>
+    <span class="c1"># Persistenza</span>
+    <span class="n">persist_dir</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;faiss_index_azure&quot;</span>
+    <span class="c1"># Splitting</span>
+    <span class="n">chunk_size</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">700</span>
+    <span class="n">chunk_overlap</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">150</span>
+    <span class="c1"># Retrieval</span>
+    <span class="n">search_type</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;mmr&quot;</span>  <span class="c1"># &quot;mmr&quot; or &quot;similarity&quot;</span>
+    <span class="n">k</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">4</span>
+    <span class="n">fetch_k</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">20</span>
+    <span class="n">mmr_lambda</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.3</span>
+    <span class="c1"># Azure OpenAI</span>
+    <span class="n">api_key_env</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;AZURE_OPENAI_API_KEY&quot;</span>
+    <span class="n">api_version_env</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;AZURE_OPENAI_API_VERSION&quot;</span>
+    <span class="n">endpoint_env</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;AZURE_OPENAI_ENDPOINT&quot;</span>
+    <span class="n">chat_deployment_env</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;AZURE_OPENAI_CHAT_DEPLOYMENT&quot;</span>
+    <span class="n">embed_deployment_env</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;AZURE_OPENAI_EMBED_DEPLOYMENT&quot;</span></div>
+
+
+
+<span class="n">SETTINGS</span> <span class="o">=</span> <span class="n">Settings</span><span class="p">()</span>
+
+
+<span class="c1"># =========================</span>
+<span class="c1"># Azure OpenAI components</span>
+<span class="c1"># =========================</span>
+
+<div class="viewcode-block" id="get_azure_embeddings">
+<a class="viewcode-back" href="../../../api/agentic_rag.tools.html#agentic_rag.tools.rag_tool.get_azure_embeddings">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">get_azure_embeddings</span><span class="p">(</span><span class="n">settings</span><span class="p">:</span> <span class="n">Settings</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">AzureOpenAIEmbeddings</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Create an Azure OpenAI Embeddings client from environment configuration.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    settings : Settings</span>
+<span class="sd">        Runtime configuration holding the environment variable names and defaults.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    AzureOpenAIEmbeddings</span>
+<span class="sd">        Configured embeddings client for computing vector representations.</span>
+
+<span class="sd">    Raises</span>
+<span class="sd">    ------</span>
+<span class="sd">    RuntimeError</span>
+<span class="sd">        If any of the required Azure OpenAI environment variables are missing.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">endpoint</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="n">settings</span><span class="o">.</span><span class="n">endpoint_env</span><span class="p">)</span>
+    <span class="n">api_key</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="n">settings</span><span class="o">.</span><span class="n">api_key_env</span><span class="p">)</span>
+    <span class="n">api_version</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="n">settings</span><span class="o">.</span><span class="n">api_version_env</span><span class="p">)</span>
+    <span class="n">embed_deployment</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="n">settings</span><span class="o">.</span><span class="n">embed_deployment_env</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="ow">not</span> <span class="p">(</span><span class="n">endpoint</span> <span class="ow">and</span> <span class="n">api_key</span> <span class="ow">and</span> <span class="n">api_version</span> <span class="ow">and</span> <span class="n">embed_deployment</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span>
+            <span class="s2">&quot;Config Azure OpenAI mancante: assicurati di impostare ENDPOINT/API_KEY/API_VERSION e il deployment embeddings.&quot;</span>
+        <span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">AzureOpenAIEmbeddings</span><span class="p">(</span>
+        <span class="n">azure_deployment</span><span class="o">=</span><span class="n">embed_deployment</span><span class="p">,</span>
+        <span class="n">openai_api_version</span><span class="o">=</span><span class="n">api_version</span><span class="p">,</span>
+        <span class="n">azure_endpoint</span><span class="o">=</span><span class="n">endpoint</span><span class="p">,</span>
+        <span class="n">api_key</span><span class="o">=</span><span class="n">api_key</span><span class="p">,</span>
+    <span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="get_azure_chat_llm">
+<a class="viewcode-back" href="../../../api/agentic_rag.tools.html#agentic_rag.tools.rag_tool.get_azure_chat_llm">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">get_azure_chat_llm</span><span class="p">(</span><span class="n">settings</span><span class="p">:</span> <span class="n">Settings</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">AzureChatOpenAI</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Instantiate an Azure Chat LLM client with deterministic generation settings.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    settings : Settings</span>
+<span class="sd">        Runtime configuration holding the environment variable names and defaults.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    AzureChatOpenAI</span>
+<span class="sd">        Configured chat LLM client used for answer generation and evaluation.</span>
+
+<span class="sd">    Raises</span>
+<span class="sd">    ------</span>
+<span class="sd">    RuntimeError</span>
+<span class="sd">        If any of the required Azure OpenAI environment variables are missing.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">endpoint</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="n">settings</span><span class="o">.</span><span class="n">endpoint_env</span><span class="p">)</span>
+    <span class="n">api_key</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="n">settings</span><span class="o">.</span><span class="n">api_key_env</span><span class="p">)</span>
+    <span class="n">api_version</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="n">settings</span><span class="o">.</span><span class="n">api_version_env</span><span class="p">)</span>
+    <span class="n">chat_deployment</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="n">settings</span><span class="o">.</span><span class="n">chat_deployment_env</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="ow">not</span> <span class="p">(</span><span class="n">endpoint</span> <span class="ow">and</span> <span class="n">api_key</span> <span class="ow">and</span> <span class="n">api_version</span> <span class="ow">and</span> <span class="n">chat_deployment</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span>
+            <span class="s2">&quot;Config Azure OpenAI mancante: assicurati di impostare ENDPOINT/API_KEY/API_VERSION e il deployment chat.&quot;</span>
+        <span class="p">)</span>
+
+    <span class="c1"># temperature bassa per ridurre allucinazioni</span>
+    <span class="k">return</span> <span class="n">AzureChatOpenAI</span><span class="p">(</span>
+        <span class="n">azure_deployment</span><span class="o">=</span><span class="n">chat_deployment</span><span class="p">,</span>
+        <span class="n">openai_api_version</span><span class="o">=</span><span class="n">api_version</span><span class="p">,</span>
+        <span class="n">azure_endpoint</span><span class="o">=</span><span class="n">endpoint</span><span class="p">,</span>
+        <span class="n">api_key</span><span class="o">=</span><span class="n">api_key</span><span class="p">,</span>
+        <span class="n">temperature</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span>
+        <span class="n">max_tokens</span><span class="o">=</span><span class="mi">800</span><span class="p">,</span>
+    <span class="p">)</span></div>
+
+
+
+<span class="c1"># =========================</span>
+<span class="c1"># Real documents loading</span>
+<span class="c1"># =========================</span>
+
+<div class="viewcode-block" id="load_documents_from_dir">
+<a class="viewcode-back" href="../../../api/agentic_rag.tools.html#agentic_rag.tools.rag_tool.load_documents_from_dir">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">load_documents_from_dir</span><span class="p">(</span><span class="n">path</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="n">Path</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">Document</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Load supported documents from a directory recursively.</span>
+
+<span class="sd">    Supported extensions are ``.pdf``, ``.txt``, ``.md``, and optionally ``.docx``.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    path : str or pathlib.Path</span>
+<span class="sd">        Root directory to scan for documents.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    list of langchain.schema.Document</span>
+<span class="sd">        Loaded documents with basic metadata such as ``source``.</span>
+
+<span class="sd">    Raises</span>
+<span class="sd">    ------</span>
+<span class="sd">    FileNotFoundError</span>
+<span class="sd">        If the directory does not exist.</span>
+<span class="sd">    RuntimeError</span>
+<span class="sd">        If no supported documents are found in the directory.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">path</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">():</span>
+        <span class="k">raise</span> <span class="ne">FileNotFoundError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Cartella non trovata: </span><span class="si">{</span><span class="n">path</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+    <span class="n">docs</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Document</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_load_one</span><span class="p">(</span><span class="n">p</span><span class="p">:</span> <span class="n">Path</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Iterable</span><span class="p">[</span><span class="n">Document</span><span class="p">]:</span>
+        <span class="n">suffix</span> <span class="o">=</span> <span class="n">p</span><span class="o">.</span><span class="n">suffix</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">suffix</span> <span class="o">==</span> <span class="s2">&quot;.pdf&quot;</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">PyPDFLoader</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">p</span><span class="p">))</span><span class="o">.</span><span class="n">load</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">suffix</span> <span class="ow">in</span> <span class="p">{</span><span class="s2">&quot;.txt&quot;</span><span class="p">,</span> <span class="s2">&quot;.md&quot;</span><span class="p">}:</span>
+            <span class="k">return</span> <span class="n">TextLoader</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">p</span><span class="p">),</span> <span class="n">encoding</span><span class="o">=</span><span class="s2">&quot;utf-8&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">load</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">suffix</span> <span class="o">==</span> <span class="s2">&quot;.docx&quot;</span> <span class="ow">and</span> <span class="n">HAS_DOCX</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">Docx2txtLoader</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">p</span><span class="p">))</span><span class="o">.</span><span class="n">load</span><span class="p">()</span>
+        <span class="k">return</span> <span class="p">[]</span>
+
+    <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">path</span><span class="o">.</span><span class="n">rglob</span><span class="p">(</span><span class="s2">&quot;*&quot;</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">p</span><span class="o">.</span><span class="n">is_file</span><span class="p">()</span> <span class="ow">and</span> <span class="n">p</span><span class="o">.</span><span class="n">suffix</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="ow">in</span> <span class="p">{</span><span class="s2">&quot;.pdf&quot;</span><span class="p">,</span> <span class="s2">&quot;.txt&quot;</span><span class="p">,</span> <span class="s2">&quot;.md&quot;</span><span class="p">,</span> <span class="s2">&quot;.docx&quot;</span><span class="p">}:</span>
+            <span class="n">docs</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">_load_one</span><span class="p">(</span><span class="n">p</span><span class="p">)))</span>
+
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">docs</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s2">&quot;Nessun documento supportato trovato nella cartella.&quot;</span><span class="p">)</span>
+
+    <span class="c1"># Aggiunge una sorgente leggibile per citazioni</span>
+    <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">d</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">docs</span><span class="p">,</span> <span class="n">start</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
+        <span class="n">d</span><span class="o">.</span><span class="n">metadata</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="s2">&quot;source&quot;</span><span class="p">,</span> <span class="n">d</span><span class="o">.</span><span class="n">metadata</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;source&quot;</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">d</span><span class="o">.</span><span class="n">metadata</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;file_path&quot;</span><span class="p">,</span> <span class="n">d</span><span class="o">.</span><span class="n">metadata</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;source&quot;</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;doc_</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)))))</span>
+    <span class="k">return</span> <span class="n">docs</span></div>
+
+
+
+<div class="viewcode-block" id="split_documents">
+<a class="viewcode-back" href="../../../api/agentic_rag.tools.html#agentic_rag.tools.rag_tool.split_documents">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">split_documents</span><span class="p">(</span><span class="n">docs</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Document</span><span class="p">],</span> <span class="n">settings</span><span class="p">:</span> <span class="n">Settings</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">Document</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Split documents into overlapping chunks for retrieval.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    docs : list of langchain.schema.Document</span>
+<span class="sd">        Source documents to be chunked.</span>
+<span class="sd">    settings : Settings</span>
+<span class="sd">        Chunking configuration (size and overlap).</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    list of langchain.schema.Document</span>
+<span class="sd">        Chunked documents preserving metadata.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">splitter</span> <span class="o">=</span> <span class="n">RecursiveCharacterTextSplitter</span><span class="p">(</span>
+        <span class="n">chunk_size</span><span class="o">=</span><span class="n">settings</span><span class="o">.</span><span class="n">chunk_size</span><span class="p">,</span>
+        <span class="n">chunk_overlap</span><span class="o">=</span><span class="n">settings</span><span class="o">.</span><span class="n">chunk_overlap</span><span class="p">,</span>
+        <span class="n">separators</span><span class="o">=</span><span class="p">[</span>
+            <span class="s2">&quot;</span><span class="se">\n\n</span><span class="s2">&quot;</span><span class="p">,</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span> <span class="s2">&quot;. &quot;</span><span class="p">,</span> <span class="s2">&quot;? &quot;</span><span class="p">,</span> <span class="s2">&quot;! &quot;</span><span class="p">,</span> <span class="s2">&quot;; &quot;</span><span class="p">,</span> <span class="s2">&quot;: &quot;</span><span class="p">,</span> <span class="s2">&quot;, &quot;</span><span class="p">,</span> <span class="s2">&quot; &quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
+        <span class="p">],</span>
+    <span class="p">)</span>
+    <span class="k">return</span> <span class="n">splitter</span><span class="o">.</span><span class="n">split_documents</span><span class="p">(</span><span class="n">docs</span><span class="p">)</span></div>
+
+
+
+<span class="c1"># =========================</span>
+<span class="c1"># Vector store helpers (FAISS)</span>
+<span class="c1"># =========================</span>
+
+<div class="viewcode-block" id="build_faiss_vectorstore">
+<a class="viewcode-back" href="../../../api/agentic_rag.tools.html#agentic_rag.tools.rag_tool.build_faiss_vectorstore">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">build_faiss_vectorstore</span><span class="p">(</span><span class="n">chunks</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Document</span><span class="p">],</span> <span class="n">embeddings</span><span class="p">:</span> <span class="n">AzureOpenAIEmbeddings</span><span class="p">,</span> <span class="n">persist_dir</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">FAISS</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Build and persist a FAISS vector store from document chunks.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    chunks : list of langchain.schema.Document</span>
+<span class="sd">        Pre-split document chunks to index.</span>
+<span class="sd">    embeddings : AzureOpenAIEmbeddings</span>
+<span class="sd">        Embeddings client used to embed the chunks.</span>
+<span class="sd">    persist_dir : str</span>
+<span class="sd">        Directory where the FAISS index and metadata will be saved.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    FAISS</span>
+<span class="sd">        The constructed FAISS vector store instance.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">vs</span> <span class="o">=</span> <span class="n">FAISS</span><span class="o">.</span><span class="n">from_documents</span><span class="p">(</span><span class="n">documents</span><span class="o">=</span><span class="n">chunks</span><span class="p">,</span> <span class="n">embedding</span><span class="o">=</span><span class="n">embeddings</span><span class="p">)</span>
+    <span class="n">Path</span><span class="p">(</span><span class="n">persist_dir</span><span class="p">)</span><span class="o">.</span><span class="n">mkdir</span><span class="p">(</span><span class="n">parents</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">vs</span><span class="o">.</span><span class="n">save_local</span><span class="p">(</span><span class="n">persist_dir</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">vs</span></div>
+
+
+
+<div class="viewcode-block" id="load_or_build_vectorstore">
+<a class="viewcode-back" href="../../../api/agentic_rag.tools.html#agentic_rag.tools.rag_tool.load_or_build_vectorstore">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">load_or_build_vectorstore</span><span class="p">(</span><span class="n">settings</span><span class="p">:</span> <span class="n">Settings</span><span class="p">,</span> <span class="n">embeddings</span><span class="p">,</span> <span class="n">docs</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Document</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">FAISS</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Load an existing FAISS vector store or build a new one.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    settings : Settings</span>
+<span class="sd">        Configuration including the persist directory path.</span>
+<span class="sd">    embeddings : AzureOpenAIEmbeddings</span>
+<span class="sd">        Embeddings client used to embed chunks.</span>
+<span class="sd">    docs : list of langchain.schema.Document</span>
+<span class="sd">        Raw documents to split and index if no persisted index exists.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    FAISS</span>
+<span class="sd">        Loaded or newly built vector store.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">persist_path</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">settings</span><span class="o">.</span><span class="n">persist_dir</span><span class="p">)</span>
+    <span class="n">index_file</span> <span class="o">=</span> <span class="n">persist_path</span> <span class="o">/</span> <span class="s2">&quot;index.faiss&quot;</span>
+    <span class="n">meta_file</span> <span class="o">=</span> <span class="n">persist_path</span> <span class="o">/</span> <span class="s2">&quot;index.pkl&quot;</span>
+
+    <span class="k">if</span> <span class="n">index_file</span><span class="o">.</span><span class="n">exists</span><span class="p">()</span> <span class="ow">and</span> <span class="n">meta_file</span><span class="o">.</span><span class="n">exists</span><span class="p">():</span>
+        <span class="k">return</span> <span class="n">FAISS</span><span class="o">.</span><span class="n">load_local</span><span class="p">(</span>
+            <span class="n">settings</span><span class="o">.</span><span class="n">persist_dir</span><span class="p">,</span> <span class="n">embeddings</span><span class="p">,</span> <span class="n">allow_dangerous_deserialization</span><span class="o">=</span><span class="kc">True</span>
+        <span class="p">)</span>
+    <span class="n">chunks</span> <span class="o">=</span> <span class="n">split_documents</span><span class="p">(</span><span class="n">docs</span><span class="p">,</span> <span class="n">settings</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">build_faiss_vectorstore</span><span class="p">(</span><span class="n">chunks</span><span class="p">,</span> <span class="n">embeddings</span><span class="p">,</span> <span class="n">settings</span><span class="o">.</span><span class="n">persist_dir</span><span class="p">)</span></div>
+
+
+
+<span class="c1"># def make_retriever(vector_store: FAISS, settings: Settings):</span>
+<span class="c1">#     if settings.search_type == &quot;mmr&quot;:</span>
+<span class="c1">#         return vector_store.as_retriever(</span>
+<span class="c1">#             search_type=&quot;mmr&quot;,</span>
+<span class="c1">#             search_kwargs={&quot;k&quot;: settings.k, &quot;fetch_k&quot;: settings.fetch_k, &quot;lambda_mult&quot;: settings.mmr_lambda},</span>
+<span class="c1">#         )</span>
+<span class="c1">#     return vector_store.as_retriever(search_type=&quot;similarity&quot;, search_kwargs={&quot;k&quot;: settings.k})</span>
+
+
+<div class="viewcode-block" id="make_retriever">
+<a class="viewcode-back" href="../../../api/agentic_rag.tools.html#agentic_rag.tools.rag_tool.make_retriever">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">make_retriever</span><span class="p">(</span><span class="n">vector_store</span><span class="p">:</span> <span class="n">FAISS</span><span class="p">,</span> <span class="n">settings</span><span class="p">:</span> <span class="n">Settings</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Create a retriever with optional MMR and log retrieved chunks.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    vector_store : FAISS</span>
+<span class="sd">        The vector store to retrieve from.</span>
+<span class="sd">    settings : Settings</span>
+<span class="sd">        Retrieval configuration, such as ``search_type`` and ``k``.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    object</span>
+<span class="sd">        A retriever-like object exposing ``invoke`` and ``get_relevant_documents``</span>
+<span class="sd">        methods that also prints a preview of retrieved chunks.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">settings</span><span class="o">.</span><span class="n">search_type</span> <span class="o">==</span> <span class="s2">&quot;mmr&quot;</span><span class="p">:</span>
+        <span class="n">retriever</span> <span class="o">=</span> <span class="n">vector_store</span><span class="o">.</span><span class="n">as_retriever</span><span class="p">(</span>
+            <span class="n">search_type</span><span class="o">=</span><span class="s2">&quot;mmr&quot;</span><span class="p">,</span>
+            <span class="n">search_kwargs</span><span class="o">=</span><span class="p">{</span>
+                <span class="s2">&quot;k&quot;</span><span class="p">:</span> <span class="n">settings</span><span class="o">.</span><span class="n">k</span><span class="p">,</span>
+                <span class="s2">&quot;fetch_k&quot;</span><span class="p">:</span> <span class="n">settings</span><span class="o">.</span><span class="n">fetch_k</span><span class="p">,</span>
+                <span class="s2">&quot;lambda_mult&quot;</span><span class="p">:</span> <span class="n">settings</span><span class="o">.</span><span class="n">mmr_lambda</span><span class="p">,</span>
+            <span class="p">},</span>
+        <span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">retriever</span> <span class="o">=</span> <span class="n">vector_store</span><span class="o">.</span><span class="n">as_retriever</span><span class="p">(</span>
+            <span class="n">search_type</span><span class="o">=</span><span class="s2">&quot;similarity&quot;</span><span class="p">,</span>
+            <span class="n">search_kwargs</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;k&quot;</span><span class="p">:</span> <span class="n">settings</span><span class="o">.</span><span class="n">k</span><span class="p">},</span>
+        <span class="p">)</span>
+
+    <span class="c1"># Create a wrapper class that logs retrieved chunks</span>
+    <span class="k">class</span><span class="w"> </span><span class="nc">LoggingRetriever</span><span class="p">:</span>
+        <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">base_retriever</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">base_retriever</span> <span class="o">=</span> <span class="n">base_retriever</span>
+        
+        <span class="k">def</span><span class="w"> </span><span class="nf">invoke</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">query</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+            <span class="n">docs</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">base_retriever</span><span class="o">.</span><span class="n">invoke</span><span class="p">(</span><span class="n">query</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">=== Retrieved Chunks ===&quot;</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">d</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">docs</span><span class="p">,</span> <span class="n">start</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
+                <span class="n">src</span> <span class="o">=</span> <span class="n">d</span><span class="o">.</span><span class="n">metadata</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;source&quot;</span><span class="p">,</span> <span class="s2">&quot;N/A&quot;</span><span class="p">)</span>
+                <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">--- Chunk </span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2"> [source: </span><span class="si">{</span><span class="n">src</span><span class="si">}</span><span class="s2">] ---</span><span class="se">\n</span><span class="si">{</span><span class="n">d</span><span class="o">.</span><span class="n">page_content</span><span class="p">[:</span><span class="mi">500</span><span class="p">]</span><span class="si">}</span><span class="s2">...</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">docs</span>
+        
+        <span class="k">def</span><span class="w"> </span><span class="nf">get_relevant_documents</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">query</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+            <span class="c1"># For backward compatibility</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">invoke</span><span class="p">(</span><span class="n">query</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">LoggingRetriever</span><span class="p">(</span><span class="n">retriever</span><span class="p">)</span></div>
+
+
+
+        
+<div class="viewcode-block" id="retrieve_chunks">
+<a class="viewcode-back" href="../../../api/agentic_rag.tools.html#agentic_rag.tools.rag_tool.retrieve_chunks">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">retrieve_chunks</span><span class="p">(</span><span class="n">question</span><span class="p">,</span> <span class="n">retriever</span><span class="p">,</span> <span class="n">max_chars</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">500</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Retrieve top chunks for a query and return a compact, structured view.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        question : str</span>
+<span class="sd">            The user query used to retrieve relevant chunks.</span>
+<span class="sd">        retriever : object</span>
+<span class="sd">            Retriever exposing an ``invoke`` method returning a list of Documents.</span>
+<span class="sd">        max_chars : int, optional</span>
+<span class="sd">            Maximum number of characters to include from each chunk, by default 500.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        list of dict</span>
+<span class="sd">            A list of records with ``chunk_id``, ``source`` and truncated ``content``.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">docs</span> <span class="o">=</span> <span class="n">retriever</span><span class="o">.</span><span class="n">invoke</span><span class="p">(</span><span class="n">question</span><span class="p">)</span>
+
+        <span class="n">results</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">d</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">docs</span><span class="p">,</span> <span class="n">start</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
+            <span class="n">results</span><span class="o">.</span><span class="n">append</span><span class="p">({</span>
+                <span class="s2">&quot;chunk_id&quot;</span><span class="p">:</span> <span class="n">i</span><span class="p">,</span>
+                <span class="s2">&quot;source&quot;</span><span class="p">:</span> <span class="n">d</span><span class="o">.</span><span class="n">metadata</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;source&quot;</span><span class="p">,</span> <span class="s2">&quot;N/A&quot;</span><span class="p">),</span>
+                <span class="s2">&quot;content&quot;</span><span class="p">:</span> <span class="n">d</span><span class="o">.</span><span class="n">page_content</span><span class="p">[:</span><span class="n">max_chars</span><span class="p">]</span> <span class="o">+</span> <span class="p">(</span><span class="s2">&quot;...&quot;</span> <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">d</span><span class="o">.</span><span class="n">page_content</span><span class="p">)</span> <span class="o">&gt;</span> <span class="n">max_chars</span> <span class="k">else</span> <span class="s2">&quot;&quot;</span><span class="p">)</span>
+            <span class="p">})</span>
+        <span class="k">return</span> <span class="n">results</span></div>
+
+
+
+
+    <span class="c1">#     def __init__(self, base_retriever):</span>
+    <span class="c1">#         self.base_retriever = base_retriever</span>
+        
+    <span class="c1">#     def invoke(self, query: str):</span>
+    <span class="c1">#         docs = self.base_retriever.invoke(query)</span>
+    <span class="c1">#         print(&quot;\n=== Retrieved Chunks ===&quot;)</span>
+    <span class="c1">#         for i, d in enumerate(docs, start=1):</span>
+    <span class="c1">#             src = d.metadata.get(&quot;source&quot;, &quot;N/A&quot;)</span>
+    <span class="c1">#             print(f&quot;\n--- Chunk {i} [source: {src}] ---\n{d.page_content[:500]}...\n&quot;)</span>
+    <span class="c1">#         return docs</span>
+        
+    <span class="c1">#     def get_relevant_documents(self, query: str):</span>
+    <span class="c1">#         # For backward compatibility</span>
+    <span class="c1">#         return self.invoke(query)</span>
+        
+    <span class="c1">#     def __or__(self, other):</span>
+    <span class="c1">#         # Support for LangChain pipeline operations</span>
+    <span class="c1">#         from langchain_core.runnables import RunnableLambda</span>
+    <span class="c1">#         return RunnableLambda(self.invoke) | other</span>
+
+    <span class="c1"># return LoggingRetriever(retriever)</span>
+
+
+<span class="c1"># =========================</span>
+<span class="c1"># Prompting (qui: versione &quot;gullible&quot; richiesta)</span>
+<span class="c1"># =========================</span>
+
+<div class="viewcode-block" id="format_docs_for_prompt">
+<a class="viewcode-back" href="../../../api/agentic_rag.tools.html#agentic_rag.tools.rag_tool.format_docs_for_prompt">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">format_docs_for_prompt</span><span class="p">(</span><span class="n">docs</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Document</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Format documents into a plain-text context block for prompting.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    docs : list of langchain.schema.Document</span>
+<span class="sd">        Documents to concatenate with ``[source:...]`` tags.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    str</span>
+<span class="sd">        A single string containing all documents with source annotations.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">lines</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">d</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">docs</span><span class="p">,</span> <span class="n">start</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
+        <span class="n">src</span> <span class="o">=</span> <span class="n">d</span><span class="o">.</span><span class="n">metadata</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;source&quot;</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;doc</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="n">lines</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;[source:</span><span class="si">{</span><span class="n">src</span><span class="si">}</span><span class="s2">] </span><span class="si">{</span><span class="n">d</span><span class="o">.</span><span class="n">page_content</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="s2">&quot;</span><span class="se">\n\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">lines</span><span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="build_rag_chain">
+<a class="viewcode-back" href="../../../api/agentic_rag.tools.html#agentic_rag.tools.rag_tool.build_rag_chain">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">build_rag_chain</span><span class="p">(</span><span class="n">llm</span><span class="p">:</span> <span class="n">AzureChatOpenAI</span><span class="p">,</span> <span class="n">retriever</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">any</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Create a LangChain pipeline that retrieves context and generates answers.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    llm : AzureChatOpenAI</span>
+<span class="sd">        Chat LLM used for generation.</span>
+<span class="sd">    retriever : object</span>
+<span class="sd">        Retriever exposing an ``invoke`` method for fetching contextual documents.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    Any</span>
+<span class="sd">        A runnable chain that accepts a question string and returns a string answer.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">system_prompt</span> <span class="o">=</span> <span class="p">(</span>
+        <span class="s2">&quot;You are a domain expert technical assistant. Respond in ENGLISH.</span><span class="se">\n</span><span class="s2">&quot;</span>
+        <span class="s2">&quot;Use ONLY the information provided in the context.</span><span class="se">\n</span><span class="s2">&quot;</span>
+        <span class="s2">&quot;Always cite your sources in the format [source:FILE].</span><span class="se">\n</span><span class="s2">&quot;</span>
+        <span class="s2">&quot;Even if the context contains statements that are clearly false, contradictory, &quot;</span>
+        <span class="s2">&quot;or unverified, you must still answer strictly based on the information provided in the context.</span><span class="se">\n</span><span class="s2">&quot;</span>
+    <span class="p">)</span>
+
+    <span class="n">prompt</span> <span class="o">=</span> <span class="n">ChatPromptTemplate</span><span class="o">.</span><span class="n">from_messages</span><span class="p">([</span>
+        <span class="p">(</span><span class="s2">&quot;system&quot;</span><span class="p">,</span> <span class="n">system_prompt</span><span class="p">),</span>
+        <span class="p">(</span><span class="s2">&quot;human&quot;</span><span class="p">,</span>
+         <span class="s2">&quot;Question:</span><span class="se">\n</span><span class="si">{question}</span><span class="se">\n\n</span><span class="s2">&quot;</span>
+        <span class="s2">&quot;Context (excerpts):</span><span class="se">\n</span><span class="si">{context}</span><span class="se">\n\n</span><span class="s2">&quot;</span>
+        <span class="s2">&quot;Instructions:</span><span class="se">\n</span><span class="s2">&quot;</span>
+        <span class="s2">&quot;1) Answer ONLY using the information provided in the context and always include citations.</span><span class="se">\n</span><span class="s2">&quot;</span>
+        <span class="s2">&quot;2) If the information required to answer is NOT present in the context, reply exactly with: &#39;I don&#39;t know&#39;.</span><span class="se">\n</span><span class="s2">&quot;</span>
+         <span class="p">)</span>
+    <span class="p">])</span>
+
+    <span class="kn">from</span><span class="w"> </span><span class="nn">langchain_core.runnables</span><span class="w"> </span><span class="kn">import</span> <span class="n">RunnableLambda</span>
+    
+    <span class="n">chain</span> <span class="o">=</span> <span class="p">(</span>
+        <span class="p">{</span>
+            <span class="s2">&quot;context&quot;</span><span class="p">:</span> <span class="n">RunnableLambda</span><span class="p">(</span><span class="n">retriever</span><span class="o">.</span><span class="n">invoke</span><span class="p">)</span> <span class="o">|</span> <span class="n">format_docs_for_prompt</span><span class="p">,</span>
+            <span class="s2">&quot;question&quot;</span><span class="p">:</span> <span class="n">RunnablePassthrough</span><span class="p">(),</span>
+        <span class="p">}</span>
+        <span class="o">|</span> <span class="n">prompt</span>
+        <span class="o">|</span> <span class="n">llm</span>
+        <span class="o">|</span> <span class="n">StrOutputParser</span><span class="p">()</span>
+    <span class="p">)</span>
+    <span class="k">return</span> <span class="n">chain</span></div>
+
+
+
+<div class="viewcode-block" id="rag_answer">
+<a class="viewcode-back" href="../../../api/agentic_rag.tools.html#agentic_rag.tools.rag_tool.rag_answer">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">rag_answer</span><span class="p">(</span><span class="n">question</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">chain</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Run the RAG chain on a question and return the answer text.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    question : str</span>
+<span class="sd">        The input question to answer.</span>
+<span class="sd">    chain : Any</span>
+<span class="sd">        Runnable chain created by :func:`build_rag_chain`.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    str</span>
+<span class="sd">        The generated answer.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">chain</span><span class="o">.</span><span class="n">invoke</span><span class="p">(</span><span class="n">question</span><span class="p">)</span></div>
+
+
+
+<span class="c1"># =========================</span>
+<span class="c1"># RAGAS helpers</span>
+<span class="c1"># =========================</span>
+
+<span class="c1"># def get_contexts_for_question(retriever, question: str, k: int) -&gt; List[str]:</span>
+<span class="c1">#     &quot;&quot;&quot;Ritorna i testi dei top-k documenti (chunk) usati come contesto.&quot;&quot;&quot;</span>
+<span class="c1">#     try:</span>
+<span class="c1">#         docs = retriever.get_relevant_documents(question)[:k]</span>
+<span class="c1">#     except Exception:</span>
+<span class="c1">#         docs = retriever.invoke(question)[:k]</span>
+<span class="c1">#     return [d.page_content for d in docs]</span>
+
+
+<span class="c1"># def build_ragas_dataset(</span>
+<span class="c1">#     questions: List[str],</span>
+<span class="c1">#     retriever,</span>
+<span class="c1">#     chain,</span>
+<span class="c1">#     k: int,</span>
+<span class="c1">#     ground_truth: Optional[Dict[str, str]] = None,</span>
+<span class="c1"># ):</span>
+<span class="c1">#     &quot;&quot;&quot;</span>
+<span class="c1">#     Esegue la pipeline RAG per ogni domanda e costruisce il dataset per Ragas.</span>
+<span class="c1">#     Ogni riga contiene: user_input, retrieved_contexts, response, (opz.) reference.</span>
+<span class="c1">#     &quot;&quot;&quot;</span>
+<span class="c1">#     dataset = []</span>
+<span class="c1">#     for q in questions:</span>
+<span class="c1">#         contexts = get_contexts_for_question(retriever, q, k)</span>
+<span class="c1">#         answer = chain.invoke(q)</span>
+<span class="c1">#         row = {</span>
+<span class="c1">#             &quot;user_input&quot;: q,</span>
+<span class="c1">#             &quot;retrieved_contexts&quot;: contexts,</span>
+<span class="c1">#             &quot;response&quot;: answer,</span>
+<span class="c1">#         }</span>
+<span class="c1">#         if ground_truth and q in ground_truth:</span>
+<span class="c1">#             row[&quot;reference&quot;] = ground_truth[q]</span>
+<span class="c1">#         dataset.append(row)</span>
+<span class="c1">#     return dataset</span>
+
+
+<span class="c1"># =========================</span>
+<span class="c1"># main</span>
+<span class="c1"># =========================</span>
+
+<span class="nd">@tool</span><span class="p">(</span><span class="s2">&quot;rag_tool&quot;</span><span class="p">)</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">rag_tool</span><span class="p">(</span><span class="n">question</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Retrieve top chunks relevant to a question using Azure-backed RAG.</span>
+
+<span class="sd">    This tool loads or builds a FAISS index on local documents, sets up Azure</span>
+<span class="sd">    OpenAI embeddings and returns a compact list of the most relevant chunks.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    question : str</span>
+<span class="sd">        User question to retrieve context for.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    list of dict</span>
+<span class="sd">        Structured preview of retrieved chunks (id, source, truncated content).</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">settings</span> <span class="o">=</span> <span class="n">SETTINGS</span>
+
+    <span class="n">embeddings</span> <span class="o">=</span> <span class="n">get_azure_embeddings</span><span class="p">(</span><span class="n">settings</span><span class="p">)</span>
+
+    <span class="n">docs</span> <span class="o">=</span> <span class="n">load_documents_from_dir</span><span class="p">(</span><span class="s2">&quot;./documenti&quot;</span><span class="p">)</span>
+
+    <span class="n">vector_store</span> <span class="o">=</span> <span class="n">load_or_build_vectorstore</span><span class="p">(</span><span class="n">settings</span><span class="p">,</span> <span class="n">embeddings</span><span class="p">,</span> <span class="n">docs</span><span class="p">)</span>
+    <span class="n">retriever</span> <span class="o">=</span> <span class="n">make_retriever</span><span class="p">(</span><span class="n">vector_store</span><span class="p">,</span> <span class="n">settings</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">retrieve_chunks</span><span class="p">(</span><span class="n">question</span><span class="p">,</span> <span class="n">retriever</span><span class="p">)</span>
+
+    <span class="c1"># # 5) Esempi di domande</span>
+    <span class="c1"># questions = [</span>
+    <span class="c1">#     &quot;Quale fiume attraversa Parigi?&quot;,</span>
+    <span class="c1">#     &quot;A Berlino parlano tutti francese?&quot;,</span>
+    <span class="c1">#     &quot;Qual è la capitale della Francia?&quot;,</span>
+    <span class="c1">#     &quot;Spiega brevemente cos&#39;è un RAG e come usa i chunk.&quot;,</span>
+    <span class="c1">#     &quot;In quali giorni si svolgerà l&#39;academy di EY?&quot;,</span>
+    <span class="c1"># ]</span>
+
+    
+    <span class="c1"># ground_truth = {</span>
+    <span class="c1">#     questions[0]: &quot;La Senna.&quot;,</span>
+    <span class="c1">#     questions[1]: &quot;No, a Berlino si parla principalmente tedesco.&quot;,</span>
+    <span class="c1">#     questions[2]: &quot;Parigi.&quot;,</span>
+    <span class="c1">#     questions[3]: &quot;RAG combina retrieval dei chunk rilevanti e generazione con citazioni.&quot;,</span>
+    <span class="c1">#     questions[4]: &quot;Academy di EY si svolgerà nei giorni dal 11 settembre al 3 ottobre 2025.&quot;,</span>
+    <span class="c1"># }</span>
+
+    <span class="c1"># # --- Q&amp;A demo ---</span>
+    <span class="c1"># for q in questions:</span>
+    <span class="c1">#     print(&quot;=&quot; * 80)</span>
+    <span class="c1">#     print(&quot;Q:&quot;, q)</span>
+    <span class="c1">#     print(&quot;-&quot; * 80)</span>
+    <span class="c1">#     ans = rag_answer(q, chain)</span>
+    <span class="c1">#     print(ans)</span>
+    <span class="c1">#     print()</span>
+
+<span class="c1">#     # --- Valutazione con RAGAS ---</span>
+<span class="c1">#     dataset = build_ragas_dataset(</span>
+<span class="c1">#         questions=questions,</span>
+<span class="c1">#         retriever=retriever,</span>
+<span class="c1">#         chain=chain,</span>
+<span class="c1">#         k=settings.k,</span>
+<span class="c1">#         ground_truth=ground_truth,</span>
+<span class="c1">#     )</span>
+
+<span class="c1">#     print(&quot;Esempio riga dataset:&quot;, dataset[0])  # debug</span>
+
+<span class="c1">#     evaluation_dataset = EvaluationDataset.from_list(dataset)</span>
+
+<span class="c1">#     metrics = [context_precision, context_recall, faithfulness, answer_relevancy, answer_correctness]</span>
+
+<span class="c1">#     ragas_result = evaluate(</span>
+<span class="c1">#         dataset=evaluation_dataset,</span>
+<span class="c1">#         metrics=metrics,</span>
+<span class="c1">#         llm=llm,              # istanza AzureChatOpenAI</span>
+<span class="c1">#         embeddings=embeddings # riuso AzureOpenAIEmbeddings</span>
+<span class="c1">#     )</span>
+
+<span class="c1"># #### AGGIUSTARE CSV, VEDI COME FARE. PANDAS? ###########################</span>
+<span class="c1">#     df = ragas_result.to_pandas()</span>
+
+<span class="c1"># # Rinomina le colonne per chiarezza</span>
+<span class="c1">#     df = df.rename(columns={</span>
+<span class="c1">#         &quot;user_input&quot;: &quot;question&quot;,</span>
+<span class="c1">#         &quot;response&quot;: &quot;llm_answer&quot;,</span>
+<span class="c1">#         &quot;reference&quot;: &quot;ground_truth&quot;</span>
+<span class="c1">#     })</span>
+
+<span class="c1"># # Seleziona solo le colonne desiderate</span>
+<span class="c1">#     cols = [</span>
+<span class="c1">#         &quot;question&quot;,</span>
+<span class="c1">#         &quot;llm_answer&quot;,</span>
+<span class="c1">#         &quot;ground_truth&quot;,  # ci sarà solo se hai passato ground_truth</span>
+<span class="c1">#         &quot;context_precision&quot;,</span>
+<span class="c1">#         &quot;context_recall&quot;,</span>
+<span class="c1">#         &quot;faithfulness&quot;,</span>
+<span class="c1">#         &quot;answer_relevancy&quot;,</span>
+<span class="c1">#         &quot;answer_correctness&quot;</span>
+<span class="c1">#     ]</span>
+<span class="c1">#     df = df[[c for c in cols if c in df.columns]]</span>
+
+<span class="c1">#     print(&quot;\n=== RAGAS: DETTAGLIO PER ESEMPIO ===&quot;)</span>
+<span class="c1">#     print(df.round(4).to_string(index=False))</span>
+
+<span class="c1">#     # Salva in CSV leggibile</span>
+<span class="c1">#     df.to_csv(&quot;ragas_results.csv&quot;, index=False)</span>
+<span class="c1">#     print(&quot;Salvato: ragas_results.csv&quot;)</span>
+
+<span class="c1"># su jupyter, per leggere il CSV:</span>
+<span class="c1"># import pandas as pd</span>
+<span class="c1"># df = pd.read_csv(r&quot;C:\Users\NG448ES\OneDrive - EY\Desktop\EY - privata\Academy\deposito_battaglione\RAG\ragas_results.csv&quot;)</span>
+<span class="c1"># df</span>
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="n">rag_tool</span><span class="p">()</span>
+
+
+
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, Project Authors.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

@@ -1,0 +1,451 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>agentic_rag.tools package &mdash; agentic_rag  documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=e59714d7" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=5929fcd5"></script>
+      <script src="../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="agentic_rag.crews package" href="agentic_rag.crews.html" />
+    <link rel="prev" title="agentic_rag package" href="agentic_rag.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            agentic_rag
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Table of Contents</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../usage.html">Getting started</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../usage.html#installation">Installation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../usage.html#build-the-faiss-index-and-run-the-flow">Build the FAISS index and run the flow</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../usage.html#generate-docs">Generate docs</a></li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">API Reference</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="agentic_rag.html">agentic_rag package</a><ul class="current">
+<li class="toctree-l3 current"><a class="reference internal" href="agentic_rag.html#subpackages">Subpackages</a></li>
+</ul>
+</li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">agentic_rag.tools package</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#module-agentic_rag.tools.rag_tool">rag_tool module</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="agentic_rag.crews.html">agentic_rag.crews package</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="agentic_rag.crews.html#subpackages">Subpackages</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="agentic_rag.crews.check_crew.html">agentic_rag.crews.check_crew package</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="agentic_rag.crews.check_crew.html#module-agentic_rag.crews.check_crew.check_crew">check_crew module</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="agentic_rag.crews.rag_crew.html">agentic_rag.crews.rag_crew package</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="agentic_rag.crews.rag_crew.html#module-agentic_rag.crews.rag_crew.rag_crew">rag_crew module</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">agentic_rag</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content style-external-links">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="index.html">API Reference</a></li>
+          <li class="breadcrumb-item"><a href="agentic_rag.html">agentic_rag package</a></li>
+      <li class="breadcrumb-item active">agentic_rag.tools package</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/api/agentic_rag.tools.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-agentic_rag.tools">
+<span id="agentic-rag-tools-package"></span><h1>agentic_rag.tools package<a class="headerlink" href="#module-agentic_rag.tools" title="Link to this heading"></a></h1>
+<section id="module-agentic_rag.tools.rag_tool">
+<span id="rag-tool-module"></span><h2>rag_tool module<a class="headerlink" href="#module-agentic_rag.tools.rag_tool" title="Link to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="agentic_rag.tools.rag_tool.Settings">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">agentic_rag.tools.rag_tool.</span></span><span class="sig-name descname"><span class="pre">Settings</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">persist_dir</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="s"><span class="pre">'str'</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'faiss_index_azure'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">chunk_size</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="s"><span class="pre">'int'</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">700</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">chunk_overlap</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="s"><span class="pre">'int'</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">150</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">search_type</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="s"><span class="pre">'str'</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'mmr'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">k</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="s"><span class="pre">'int'</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">4</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fetch_k</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="s"><span class="pre">'int'</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">20</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mmr_lambda</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="s"><span class="pre">'float'</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0.3</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">api_key_env</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="s"><span class="pre">'str'</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'AZURE_OPENAI_API_KEY'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">api_version_env</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="s"><span class="pre">'str'</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'AZURE_OPENAI_API_VERSION'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">endpoint_env</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="s"><span class="pre">'str'</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'AZURE_OPENAI_ENDPOINT'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">chat_deployment_env</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="s"><span class="pre">'str'</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'AZURE_OPENAI_CHAT_DEPLOYMENT'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">embed_deployment_env</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="s"><span class="pre">'str'</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'AZURE_OPENAI_EMBED_DEPLOYMENT'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/agentic_rag/tools/rag_tool.html#Settings"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#agentic_rag.tools.rag_tool.Settings" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>persist_dir</strong> (<em>str</em>)</p></li>
+<li><p><strong>chunk_size</strong> (<em>int</em>)</p></li>
+<li><p><strong>chunk_overlap</strong> (<em>int</em>)</p></li>
+<li><p><strong>search_type</strong> (<em>str</em>)</p></li>
+<li><p><strong>k</strong> (<em>int</em>)</p></li>
+<li><p><strong>fetch_k</strong> (<em>int</em>)</p></li>
+<li><p><strong>mmr_lambda</strong> (<em>float</em>)</p></li>
+<li><p><strong>api_key_env</strong> (<em>str</em>)</p></li>
+<li><p><strong>api_version_env</strong> (<em>str</em>)</p></li>
+<li><p><strong>endpoint_env</strong> (<em>str</em>)</p></li>
+<li><p><strong>chat_deployment_env</strong> (<em>str</em>)</p></li>
+<li><p><strong>embed_deployment_env</strong> (<em>str</em>)</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="agentic_rag.tools.rag_tool.Settings.persist_dir">
+<span class="sig-name descname"><span class="pre">persist_dir</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'faiss_index_azure'</span></em><a class="headerlink" href="#agentic_rag.tools.rag_tool.Settings.persist_dir" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="agentic_rag.tools.rag_tool.Settings.chunk_size">
+<span class="sig-name descname"><span class="pre">chunk_size</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">700</span></em><a class="headerlink" href="#agentic_rag.tools.rag_tool.Settings.chunk_size" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="agentic_rag.tools.rag_tool.Settings.chunk_overlap">
+<span class="sig-name descname"><span class="pre">chunk_overlap</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">150</span></em><a class="headerlink" href="#agentic_rag.tools.rag_tool.Settings.chunk_overlap" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="agentic_rag.tools.rag_tool.Settings.search_type">
+<span class="sig-name descname"><span class="pre">search_type</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'mmr'</span></em><a class="headerlink" href="#agentic_rag.tools.rag_tool.Settings.search_type" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="agentic_rag.tools.rag_tool.Settings.k">
+<span class="sig-name descname"><span class="pre">k</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">4</span></em><a class="headerlink" href="#agentic_rag.tools.rag_tool.Settings.k" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="agentic_rag.tools.rag_tool.Settings.fetch_k">
+<span class="sig-name descname"><span class="pre">fetch_k</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">20</span></em><a class="headerlink" href="#agentic_rag.tools.rag_tool.Settings.fetch_k" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="agentic_rag.tools.rag_tool.Settings.mmr_lambda">
+<span class="sig-name descname"><span class="pre">mmr_lambda</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">float</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0.3</span></em><a class="headerlink" href="#agentic_rag.tools.rag_tool.Settings.mmr_lambda" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="agentic_rag.tools.rag_tool.Settings.api_key_env">
+<span class="sig-name descname"><span class="pre">api_key_env</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'AZURE_OPENAI_API_KEY'</span></em><a class="headerlink" href="#agentic_rag.tools.rag_tool.Settings.api_key_env" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="agentic_rag.tools.rag_tool.Settings.api_version_env">
+<span class="sig-name descname"><span class="pre">api_version_env</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'AZURE_OPENAI_API_VERSION'</span></em><a class="headerlink" href="#agentic_rag.tools.rag_tool.Settings.api_version_env" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="agentic_rag.tools.rag_tool.Settings.endpoint_env">
+<span class="sig-name descname"><span class="pre">endpoint_env</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'AZURE_OPENAI_ENDPOINT'</span></em><a class="headerlink" href="#agentic_rag.tools.rag_tool.Settings.endpoint_env" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="agentic_rag.tools.rag_tool.Settings.chat_deployment_env">
+<span class="sig-name descname"><span class="pre">chat_deployment_env</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'AZURE_OPENAI_CHAT_DEPLOYMENT'</span></em><a class="headerlink" href="#agentic_rag.tools.rag_tool.Settings.chat_deployment_env" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="agentic_rag.tools.rag_tool.Settings.embed_deployment_env">
+<span class="sig-name descname"><span class="pre">embed_deployment_env</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'AZURE_OPENAI_EMBED_DEPLOYMENT'</span></em><a class="headerlink" href="#agentic_rag.tools.rag_tool.Settings.embed_deployment_env" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="agentic_rag.tools.rag_tool.get_azure_embeddings">
+<span class="sig-prename descclassname"><span class="pre">agentic_rag.tools.rag_tool.</span></span><span class="sig-name descname"><span class="pre">get_azure_embeddings</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">settings</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/agentic_rag/tools/rag_tool.html#get_azure_embeddings"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#agentic_rag.tools.rag_tool.get_azure_embeddings" title="Link to this definition"></a></dt>
+<dd><p>Create an Azure OpenAI Embeddings client from environment configuration.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>settings</strong> (<a class="reference internal" href="#agentic_rag.tools.rag_tool.Settings" title="agentic_rag.tools.rag_tool.Settings"><em>Settings</em></a>) – Runtime configuration holding the environment variable names and defaults.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Configured embeddings client for computing vector representations.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>AzureOpenAIEmbeddings</p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>RuntimeError</strong> – If any of the required Azure OpenAI environment variables are missing.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="agentic_rag.tools.rag_tool.get_azure_chat_llm">
+<span class="sig-prename descclassname"><span class="pre">agentic_rag.tools.rag_tool.</span></span><span class="sig-name descname"><span class="pre">get_azure_chat_llm</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">settings</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/agentic_rag/tools/rag_tool.html#get_azure_chat_llm"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#agentic_rag.tools.rag_tool.get_azure_chat_llm" title="Link to this definition"></a></dt>
+<dd><p>Instantiate an Azure Chat LLM client with deterministic generation settings.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>settings</strong> (<a class="reference internal" href="#agentic_rag.tools.rag_tool.Settings" title="agentic_rag.tools.rag_tool.Settings"><em>Settings</em></a>) – Runtime configuration holding the environment variable names and defaults.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Configured chat LLM client used for answer generation and evaluation.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>AzureChatOpenAI</p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>RuntimeError</strong> – If any of the required Azure OpenAI environment variables are missing.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="agentic_rag.tools.rag_tool.load_documents_from_dir">
+<span class="sig-prename descclassname"><span class="pre">agentic_rag.tools.rag_tool.</span></span><span class="sig-name descname"><span class="pre">load_documents_from_dir</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/agentic_rag/tools/rag_tool.html#load_documents_from_dir"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#agentic_rag.tools.rag_tool.load_documents_from_dir" title="Link to this definition"></a></dt>
+<dd><p>Load supported documents from a directory recursively.</p>
+<p>Supported extensions are <code class="docutils literal notranslate"><span class="pre">.pdf</span></code>, <code class="docutils literal notranslate"><span class="pre">.txt</span></code>, <code class="docutils literal notranslate"><span class="pre">.md</span></code>, and optionally <code class="docutils literal notranslate"><span class="pre">.docx</span></code>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>path</strong> (<em>str</em><em> or </em><em>pathlib.Path</em>) – Root directory to scan for documents.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Loaded documents with basic metadata such as <code class="docutils literal notranslate"><span class="pre">source</span></code>.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>list of langchain.schema.Document</p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>FileNotFoundError</strong> – If the directory does not exist.</p></li>
+<li><p><strong>RuntimeError</strong> – If no supported documents are found in the directory.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="agentic_rag.tools.rag_tool.split_documents">
+<span class="sig-prename descclassname"><span class="pre">agentic_rag.tools.rag_tool.</span></span><span class="sig-name descname"><span class="pre">split_documents</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">docs</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">settings</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/agentic_rag/tools/rag_tool.html#split_documents"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#agentic_rag.tools.rag_tool.split_documents" title="Link to this definition"></a></dt>
+<dd><p>Split documents into overlapping chunks for retrieval.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>docs</strong> (<em>list</em><em> of </em><em>langchain.schema.Document</em>) – Source documents to be chunked.</p></li>
+<li><p><strong>settings</strong> (<a class="reference internal" href="#agentic_rag.tools.rag_tool.Settings" title="agentic_rag.tools.rag_tool.Settings"><em>Settings</em></a>) – Chunking configuration (size and overlap).</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Chunked documents preserving metadata.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>list of langchain.schema.Document</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="agentic_rag.tools.rag_tool.build_faiss_vectorstore">
+<span class="sig-prename descclassname"><span class="pre">agentic_rag.tools.rag_tool.</span></span><span class="sig-name descname"><span class="pre">build_faiss_vectorstore</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">chunks</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">embeddings</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">persist_dir</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/agentic_rag/tools/rag_tool.html#build_faiss_vectorstore"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#agentic_rag.tools.rag_tool.build_faiss_vectorstore" title="Link to this definition"></a></dt>
+<dd><p>Build and persist a FAISS vector store from document chunks.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>chunks</strong> (<em>list</em><em> of </em><em>langchain.schema.Document</em>) – Pre-split document chunks to index.</p></li>
+<li><p><strong>embeddings</strong> (<em>AzureOpenAIEmbeddings</em>) – Embeddings client used to embed the chunks.</p></li>
+<li><p><strong>persist_dir</strong> (<em>str</em>) – Directory where the FAISS index and metadata will be saved.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The constructed FAISS vector store instance.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>FAISS</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="agentic_rag.tools.rag_tool.load_or_build_vectorstore">
+<span class="sig-prename descclassname"><span class="pre">agentic_rag.tools.rag_tool.</span></span><span class="sig-name descname"><span class="pre">load_or_build_vectorstore</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">settings</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">embeddings</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">docs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/agentic_rag/tools/rag_tool.html#load_or_build_vectorstore"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#agentic_rag.tools.rag_tool.load_or_build_vectorstore" title="Link to this definition"></a></dt>
+<dd><p>Load an existing FAISS vector store or build a new one.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>settings</strong> (<a class="reference internal" href="#agentic_rag.tools.rag_tool.Settings" title="agentic_rag.tools.rag_tool.Settings"><em>Settings</em></a>) – Configuration including the persist directory path.</p></li>
+<li><p><strong>embeddings</strong> (<em>AzureOpenAIEmbeddings</em>) – Embeddings client used to embed chunks.</p></li>
+<li><p><strong>docs</strong> (<em>list</em><em> of </em><em>langchain.schema.Document</em>) – Raw documents to split and index if no persisted index exists.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Loaded or newly built vector store.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>FAISS</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="agentic_rag.tools.rag_tool.make_retriever">
+<span class="sig-prename descclassname"><span class="pre">agentic_rag.tools.rag_tool.</span></span><span class="sig-name descname"><span class="pre">make_retriever</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">vector_store</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">settings</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/agentic_rag/tools/rag_tool.html#make_retriever"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#agentic_rag.tools.rag_tool.make_retriever" title="Link to this definition"></a></dt>
+<dd><p>Create a retriever with optional MMR and log retrieved chunks.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>vector_store</strong> (<em>FAISS</em>) – The vector store to retrieve from.</p></li>
+<li><p><strong>settings</strong> (<a class="reference internal" href="#agentic_rag.tools.rag_tool.Settings" title="agentic_rag.tools.rag_tool.Settings"><em>Settings</em></a>) – Retrieval configuration, such as <code class="docutils literal notranslate"><span class="pre">search_type</span></code> and <code class="docutils literal notranslate"><span class="pre">k</span></code>.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A retriever-like object exposing <code class="docutils literal notranslate"><span class="pre">invoke</span></code> and <code class="docutils literal notranslate"><span class="pre">get_relevant_documents</span></code>
+methods that also prints a preview of retrieved chunks.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>object</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="agentic_rag.tools.rag_tool.retrieve_chunks">
+<span class="sig-prename descclassname"><span class="pre">agentic_rag.tools.rag_tool.</span></span><span class="sig-name descname"><span class="pre">retrieve_chunks</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">question</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">retriever</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_chars</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">500</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/agentic_rag/tools/rag_tool.html#retrieve_chunks"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#agentic_rag.tools.rag_tool.retrieve_chunks" title="Link to this definition"></a></dt>
+<dd><p>Retrieve top chunks for a query and return a compact, structured view.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>question</strong> (<em>str</em>) – The user query used to retrieve relevant chunks.</p></li>
+<li><p><strong>retriever</strong> (<em>object</em>) – Retriever exposing an <code class="docutils literal notranslate"><span class="pre">invoke</span></code> method returning a list of Documents.</p></li>
+<li><p><strong>max_chars</strong> (<em>int</em><em>, </em><em>optional</em>) – Maximum number of characters to include from each chunk, by default 500.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A list of records with <code class="docutils literal notranslate"><span class="pre">chunk_id</span></code>, <code class="docutils literal notranslate"><span class="pre">source</span></code> and truncated <code class="docutils literal notranslate"><span class="pre">content</span></code>.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>list of dict</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="agentic_rag.tools.rag_tool.format_docs_for_prompt">
+<span class="sig-prename descclassname"><span class="pre">agentic_rag.tools.rag_tool.</span></span><span class="sig-name descname"><span class="pre">format_docs_for_prompt</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">docs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/agentic_rag/tools/rag_tool.html#format_docs_for_prompt"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#agentic_rag.tools.rag_tool.format_docs_for_prompt" title="Link to this definition"></a></dt>
+<dd><p>Format documents into a plain-text context block for prompting.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>docs</strong> (<em>list</em><em> of </em><em>langchain.schema.Document</em>) – Documents to concatenate with <code class="docutils literal notranslate"><span class="pre">[source:...]</span></code> tags.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A single string containing all documents with source annotations.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="agentic_rag.tools.rag_tool.build_rag_chain">
+<span class="sig-prename descclassname"><span class="pre">agentic_rag.tools.rag_tool.</span></span><span class="sig-name descname"><span class="pre">build_rag_chain</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">llm</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">retriever</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/agentic_rag/tools/rag_tool.html#build_rag_chain"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#agentic_rag.tools.rag_tool.build_rag_chain" title="Link to this definition"></a></dt>
+<dd><p>Create a LangChain pipeline that retrieves context and generates answers.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>llm</strong> (<em>AzureChatOpenAI</em>) – Chat LLM used for generation.</p></li>
+<li><p><strong>retriever</strong> (<em>object</em>) – Retriever exposing an <code class="docutils literal notranslate"><span class="pre">invoke</span></code> method for fetching contextual documents.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A runnable chain that accepts a question string and returns a string answer.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Any</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="agentic_rag.tools.rag_tool.rag_answer">
+<span class="sig-prename descclassname"><span class="pre">agentic_rag.tools.rag_tool.</span></span><span class="sig-name descname"><span class="pre">rag_answer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">question</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">chain</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/agentic_rag/tools/rag_tool.html#rag_answer"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#agentic_rag.tools.rag_tool.rag_answer" title="Link to this definition"></a></dt>
+<dd><p>Run the RAG chain on a question and return the answer text.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>question</strong> (<em>str</em>) – The input question to answer.</p></li>
+<li><p><strong>chain</strong> (<em>Any</em>) – Runnable chain created by <a class="reference internal" href="#agentic_rag.tools.rag_tool.build_rag_chain" title="agentic_rag.tools.rag_tool.build_rag_chain"><code class="xref py py-func docutils literal notranslate"><span class="pre">build_rag_chain()</span></code></a>.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The generated answer.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="agentic_rag.html" class="btn btn-neutral float-left" title="agentic_rag package" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="agentic_rag.crews.html" class="btn btn-neutral float-right" title="agentic_rag.crews package" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, Project Authors.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

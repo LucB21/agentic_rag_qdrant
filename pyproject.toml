@@ -1,0 +1,30 @@
+[project]
+name = "agentic_rag"
+version = "0.1.0"
+description = "agentic_rag using crewAI"
+authors = [{ name = "Your Name", email = "you@example.com" }]
+requires-python = ">=3.10,<3.14"
+dependencies = [
+    "crewai[tools]>=0.193.2,<1.0.0",
+    "faiss-cpu>=1.12.0",
+    "langchain>=0.3.27",
+    "langchain-community>=0.3.29",
+    "langchain-openai>=0.3.33",
+    "opik>=1.8.57",
+    "qdrant-client>=1.15.1",
+    "ragas>=0.3.5",
+    "sphinx>=8.1.3",
+    "sphinx-rtd-theme>=3.0.2",
+]
+
+[project.scripts]
+kickoff = "agentic_rag.main:kickoff"
+run_crew = "agentic_rag.main:kickoff"
+plot = "agentic_rag.main:plot"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.crewai]
+type = "flow"

@@ -1,0 +1,209 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../../../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>agentic_rag.crews.check_crew.check_crew &mdash; agentic_rag  documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/css/theme.css?v=e59714d7" />
+
+  
+      <script src="../../../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../../../_static/documentation_options.js?v=5929fcd5"></script>
+      <script src="../../../../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../../index.html" class="icon icon-home">
+            agentic_rag
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Table of Contents</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../usage.html">Getting started</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../../usage.html#installation">Installation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../usage.html#build-the-faiss-index-and-run-the-flow">Build the FAISS index and run the flow</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../usage.html#generate-docs">Generate docs</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../api/index.html">API Reference</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../../api/agentic_rag.html">agentic_rag package</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../../api/agentic_rag.html#subpackages">Subpackages</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../api/agentic_rag.tools.html">agentic_rag.tools package</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../../api/agentic_rag.tools.html#module-agentic_rag.tools.rag_tool">rag_tool module</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../api/agentic_rag.crews.html">agentic_rag.crews package</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../../api/agentic_rag.crews.html#subpackages">Subpackages</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../api/agentic_rag.crews.check_crew.html">agentic_rag.crews.check_crew package</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../../api/agentic_rag.crews.check_crew.html#module-agentic_rag.crews.check_crew.check_crew">check_crew module</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../api/agentic_rag.crews.rag_crew.html">agentic_rag.crews.rag_crew package</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../../api/agentic_rag.crews.rag_crew.html#module-agentic_rag.crews.rag_crew.rag_crew">rag_crew module</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../../index.html">agentic_rag</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content style-external-links">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">agentic_rag.crews.check_crew.check_crew</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for agentic_rag.crews.check_crew.check_crew</h1><div class="highlight"><pre>
+<span></span><span class="kn">from</span><span class="w"> </span><span class="nn">crewai</span><span class="w"> </span><span class="kn">import</span> <span class="n">Agent</span><span class="p">,</span> <span class="n">Crew</span><span class="p">,</span> <span class="n">Process</span><span class="p">,</span> <span class="n">Task</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">crewai.project</span><span class="w"> </span><span class="kn">import</span> <span class="n">CrewBase</span><span class="p">,</span> <span class="n">agent</span><span class="p">,</span> <span class="n">crew</span><span class="p">,</span> <span class="n">task</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">crewai.agents.agent_builder.base_agent</span><span class="w"> </span><span class="kn">import</span> <span class="n">BaseAgent</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">List</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pydantic</span><span class="w"> </span><span class="kn">import</span> <span class="n">BaseModel</span>
+
+<span class="c1"># If you want to run a snippet of code before or after the crew starts,</span>
+<span class="c1"># you can use the @before_kickoff and @after_kickoff decorators</span>
+<span class="c1"># https://docs.crewai.com/concepts/crews#example-crew-class-with-decorators</span>
+<div class="viewcode-block" id="Result">
+<a class="viewcode-back" href="../../../../api/agentic_rag.crews.check_crew.html#agentic_rag.crews.check_crew.check_crew.Result">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">Result</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
+    <span class="n">FinalResult</span><span class="p">:</span> <span class="nb">bool</span></div>
+
+
+
+<span class="nd">@CrewBase</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">CheckCrew</span><span class="p">():</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;CheckCrew crew&quot;&quot;&quot;</span>
+
+    <span class="n">agents</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">BaseAgent</span><span class="p">]</span>
+    <span class="n">tasks</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Task</span><span class="p">]</span>
+
+    <span class="c1"># Learn more about YAML configuration files here:</span>
+    <span class="c1"># Agents: https://docs.crewai.com/concepts/agents#yaml-configuration-recommended</span>
+    <span class="c1"># Tasks: https://docs.crewai.com/concepts/tasks#yaml-configuration-recommended</span>
+    
+    <span class="c1"># If you would like to add tools to your agents, you can learn more about it here:</span>
+    <span class="c1"># https://docs.crewai.com/concepts/agents#agent-tools</span>
+    <span class="nd">@agent</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">sector_guard</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Agent</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Create the relevance filter agent.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        crewai.Agent</span>
+<span class="sd">            Agent configured to assess question relevance against the target sector.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">Agent</span><span class="p">(</span>
+            <span class="n">config</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">agents_config</span><span class="p">[</span><span class="s1">&#39;sector_guard&#39;</span><span class="p">],</span> <span class="c1"># type: ignore[index]</span>
+            <span class="n">verbose</span><span class="o">=</span><span class="kc">True</span>
+        <span class="p">)</span>
+
+    <span class="c1"># To learn more about structured task outputs,</span>
+    <span class="c1"># task dependencies, and task callbacks, check out the documentation:</span>
+    <span class="c1"># https://docs.crewai.com/concepts/tasks#overview-of-a-task</span>
+    <span class="nd">@task</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">check_relevance</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Task</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Create the task that validates question relevance.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        crewai.Task</span>
+<span class="sd">            Task producing a structured boolean output via ``output_json``.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">Task</span><span class="p">(</span>
+            <span class="n">config</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">tasks_config</span><span class="p">[</span><span class="s1">&#39;check_relevance&#39;</span><span class="p">],</span> <span class="c1"># type: ignore[index]</span>
+            <span class="n">output_json</span><span class="o">=</span><span class="n">Result</span>
+
+        <span class="p">)</span>
+
+    <span class="nd">@crew</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">crew</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Crew</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Create the assembled crew with agents and tasks wired sequentially.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        crewai.Crew</span>
+<span class="sd">            Configured crew ready to kickoff the relevance evaluation.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># To learn how to add knowledge sources to your crew, check out the documentation:</span>
+        <span class="c1"># https://docs.crewai.com/concepts/knowledge#what-is-knowledge</span>
+
+        <span class="k">return</span> <span class="n">Crew</span><span class="p">(</span>
+            <span class="n">agents</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">agents</span><span class="p">,</span> <span class="c1"># Automatically created by the @agent decorator</span>
+            <span class="n">tasks</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">tasks</span><span class="p">,</span> <span class="c1"># Automatically created by the @task decorator</span>
+            <span class="n">process</span><span class="o">=</span><span class="n">Process</span><span class="o">.</span><span class="n">sequential</span><span class="p">,</span>
+            <span class="n">verbose</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+            <span class="c1"># process=Process.hierarchical, # In case you wanna use that instead https://docs.crewai.com/how-to/Hierarchical/</span>
+        <span class="p">)</span>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, Project Authors.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
