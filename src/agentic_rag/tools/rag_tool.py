@@ -559,6 +559,25 @@ class Settings:
     - Consider LLM context window limits
     - Balance between detail and cost
     """
+    
+    # =========================
+    # Document Path Configuration
+    # =========================
+    PATH_TO_DOCUMENTS: str = "PATH_TO_DOCUMENTS"
+    """
+    Environment variable name for the path to documents directory.
+    
+    Configuration:
+    - Set PATH_TO_DOCUMENTS environment variable to point to your documents folder
+    - Supports absolute and relative paths
+    - Example: PATH_TO_DOCUMENTS=C:/path/to/your/documents
+    
+    Supported file types:
+    - PDF files (.pdf)
+    - Text files (.txt)
+    - Markdown files (.md)
+    - Word documents (.docx)
+    """
 
 SETTINGS = Settings()
 
@@ -1519,8 +1538,7 @@ def rag_tool(question: str) -> Dict[str, Any]:
     # 2) Dati -> chunk
     #docs = simulate_corpus()
 
-    docs = load_documents_from_dir(r"C:\Users\NG448ES\OneDrive - EY\Desktop\EY - privata\Academy\deposito_battaglione\agentic_rag_qdrant\document")
- 
+    docs = load_documents_from_dir(os.getenv(s.PATH_TO_DOCUMENTS))
     chunks = split_documents(docs, s)
 
     # 3) Crea (o ricrea) collection
