@@ -1,0 +1,57 @@
+version: '3.8'
+
+services:
+  opik-frontend:
+    image: ghcr.io/comet-ml/opik/opik-frontend:latest
+    ports:
+      - "9001:5173"  # Cambiata da 9000 a 9001
+    environment:
+      - OPIK_BACKEND_URL=http://localhost:8000
+    depends_on:
+      - opik-backend
+    networks:
+      - opik-network
+
+  opik-backend:
+    image: ghcr.io/comet-ml/opik/opik-backend:latest
+    ports:
+      - "8000:8000"
+    environment:
+      - DATABASE_URL=mysql://opik:opik@mysql:3306/opik
+      - REDIS_URL=redis://redis:6379
+    depends_on:
+      - mysql
+      - redis
+    networks:
+      - opik-network
+
+  mysql:
+    image: mysql:8.0
+    environment:
+      - MYSQL_ROOT_PASSWORD=opik_root
+      - MYSQL_DATABASE=opik
+      - MYSQL_USER=opik
+      - MYSQL_PASSWORD=opik
+    ports:
+      - "3307:3306"  # Cambiata da 3306 a 3307 per evitare conflitti
+    volumes:
+      - mysql_data:/var/lib/mysql
+    networks:
+      - opik-network
+
+  redis:
+    image: redis:7-alpine
+    ports:
+      - "6380:6379"  # Cambiata da 6379 a 6380 per evitare conflitti
+    volumes:
+      - redis_data:/data
+    networks:
+      - opik-network
+
+volumes:
+  mysql_data:
+  redis_data:
+
+networks:
+  opik-network:
+    driver: bridge

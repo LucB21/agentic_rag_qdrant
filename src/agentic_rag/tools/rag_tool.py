@@ -1380,7 +1380,7 @@ def build_rag_chain(llm):
 # Main end-to-end demo
 # =========================
 
-@tool("rag_tool")
+
 def rag_tool(question: str) -> Dict[str, Any]:
     """
     Main execution function demonstrating the complete RAG pipeline with Azure OpenAI.
@@ -1532,21 +1532,22 @@ def rag_tool(question: str) -> Dict[str, Any]:
     upsert_chunks_azure(client, s, chunks, embeddings)
     print(f"Upserted {len(chunks)} chunks to Qdrant collection '{s.collection}'")
 
-    # 5) Query ibrida - process single question
-    hits = hybrid_search_azure(client, s, question, embeddings)
-    print("=" * 80)
-    print("Q:", question)
-    
-    if not hits:
-        print("Nessun risultato.")
-        return {
-            "status": "no_results",
-            "question": question,
-            "context": "",
-            "sources": [],
-            "retrieval_scores": [],
-            "error": "No relevant documents found for the query"
-        }
+        # 5) Query ibrida - process single question
+    for q in [question]:
+        hits = hybrid_search_azure(client, s, q, embeddings)
+        print("=" * 80)
+        print("Q:", q)
+        
+        if not hits:
+            print("Nessun risultato.")
+            return {
+                "status": "no_results",
+                "question": q,
+                "context": "",
+                "sources": [],
+                "retrieval_scores": [],
+                "error": "No relevant documents found for the query"
+            }
 
     # Extract structured information from hits
     sources = []
@@ -1554,6 +1555,7 @@ def rag_tool(question: str) -> Dict[str, Any]:
     context_chunks = []
     
     for p in hits:
+        print(f"- id:{p.id} score:{p.score:.4f} source:{p.payload.get('source','unknown')}")
         source_info = {
             "id": p.id,
             "source": p.payload.get('source', 'unknown'),
@@ -1596,6 +1598,70 @@ def rag_tool(question: str) -> Dict[str, Any]:
             "context_chunks": context_chunks,
             "error": f"Context formatting failed: {str(e)}"
         }
+
+# def execute_rag_search(question: str) -> str:
+#     """
+#     Direct function to execute RAG search and return context string.
+#     This function can be called directly without CrewAI tool wrapper.
+    
+#     Args:
+#         question: The user's question
         
+#     Returns:
+#         str: Formatted context from retrieved documents
+#     """
+#     s = SETTINGS
+    
+#     try:
+#         # Initialize Azure components
+#         embeddings = get_azure_embeddings(s)
+#         print("Azure embeddings initialized successfully")
+        
+#         # Get Qdrant client
+#         client = get_qdrant_client(s)
+        
+#         # Check if collection exists, if not create it
+#         try:
+#             collections = client.get_collections()
+#             collection_names = [col.name for col in collections.collections]
+            
+#             if s.collection not in collection_names:
+#                 print(f"Collection '{s.collection}' not found. Creating and indexing documents...")
+                
+#                 # Load and process documents
+#                 docs = load_documents_from_dir(r"C:\Users\ED813KK\agentic_rag_qdrant\document")
+#                 chunks = split_documents(docs, s)
+                
+#                 # Create collection
+#                 vector_size = get_azure_embedding_dimension(embeddings)
+#                 print(f"Using vector size: {vector_size}")
+#                 recreate_collection_for_rag(client, s, vector_size)
+                
+#                 # Index documents
+#                 upsert_chunks_azure(client, s, chunks, embeddings)
+#                 print(f"Indexed {len(chunks)} chunks to Qdrant collection '{s.collection}'")
+#             else:
+#                 print(f"Using existing collection '{s.collection}'")
+                
+#         except Exception as e:
+#             print(f"Error with collection: {e}")
+#             return f"Error: Could not access or create collection: {str(e)}"
+        
+#         # Perform hybrid search
+#         hits = hybrid_search_azure(client, s, question, embeddings)
+        
+#         if not hits:
+#             return "No relevant information found in the document collection."
+        
+#         # Format context for return
+#         ctx = format_docs_for_prompt(hits)
+#         print(f"Retrieved {len(hits)} relevant chunks")
+        
+#         return ctx
+        
+#     except Exception as e:
+#         error_msg = f"RAG search failed: {str(e)}"
+#         print(error_msg)
+#         return error_msg
 
     

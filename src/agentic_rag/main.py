@@ -8,12 +8,13 @@ from agentic_rag.crews.rag_crew.rag_crew import RagCrew
 
 import opik
 
+# Configurazione Opik per usare il server locale
+# Il server Opik è ora disponibile sulla porta 5173 (frontend) e 8080 (backend)
 opik.configure(use_local=True)
 
 from opik.integrations.crewai import track_crewai
 
-track_crewai(project_name="crewai-opik-demo")
-
+track_crewai(project_name="crewai-opik-demo2")
 
 load_dotenv()
 
@@ -38,8 +39,8 @@ class RagFlow(Flow[GuideOutline]):
         """
         self.state.sector = ["Basket", "Francia"]    # Qui definisci il settore su cui lavorare
         print(f"\n=== RAG Tool on: {self.state.sector} ===\n")
-        self.state.question ="Who is James Naismith?" #input("Insert your question: ")
-        
+        self.state.question ="In what year did FIBA eliminate the distinction between amateur and professional players?" #input("Insert your question: ")
+        #Who is James Naismith?
         return self.state
     
     @router(get_user_question)
@@ -74,20 +75,19 @@ class RagFlow(Flow[GuideOutline]):
             Current flow state. The question is read from ``self.state``.
         """
         chunk = rag_tool(self.state.question)
-        print("AAAAAAAAAAAAAAAAAAAAAA")
-        print(chunk)
-        print(type(chunk))
-        print("BBBBBBBBBBBBBBBBBB")
+        #chunk è Dict
         rag_crew = RagCrew().crew()
         response = rag_crew.kickoff(inputs={"question":self.state.question, "context": chunk})
         print(f"\n🤖 RAG Answer: {response}")
         # state["rag_answer"] = response
 
         return {
-            "crew": rag_crew,
+            #"crew": rag_crew,
+            "question": self.state.question,
             "output": response,
             "chunk": chunk
             }
+        #per vedere su opik scrivere output.output, output.chunk e output.question (in quanto non riusciamo a vederlo)
 
         # # Salva la risposta in un file .md
         # os.makedirs("outputs", exist_ok=True)
