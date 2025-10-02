@@ -1,52 +1,138 @@
-# {{crew_name}} Crew
+# Agentic RAG with Qdrant
 
-Welcome to the {{crew_name}} Crew project, powered by [crewAI](https://crewai.com). This template is designed to help you set up a multi-agent AI system with ease, leveraging the powerful and flexible framework provided by crewAI. Our goal is to enable your agents to collaborate effectively on complex tasks, maximizing their collective intelligence and capabilities.
+An advanced multi-agent Retrieval-Augmented Generation (RAG) system powered by [crewAI](https://crewai.com) and [Qdrant](https://qdrant.tech/). This project implements an intelligent document retrieval system with web search capabilities, leveraging multiple AI agents to provide comprehensive and accurate responses to user queries.
 
-## Installation
+## Features
 
-Ensure you have Python >=3.10 <3.14 installed on your system. This project uses [UV](https://docs.astral.sh/uv/) for dependency management and package handling, offering a seamless setup and execution experience.
+- **Multi-Agent Architecture**: Intelligent check crew, RAG crew, and synthesis crew working together
+- **Vector Database**: Qdrant for efficient document storage and retrieval
+- **Web Search Integration**: Automatic web search when local documents are insufficient
+- **RAGAS Evaluation**: Comprehensive evaluation metrics for RAG performance
+- **Streamlit Interface**: User-friendly web interface
+- **Docker Support**: Easy deployment with Docker Compose
 
-First, if you haven't already, install uv:
+## Quick Start
 
+### Prerequisites
+
+- Python >=3.10 <3.14
+- [UV](https://docs.astral.sh/uv/) for dependency management
+- Azure OpenAI API key
+- Qdrant instance (local or cloud)
+
+### Installation
+
+1. Clone the repository:
+```bash
+git clone https://github.com/LucB21/agentic_rag_qdrant.git
+cd agentic_rag_qdrant
+```
+
+2. Install UV (if not already installed):
 ```bash
 pip install uv
 ```
 
-Next, navigate to your project directory and install the dependencies:
-
-(Optional) Lock the dependencies and install them by using the CLI command:
+3. Install dependencies:
 ```bash
-crewai install
+uv sync
 ```
 
-### Customizing
-
-**Add your `OPENAI_API_KEY` into the `.env` file**
-
-- Modify `src/agentic_rag/config/agents.yaml` to define your agents
-- Modify `src/agentic_rag/config/tasks.yaml` to define your tasks
-- Modify `src/agentic_rag/crew.py` to add your own logic, tools and specific args
-- Modify `src/agentic_rag/main.py` to add custom inputs for your agents and tasks
-
-## Running the Project
-
-To kickstart your flow and begin execution, run this from the root folder of your project:
-
+4. Set up environment variables in `.env`:
 ```bash
-crewai run
+AZURE_OPENAI_API_KEY=your_azure_openai_key
+AZURE_OPENAI_ENDPOINT=your_azure_openai_endpoint
+AZURE_OPENAI_API_VERSION=2024-02-01
+QDRANT_URL=http://localhost:6333
+QDRANT_API_KEY=your_qdrant_api_key  # if using cloud
 ```
 
-This command initializes the agentic_rag Flow as defined in your configuration.
+### Running with Docker
 
-This example, unmodified, will run the create a `report.md` file with the output of a research on LLMs in the root folder.
+1. Start the services:
+```bash
+docker-compose up -d
+```
 
-## Understanding Your Crew
+2. Access the Streamlit app at `http://localhost:8501`
 
-The agentic_rag Crew is composed of multiple AI agents, each with unique roles, goals, and tools. These agents collaborate on a series of tasks, defined in `config/tasks.yaml`, leveraging their collective skills to achieve complex objectives. The `config/agents.yaml` file outlines the capabilities and configurations of each agent in your crew.
+### Running Locally
+
+1. Start Qdrant (if using local instance):
+```bash
+docker run -p 6333:6333 qdrant/qdrant
+```
+
+2. Run the Streamlit app:
+```bash
+streamlit run streamlit_app.py
+```
+
+## Documentation
+
+Comprehensive documentation is available in the `docs/` directory:
+
+- **[Installation Guide](docs/installation.rst)**: Detailed setup instructions
+- **[Quick Start](docs/quickstart.rst)**: Get up and running quickly
+- **[Configuration](docs/configuration.rst)**: Configuration options
+- **[Architecture](docs/architecture/)**: System architecture and design
+- **[Evaluation](docs/evaluation/)**: RAGAS evaluation setup and metrics
+- **[Examples](docs/examples/)**: Usage examples and tutorials
+- **[Deployment](docs/deployment/)**: Production deployment guides
+
+### Building Documentation
+
+To build the documentation locally:
+
+```bash
+cd docs
+sphinx-build -b html . _build/html
+```
+
+The documentation will be available at `docs/_build/html/index.html`.
+
+## System Architecture
+
+The system consists of three main crews:
+
+1. **Check Crew**: Analyzes user queries to determine relevance to the document corpus
+2. **RAG Crew**: Performs vector search against Qdrant database when documents are relevant
+3. **Web Search Crew**: Conducts web searches when local documents are insufficient
+4. **Synthesis Crew**: Combines and synthesizes information from multiple sources
+
+## Evaluation
+
+The system includes comprehensive evaluation using RAGAS metrics:
+
+- **Context Precision**: Measures relevance of retrieved contexts
+- **Context Recall**: Measures completeness of retrieved contexts
+- **Faithfulness**: Measures factual accuracy of generated responses
+- **Answer Relevancy**: Measures relevance of answers to questions
+
+Run evaluation:
+```bash
+cd test_ragas
+python rag_ragas_qdrant.py
+```
+
+## Contributing
+
+1. Fork the repository
+2. Create a feature branch: `git checkout -b feature-name`
+3. Make your changes and commit: `git commit -am 'Add feature'`
+4. Push to the branch: `git push origin feature-name`
+5. Submit a pull request
+
+## License
+
+This project is licensed under the MIT License - see the LICENSE file for details.
 
 ## Support
 
-For support, questions, or feedback regarding the {{crew_name}} Crew or crewAI.
+For support, questions, or feedback:
+- Create an issue on GitHub
+- Check the [documentation](docs/)
+- Review the examples in `docs/examples/`
 
 - Visit our [documentation](https://docs.crewai.com)
 - Reach out to us through our [GitHub repository](https://github.com/joaomdmoura/crewai)
