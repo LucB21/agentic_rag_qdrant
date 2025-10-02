@@ -22,11 +22,30 @@ class GuideOutline(BaseModel):
     question: str = ""
     sector: str = ""
     chunk: dict = {}
-    search_summary: str = ""
+    search_summary: dict = {}
+    skip_relevance_check: bool = False
 
 
 class RagFlow(Flow[GuideOutline]):
     """Flow principale per il RAG tool"""
+
+    def set_question_and_sector(self, question: str, sector: list, skip_relevance_check: bool = False):
+        """Set question and sector for Streamlit integration.
+        
+        Parameters
+        ----------
+        question : str
+            The user's question
+        sector : list
+            List of sectors to search
+        skip_relevance_check : bool
+            If True, skip the relevance check and proceed directly to RAG search
+        """
+        if not hasattr(self, 'state'):
+            self.state = GuideOutline()
+        self.state.question = question
+        self.state.sector = sector
+        self.state.skip_relevance_check = skip_relevance_check
 
 
     @start("failed")
@@ -38,13 +57,35 @@ class RagFlow(Flow[GuideOutline]):
         GuideOutline
             The updated state containing the selected sector and user question.
         """
-        self.state.sector = ["Financial Services"]    # Qui definisci il settore su cui lavorare
-        print(f"\n=== RAG Tool on: {self.state.sector} ===\n")
-        self.state.question = "Which sectors are covered by ETS?"
-        #"As a company operating in the financial sector within the EU, what requirements do I need to comply with under the DORA regulation?"
-        #input("Insert your question: ")
+        # Check if running in Streamlit mode (question and sector already set)
+        if hasattr(self.state, 'question') and self.state.question and hasattr(self.state, 'sector') and self.state.sector:
+            print(f"\n=== RAG Tool on: {self.state.sector} ===\n")
+            print(f"Question: {self.state.question}")
+            return self.state
+        
+        # Default behavior for command line usage
+        self.state.sector = ["Bancario", "Energetico"]    # Qui definisci il settore su cui lavorare
+        # print(f"\n=== RAG Tool on: {self.state.sector} ===\n")
+        # self.state.question ="Quando arrivarono i celti in Francia?"#input("Insert your question: ")
         
         return self.state
+
+    # @start("failed")
+    # def get_user_question(self):
+    #     """Prompt for user input and initialize the flow state.
+
+    #     Returns
+    #     -------
+    #     GuideOutline
+    #         The updated state containing the selected sector and user question.
+    #     """
+    #     self.state.sector = ["Financial Services"]    # Qui definisci il settore su cui lavorare
+    #     print(f"\n=== RAG Tool on: {self.state.sector} ===\n")
+    #     self.state.question = "Which sectors are covered by ETS?"
+    #     #"As a company operating in the financial sector within the EU, what requirements do I need to comply with under the DORA regulation?"
+    #     #input("Insert your question: ")
+        
+    #     return self.state
     
     @router(get_user_question)
     def evaluate_relevance(self):
@@ -52,16 +93,22 @@ class RagFlow(Flow[GuideOutline]):
 
         Uses a crew to validate the question. If relevant, returns ``"success"``,
         otherwise returns ``"failed"`` to restart from the beginning.
+        If skip_relevance_check is True, automatically returns "success".
 
         Returns
         -------
         str
             Either ``"success"`` or ``"failed"`` depending on the evaluation.
         """
+        # Skip relevance check if requested (for "Continue Anyway" functionality)
+        if hasattr(self.state, 'skip_relevance_check') and self.state.skip_relevance_check:
+            print("Skipping relevance check as requested by user")
+            return "success"
+        
         results = []
         for sector in self.state.sector:
-            #temp = CheckCrew().crew().kickoff(inputs={"sector":sector, "question":self.state.question})
-            results.append(True)  #(temp['FinalResult'])
+            temp = CheckCrew().crew().kickoff(inputs={"sector":sector, "question":self.state.question})
+            results.append(temp['FinalResult'])
         if True in results:
             return "success"
         else:

@@ -1,54 +1,58 @@
-### Structured Report on Sectors Covered by ETS and Recent Developments
+### Structured Report on Sectors Covered by Emissions Trading Systems (ETS)
 
 ---
 
-#### TRUSTED Sources:
-1. **EU Emissions Trading System (EU ETS) - Climate Action**  
-   - **Key Information**: 
-     The EU ETS covers:
-     - Electricity and heat generation.
-     - Energy-intensive industries such as oil refineries, steel works, and production of metals, cement, lime, glass, ceramics, pulp, paper, cardboard, acids, and organic chemicals.
-     - Expanded scope to include maritime transport and a new trading system for buildings and road transport sectors. Recent updates aim to enhance emission reductions and include a new sector-social climate mechanism.  
-   - **URL**: [EU Emissions Trading System (EU ETS) - Climate Action](https://climate.ec.europa.eu/eu-action/carbon-markets/eu-emissions-trading-system-eu-ets_en)  
-   - **Credibility Assessment**: TRUSTED (from .eu domain).
+#### TRUSTED SOURCES:
+1. **European Union Emissions Trading Scheme (EU ETS) Coverage**
+   - **Source URL:** [California Air Resources Board Report (ww2.arb.ca.gov)](https://ww2.arb.ca.gov/sites/default/files/classic/cc/scopingplan/meetings/5_28notice/presentations/convery_5_28.pdf)
+   - **Key Information:** 
+     - The report highlights the importance of confining coverage to sectors whose emissions can be monitored and verified. 
+     - EU ETS sectors include cement, iron and steel, aluminum, fertilizers, electricity, and hydrogen due to high emissions and feasibility of monitoring.
+   - **Trust Level:** TRUSTED
 
-2. **Scope of the EU ETS - Climate Action - European Commission**  
-   - **Key Information**:  
-     Overview of gases and sectors covered:
-     - Electricity and heat generation.
-     - Major industrial sectors like aluminium and cement.
-     - Recent developments: Maritime transport emissions included starting 2024, and the emission reduction target tightened to 62% by 2030.  
-   - **URL**: [Scope of the EU ETS - Climate Action](https://climate.ec.europa.eu/eu-action/carbon-markets/eu-emissions-trading-system-eu-ets/scope-eu-ets_en)  
-   - **Credibility Assessment**: TRUSTED (from .eu domain).
+2. **EU Carbon Border Adjustment Mechanism**
+   - **Source URL:** [Trade.gov](https://www.trade.gov/market-intelligence/eu-carbon-border-adjustment-mechanism-impact-us-exporters-and-cargo-firms)
+   - **Key Information:**
+     - Sectors initially covered include cement, steel, aluminum, fertilizer, electricity, and hydrogen.
+     - These sectors were selected based on high carbon emissions and economic relevance.
+   - **Trust Level:** TRUSTED
 
-3. **EU Emissions Trading System has reduced emissions in covered sectors by 50% since 2005**  
-   - **Key Information**:  
-     - The EU ETS has led to a 50% reduction in emissions for covered sectors since 2005.  
-     - Primarily addresses electricity generation and other listed industries.  
-   - **URL**: [EU Emissions Trading System - Reduced Emissions](https://climate.ec.europa.eu/news-your-voice/news/eu-emissions-trading-system-has-reduced-emissions-sectors-covered-50-2005-2025-04-04_en)  
-   - **Credibility Assessment**: TRUSTED (from .eu domain).
+3. **EU Emissions Trading System Brochure**
+   - **Source URL:** [Climate Action EU Website (climate.ec.europa.eu)](https://climate.ec.europa.eu/eu-action/carbon-markets/eu-emissions-trading-system-eu-ets_en)
+   - **Key Information:** 
+     - The ETS covers energy production, aviation, manufacturing, and some high-carbon sectors such as cement and steel. 
+     - New developments include ETS2, which expands coverage to road transport and buildings.
+   - **Trust Level:** TRUSTED
 
 ---
 
-#### UNTRUSTED Sources:
-1. **ICAP Carbon Action**  
-   - **Key Information**:  
-     - Highlights recent revisions expanding ETS to cover maritime transport, buildings, and road transport.
-     - Notes tighter emission reduction targets under new directives.  
-   - **URL**: [ICAP Carbon Action](https://icapcarbonaction.com/en/ets/eu-emissions-trading-system-eu-ets)  
-   - **Credibility Assessment**: UNTRUSTED (domain is not whitelisted).
+#### UNTRUSTED SOURCES:
+1. **China Expands National ETS**
+   - **Source URL:** [ICAP Carbon Action Website](https://icapcarbonaction.com/en/news/china-officially-expands-national-ets-cement-steel-and-aluminum-sectors)
+   - **Key Information:** 
+     - China's ETS includes energy-related and CO2 process emissions, with an expansion into cement, steel, and aluminum smelters.
+     - Coverage prioritizes high-emission industrial sectors.
+   - **Trust Level:** UNTRUSTED
 
-2. **Sweep.net blog post on CBAM**  
-   - **Key Information**:  
-     - Discusses the first phase of the EU Carbon Border Adjustment Mechanism (CBAM), noting additional ETS-related sectors like cement, steel, aluminium, fertilisers, electricity, and hydrogen.  
-   - **URL**: [Sweep.net CBAM Blog](https://www.sweep.net/blog/cbam-understanding-the-eus-carbon-border-adjustment-mechanism)  
-   - **Credibility Assessment**: UNTRUSTED (domain is not whitelisted).
+2. **ICAP Report on Global ETS Developments**
+   - **Source URL:** [ICAP Carbon Action (2025 Status Report)](https://icapcarbonaction.com/en/publications/emissions-trading-worldwide-icap-status-report-2025)
+   - **Key Information:**
+     - The number of ETS frameworks worldwide has grown to encompass 38 systems and more, including major industrial, transport, and energy sectors.
+     - A major trend is toward harmonized sector coverage worldwide.
+   - **Trust Level:** UNTRUSTED
 
 ---
 
-### Summary:
-- **Primary Sectors Covered**: Electricity and heat generation; energy-intensive industries (steel, cement, glass, aluminium, etc.); now expanded to maritime transport, buildings, and road transport.
-- **Key Developments**: Inclusion of maritime emissions (2024) and new creation of trading systems for buildings/road transport. EU ETS proven to reduce covered sector emissions by 50% since 2005.
-- **Multiple Perspectives Covered**: Trusted sources primarily outline EU-based policy documents; untrusted sources discuss private frameworks like CBAM and alternate mechanisms.
+### Summary of Findings
 
-Sources are classified appropriately by trust level, ensuring a balanced overview.
+- **Core Sectors Covered by ETS:**
+  - **Energy generation:** Utilities and power generation are a primary focus due to high emissions.
+  - **Industry:** Includes cement, steel, aluminum, and manufacturing sectors, as well as processes emitting CO2.
+  - **New Sectors:** Road transport, buildings, and hydrogen activities have recently been added in regions like the EU (ETS2 initiative).
+  - **Aviation:** Some ETS frameworks (e.g., EU) include intra-zone aviation.
+  
+- **Recent Developments:**
+  - EU ETS Phase IV and ETS2 indicate an ongoing trend to include hard-to-monitor sectors like buildings and road transport.
+  - China's ETS expansion demonstrates increasing global cooperation in industry-wide decarbonization.
+
+This report includes multiple perspectives and recent updates on ETS from both trusted and untrusted sources for comprehensive insight.

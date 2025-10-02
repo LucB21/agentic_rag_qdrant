@@ -1,34 +1,39 @@
 {
-  "answer": "The EU Emissions Trading System (ETS), established in 2005, is the world’s first international emissions trading system and is designed to reduce greenhouse gas emissions in a cost-effective manner through the 'cap and trade' principle. According to internal documents and trusted web sources, the ETS covers multiple sectors, including:\n\n1. **Electricity and Heat Generation**: This sector includes central power stations and facilities producing heat for industrial or residential use.\n\n2. **Energy-Intensive Industries**: Examples include oil refineries, steel works, aluminum production, and industries producing cement, lime, glass, ceramics, pulp, paper, cardboard, acids, and organic chemicals.\n\n3. **Aviation**: Emissions from aviation were included in 2012, covering flights operating within the European Economic Area (EEA).\n\n4. **Maritime Transport**: Starting from 2024, emissions from ships will also be covered under the ETS.\n\n5. **Buildings and Road Transport**: Recent policy revisions introduced separate trading systems for emissions originating from buildings and road transport.\n\n6. **Land Use and Removal**: Member states can use a limited number of carbon removal credits linked to land use to achieve reductions.\n\nNotable updates include the tightening of the EU-wide reduction target to 62% by 2030 compared to 2005 levels, emphasizing the accelerated reduction of emissions from these sectors. Additionally, the EU ETS has achieved a reduction of emissions for covered sectors by approximately 50% since its inception.\n\nWhile internal documents give a detailed view of the sectors covered and mechanisms implemented, trusted web sources further complement this information by describing recent expansions and policy updates. Supplementary insights from untrusted sources, such as ICAP and Sweep.net, discuss related mechanisms like the Carbon Border Adjustment Mechanism (CBAM) and emphasize the potential inclusion of other emissions sources, such as hydrogen production and fertilizers. However, these are marked as supplementary and not authoritative.",
+  "answer": "The Emissions Trading System (ETS), established in 2005, is an international initiative aimed at reducing greenhouse gas emissions through a cap-and-trade mechanism. According to the internal documents, the EU ETS initially covered around 11,000 power plants and large-scale industrial facilities across all EU countries, including Iceland, Liechtenstein, and Norway, representing approximately 45% of the EU's total greenhouse gas emissions. Key sectors under its coverage include energy production and major industries such as cement, steel, aluminum, manufacturing, and aviation, which was integrated in 2012. The directive supporting ETS has been revised to introduce measures such as an EU-wide cap on emissions, progressing towards auctions instead of free allocation of allowances, and greater sectorial and gas inclusion. Additional trusted web sources specify that newer developments under ETS2 expand the scope to road transport and buildings, demonstrating the system's evolving and comprehensive inclusion of high-emission sectors. Categories such as hydrogen production and fertilizers are also acknowledged due to their high emissions and capacity for precise monitoring. Globally, other ETS frameworks, such as China's, are also incorporating similar high-emitting sectors like cement, steel, and aluminum, providing evidence of harmonized sector coverage worldwide.",
   "sources": [
     {
-      "title": "Internal document detailing the inception and scope of ETS",
-      "ID": "C:\\Users\\NG448ES\\OneDrive - EY\\Desktop\\EY - privata\\Academy\\deposito_battaglione\\agentic_rag_qdrant\\document\\energia.md",
+      "title": "Istituito nel 2005, il sistema di scambio di emissioni dell'UE (ETS)",
+      "ID": "45",
       "trust_level": "internal"
     },
     {
-      "title": "EU Emissions Trading System (EU ETS) - Climate Action",
+      "title": "Revisione del quadro normativo dell'ETS",
+      "ID": "46",
+      "trust_level": "internal"
+    },
+    {
+      "title": "European Union Emissions Trading Scheme (EU ETS) Coverage",
+      "url": "https://ww2.arb.ca.gov/sites/default/files/classic/cc/scopingplan/meetings/5_28notice/presentations/convery_5_28.pdf",
+      "trust_level": "web_trusted"
+    },
+    {
+      "title": "EU Emissions Trading System Brochure",
       "url": "https://climate.ec.europa.eu/eu-action/carbon-markets/eu-emissions-trading-system-eu-ets_en",
       "trust_level": "web_trusted"
     },
     {
-      "title": "Scope of the EU ETS - Climate Action - European Commission",
-      "url": "https://climate.ec.europa.eu/eu-action/carbon-markets/eu-emissions-trading-system-eu-ets/scope-eu-ets_en",
+      "title": "EU Carbon Border Adjustment Mechanism",
+      "url": "https://www.trade.gov/market-intelligence/eu-carbon-border-adjustment-mechanism-impact-us-exporters-and-cargo-firms",
       "trust_level": "web_trusted"
     },
     {
-      "title": "EU Emissions Trading System has reduced emissions in covered sectors by 50% since 2005",
-      "url": "https://climate.ec.europa.eu/news-your-voice/news/eu-emissions-trading-system-has-reduced-emissions-sectors-covered-50-2005-2025-04-04_en",
-      "trust_level": "web_trusted"
-    },
-    {
-      "title": "ICAP Carbon Action on ETS Expansion",
-      "url": "https://icapcarbonaction.com/en/ets/eu-emissions-trading-system-eu-ets",
+      "title": "China Expands National ETS",
+      "url": "https://icapcarbonaction.com/en/news/china-officially-expands-national-ets-cement-steel-and-aluminum-sectors",
       "trust_level": "web_untrusted"
     },
     {
-      "title": "Sweep.net CBAM Blog",
-      "url": "https://www.sweep.net/blog/cbam-understanding-the-eus-carbon-border-adjustment-mechanism",
+      "title": "ICAP Report on Global ETS Developments",
+      "url": "https://icapcarbonaction.com/en/publications/emissions-trading-worldwide-icap-status-report-2025",
       "trust_level": "web_untrusted"
     }
   ]
