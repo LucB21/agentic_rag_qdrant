@@ -1,0 +1,912 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Configuration Guide &mdash; Agentic RAG 0.1.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=03e43079" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=e59714d7" />
+
+  
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=01f34227"></script>
+      <script src="_static/doctools.js?v=9bcbadda"></script>
+      <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Getting started" href="usage.html" />
+    <link rel="prev" title="Quick Start Guide" href="quickstart.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search"  style="background: #2980B9" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            Agentic RAG
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">User Guide:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation Guide</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#system-requirements">System Requirements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#prerequisites">Prerequisites</a></li>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#installing-uv">Installing UV</a></li>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#quick-installation">Quick Installation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#development-installation">Development Installation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#setting-up-qdrant">Setting Up Qdrant</a></li>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#azure-openai-setup">Azure OpenAI Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#troubleshooting">Troubleshooting</a></li>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#verification">Verification</a></li>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#next-steps">Next Steps</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="quickstart.html">Quick Start Guide</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="quickstart.html#prerequisites">Prerequisites</a></li>
+<li class="toctree-l2"><a class="reference internal" href="quickstart.html#basic-usage">Basic Usage</a></li>
+<li class="toctree-l2"><a class="reference internal" href="quickstart.html#first-query-example">First Query Example</a></li>
+<li class="toctree-l2"><a class="reference internal" href="quickstart.html#understanding-the-flow">Understanding the Flow</a></li>
+<li class="toctree-l2"><a class="reference internal" href="quickstart.html#configuration-tips">Configuration Tips</a></li>
+<li class="toctree-l2"><a class="reference internal" href="quickstart.html#common-use-cases">Common Use Cases</a></li>
+<li class="toctree-l2"><a class="reference internal" href="quickstart.html#performance-optimization">Performance Optimization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="quickstart.html#troubleshooting-quick-issues">Troubleshooting Quick Issues</a></li>
+<li class="toctree-l2"><a class="reference internal" href="quickstart.html#next-steps">Next Steps</a></li>
+<li class="toctree-l2"><a class="reference internal" href="quickstart.html#need-help">Need Help?</a></li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Configuration Guide</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#environment-variables">Environment Variables</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#azure-openai-configuration">Azure OpenAI Configuration</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#qdrant-configuration">Qdrant Configuration</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#web-search-configuration">Web Search Configuration</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#monitoring-and-logging">Monitoring and Logging</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#crew-configuration">Crew Configuration</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#check-crew-configuration">Check Crew Configuration</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#web-search-crew-configuration">Web Search Crew Configuration</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#synthesis-crew-configuration">Synthesis Crew Configuration</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#rag-tool-configuration">RAG Tool Configuration</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#vector-search-parameters">Vector Search Parameters</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#document-processing-configuration">Document Processing Configuration</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#streamlit-interface-configuration">Streamlit Interface Configuration</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#ui-configuration">UI Configuration</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#ragas-evaluation-configuration">RAGAS Evaluation Configuration</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#evaluation-metrics">Evaluation Metrics</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#dataset-configuration">Dataset Configuration</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#advanced-configuration">Advanced Configuration</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#performance-tuning">Performance Tuning</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#security-configuration">Security Configuration</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#development-configuration">Development Configuration</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#configuration-validation">Configuration Validation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#environment-specific-configurations">Environment-Specific Configurations</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#development-environment">Development Environment</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#production-environment">Production Environment</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#testing-environment">Testing Environment</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#configuration-best-practices">Configuration Best Practices</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#next-steps">Next Steps</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="usage.html">Getting started</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="usage.html#installation">Installation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="usage.html#build-the-faiss-index-and-run-the-flow">Build the FAISS index and run the flow</a></li>
+<li class="toctree-l2"><a class="reference internal" href="usage.html#generate-docs">Generate docs</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Architecture:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="architecture/overview.html">Architecture Overview</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="architecture/overview.html#system-architecture">System Architecture</a></li>
+<li class="toctree-l2"><a class="reference internal" href="architecture/overview.html#core-components">Core Components</a></li>
+<li class="toctree-l2"><a class="reference internal" href="architecture/overview.html#data-flow-architecture">Data Flow Architecture</a></li>
+<li class="toctree-l2"><a class="reference internal" href="architecture/overview.html#component-interactions">Component Interactions</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="architecture/overview.html#agent-communication">Agent Communication</a></li>
+<li class="toctree-l3"><a class="reference internal" href="architecture/overview.html#tool-integration">Tool Integration</a></li>
+<li class="toctree-l3"><a class="reference internal" href="architecture/overview.html#state-management">State Management</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="architecture/overview.html#scalability-design">Scalability Design</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="architecture/overview.html#horizontal-scaling">Horizontal Scaling</a></li>
+<li class="toctree-l3"><a class="reference internal" href="architecture/overview.html#vertical-scaling">Vertical Scaling</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="architecture/overview.html#performance-characteristics">Performance Characteristics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="architecture/overview.html#security-architecture">Security Architecture</a></li>
+<li class="toctree-l2"><a class="reference internal" href="architecture/overview.html#monitoring-and-observability">Monitoring and Observability</a></li>
+<li class="toctree-l2"><a class="reference internal" href="architecture/overview.html#deployment-architecture">Deployment Architecture</a></li>
+<li class="toctree-l2"><a class="reference internal" href="architecture/overview.html#extensibility-points">Extensibility Points</a></li>
+<li class="toctree-l2"><a class="reference internal" href="architecture/overview.html#technology-stack">Technology Stack</a></li>
+<li class="toctree-l2"><a class="reference internal" href="architecture/overview.html#next-steps">Next Steps</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="architecture/crews.html">Agent Crews Architecture</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="architecture/crews.html#crew-overview">Crew Overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="architecture/crews.html#check-crew">Check Crew</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="architecture/crews.html#architecture">Architecture</a></li>
+<li class="toctree-l3"><a class="reference internal" href="architecture/crews.html#agent-configuration">Agent Configuration</a></li>
+<li class="toctree-l3"><a class="reference internal" href="architecture/crews.html#task-definition">Task Definition</a></li>
+<li class="toctree-l3"><a class="reference internal" href="architecture/crews.html#decision-logic">Decision Logic</a></li>
+<li class="toctree-l3"><a class="reference internal" href="architecture/crews.html#example-scenarios">Example Scenarios</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="architecture/crews.html#web-search-crew">Web Search Crew</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="architecture/crews.html#id1">Architecture</a></li>
+<li class="toctree-l3"><a class="reference internal" href="architecture/crews.html#id2">Agent Configuration</a></li>
+<li class="toctree-l3"><a class="reference internal" href="architecture/crews.html#available-tools">Available Tools</a></li>
+<li class="toctree-l3"><a class="reference internal" href="architecture/crews.html#task-configuration">Task Configuration</a></li>
+<li class="toctree-l3"><a class="reference internal" href="architecture/crews.html#search-strategy">Search Strategy</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="architecture/crews.html#synthesis-crew">Synthesis Crew</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="architecture/crews.html#id3">Architecture</a></li>
+<li class="toctree-l3"><a class="reference internal" href="architecture/crews.html#id4">Agent Configuration</a></li>
+<li class="toctree-l3"><a class="reference internal" href="architecture/crews.html#synthesis-process">Synthesis Process</a></li>
+<li class="toctree-l3"><a class="reference internal" href="architecture/crews.html#id5">Task Configuration</a></li>
+<li class="toctree-l3"><a class="reference internal" href="architecture/crews.html#response-structure">Response Structure</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="architecture/crews.html#crew-interaction-patterns">Crew Interaction Patterns</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="architecture/crews.html#sequential-processing">Sequential Processing</a></li>
+<li class="toctree-l3"><a class="reference internal" href="architecture/crews.html#parallel-processing">Parallel Processing</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="architecture/crews.html#error-handling-and-fallbacks">Error Handling and Fallbacks</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="architecture/crews.html#crew-level-error-handling">Crew-Level Error Handling</a></li>
+<li class="toctree-l3"><a class="reference internal" href="architecture/crews.html#fallback-strategies">Fallback Strategies</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="architecture/crews.html#performance-optimization">Performance Optimization</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="architecture/crews.html#crew-caching">Crew Caching</a></li>
+<li class="toctree-l3"><a class="reference internal" href="architecture/crews.html#async-execution">Async Execution</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="architecture/crews.html#monitoring-and-observability">Monitoring and Observability</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="architecture/crews.html#crew-performance-metrics">Crew Performance Metrics</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="architecture/crews.html#custom-crew-development">Custom Crew Development</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="architecture/crews.html#creating-custom-crews">Creating Custom Crews</a></li>
+<li class="toctree-l3"><a class="reference internal" href="architecture/crews.html#extending-existing-crews">Extending Existing Crews</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="architecture/crews.html#next-steps">Next Steps</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Evaluation:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="evaluation/ragas.html">RAGAS Evaluation System</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="evaluation/ragas.html#overview">Overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="evaluation/ragas.html#key-features">Key Features</a></li>
+<li class="toctree-l2"><a class="reference internal" href="evaluation/ragas.html#quick-start">Quick Start</a></li>
+<li class="toctree-l2"><a class="reference internal" href="evaluation/ragas.html#evaluation-metrics">Evaluation Metrics</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="evaluation/ragas.html#context-precision">Context Precision</a></li>
+<li class="toctree-l3"><a class="reference internal" href="evaluation/ragas.html#context-recall">Context Recall</a></li>
+<li class="toctree-l3"><a class="reference internal" href="evaluation/ragas.html#faithfulness">Faithfulness</a></li>
+<li class="toctree-l3"><a class="reference internal" href="evaluation/ragas.html#answer-relevancy">Answer Relevancy</a></li>
+<li class="toctree-l3"><a class="reference internal" href="evaluation/ragas.html#answer-correctness">Answer Correctness</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="evaluation/ragas.html#evaluation-setup">Evaluation Setup</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="evaluation/ragas.html#dataset-preparation">Dataset Preparation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="evaluation/ragas.html#custom-test-questions">Custom Test Questions</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="evaluation/ragas.html#running-evaluations">Running Evaluations</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="evaluation/ragas.html#basic-evaluation">Basic Evaluation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="evaluation/ragas.html#custom-evaluation">Custom Evaluation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="evaluation/ragas.html#sector-specific-evaluation">Sector-Specific Evaluation</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="evaluation/ragas.html#evaluation-analysis">Evaluation Analysis</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="evaluation/ragas.html#performance-benchmarks">Performance Benchmarks</a></li>
+<li class="toctree-l3"><a class="reference internal" href="evaluation/ragas.html#score-interpretation">Score Interpretation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="evaluation/ragas.html#improving-scores">Improving Scores</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="evaluation/ragas.html#advanced-evaluation">Advanced Evaluation</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="evaluation/ragas.html#batch-evaluation">Batch Evaluation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="evaluation/ragas.html#cross-validation">Cross-Validation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="evaluation/ragas.html#a-b-testing">A/B Testing</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="evaluation/ragas.html#troubleshooting">Troubleshooting</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="evaluation/ragas.html#common-issues">Common Issues</a></li>
+<li class="toctree-l3"><a class="reference internal" href="evaluation/ragas.html#performance-optimization">Performance Optimization</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="evaluation/ragas.html#next-steps">Next Steps</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="evaluation/metrics.html">Evaluation Metrics</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="evaluation/metrics.html#overview">Overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="evaluation/metrics.html#detailed-metric-descriptions">Detailed Metric Descriptions</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="evaluation/metrics.html#context-precision">Context Precision</a></li>
+<li class="toctree-l3"><a class="reference internal" href="evaluation/metrics.html#context-recall">Context Recall</a></li>
+<li class="toctree-l3"><a class="reference internal" href="evaluation/metrics.html#faithfulness">Faithfulness</a></li>
+<li class="toctree-l3"><a class="reference internal" href="evaluation/metrics.html#answer-relevancy">Answer Relevancy</a></li>
+<li class="toctree-l3"><a class="reference internal" href="evaluation/metrics.html#answer-correctness">Answer Correctness</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="evaluation/metrics.html#metric-relationships">Metric Relationships</a></li>
+<li class="toctree-l2"><a class="reference internal" href="evaluation/metrics.html#interpretation-guidelines">Interpretation Guidelines</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="evaluation/metrics.html#score-ranges-and-actions">Score Ranges and Actions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="evaluation/metrics.html#debugging-with-metrics">Debugging with Metrics</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="evaluation/metrics.html#metric-calculation-code">Metric Calculation Code</a></li>
+<li class="toctree-l2"><a class="reference internal" href="evaluation/metrics.html#custom-metrics">Custom Metrics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="evaluation/metrics.html#automated-monitoring">Automated Monitoring</a></li>
+<li class="toctree-l2"><a class="reference internal" href="evaluation/metrics.html#best-practices">Best Practices</a></li>
+<li class="toctree-l2"><a class="reference internal" href="evaluation/metrics.html#next-steps">Next Steps</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="evaluation/setup.html">Evaluation Setup</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="evaluation/setup.html#prerequisites">Prerequisites</a></li>
+<li class="toctree-l2"><a class="reference internal" href="evaluation/setup.html#environment-setup">Environment Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="evaluation/setup.html#configuration">Configuration</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="evaluation/setup.html#environment-variables">Environment Variables</a></li>
+<li class="toctree-l3"><a class="reference internal" href="evaluation/setup.html#evaluation-configuration-file">Evaluation Configuration File</a></li>
+<li class="toctree-l3"><a class="reference internal" href="evaluation/setup.html#loading-configuration">Loading Configuration</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="evaluation/setup.html#dataset-preparation">Dataset Preparation</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="evaluation/setup.html#ground-truth-dataset">Ground Truth Dataset</a></li>
+<li class="toctree-l3"><a class="reference internal" href="evaluation/setup.html#question-generation">Question Generation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="evaluation/setup.html#answer-generation">Answer Generation</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="evaluation/setup.html#evaluation-pipeline-setup">Evaluation Pipeline Setup</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="evaluation/setup.html#basic-evaluation-pipeline">Basic Evaluation Pipeline</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="evaluation/setup.html#advanced-configuration">Advanced Configuration</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="evaluation/setup.html#custom-metrics-configuration">Custom Metrics Configuration</a></li>
+<li class="toctree-l3"><a class="reference internal" href="evaluation/setup.html#parallel-evaluation-setup">Parallel Evaluation Setup</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="evaluation/setup.html#monitoring-and-alerts">Monitoring and Alerts</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="evaluation/setup.html#performance-monitoring">Performance Monitoring</a></li>
+<li class="toctree-l3"><a class="reference internal" href="evaluation/setup.html#automated-quality-checks">Automated Quality Checks</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="evaluation/setup.html#continuous-integration">Continuous Integration</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="evaluation/setup.html#ci-cd-pipeline-integration">CI/CD Pipeline Integration</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="evaluation/setup.html#next-steps">Next Steps</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">API Reference:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="api/index.html">API Reference</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="api/agentic_rag.html">agentic_rag package</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="api/agentic_rag.html#subpackages">Subpackages</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api/agentic_rag.tools.html">agentic_rag.tools package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/agentic_rag.crews.html">agentic_rag.crews package</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="api/agentic_rag.tools.html">agentic_rag.tools package</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="api/agentic_rag.tools.html#rag-tool-module">rag_tool module</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="api/agentic_rag.crews.html">agentic_rag.crews package</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="api/agentic_rag.crews.html#subpackages">Subpackages</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api/agentic_rag.crews.check_crew.html">agentic_rag.crews.check_crew package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/agentic_rag.crews.rag_crew.html">agentic_rag.crews.rag_crew package</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="api/agentic_rag.crews.check_crew.html">agentic_rag.crews.check_crew package</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="api/agentic_rag.crews.check_crew.html#module-agentic_rag.crews.check_crew.check_crew">check_crew module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api/agentic_rag.crews.check_crew.html#agentic_rag.crews.check_crew.check_crew.Result"><code class="docutils literal notranslate"><span class="pre">Result</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="api/agentic_rag.crews.rag_crew.html">agentic_rag.crews.rag_crew package</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="api/agentic_rag.crews.rag_crew.html#rag-crew-module">rag_crew module</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Deployment:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="deployment/docker.html">Docker Deployment</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="deployment/docker.html#overview">Overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="deployment/docker.html#prerequisites">Prerequisites</a></li>
+<li class="toctree-l2"><a class="reference internal" href="deployment/docker.html#basic-docker-setup">Basic Docker Setup</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="deployment/docker.html#single-container-deployment">Single Container Deployment</a></li>
+<li class="toctree-l3"><a class="reference internal" href="deployment/docker.html#build-and-run">Build and Run</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="deployment/docker.html#multi-container-setup">Multi-Container Setup</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="deployment/docker.html#docker-compose-configuration">Docker Compose Configuration</a></li>
+<li class="toctree-l3"><a class="reference internal" href="deployment/docker.html#environment-configuration">Environment Configuration</a></li>
+<li class="toctree-l3"><a class="reference internal" href="deployment/docker.html#qdrant-configuration">Qdrant Configuration</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="deployment/docker.html#production-deployment">Production Deployment</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="deployment/docker.html#production-docker-compose">Production Docker Compose</a></li>
+<li class="toctree-l3"><a class="reference internal" href="deployment/docker.html#production-dockerfile">Production Dockerfile</a></li>
+<li class="toctree-l3"><a class="reference internal" href="deployment/docker.html#load-balancer-configuration">Load Balancer Configuration</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="deployment/docker.html#monitoring-setup">Monitoring Setup</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="deployment/docker.html#prometheus-configuration">Prometheus Configuration</a></li>
+<li class="toctree-l3"><a class="reference internal" href="deployment/docker.html#grafana-dashboard">Grafana Dashboard</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="deployment/docker.html#deployment-commands">Deployment Commands</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="deployment/docker.html#development-deployment">Development Deployment</a></li>
+<li class="toctree-l3"><a class="reference internal" href="deployment/docker.html#id1">Production Deployment</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="deployment/docker.html#data-management">Data Management</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="deployment/docker.html#volume-management">Volume Management</a></li>
+<li class="toctree-l3"><a class="reference internal" href="deployment/docker.html#document-indexing">Document Indexing</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="deployment/docker.html#troubleshooting">Troubleshooting</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="deployment/docker.html#common-issues">Common Issues</a></li>
+<li class="toctree-l3"><a class="reference internal" href="deployment/docker.html#debug-commands">Debug Commands</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="deployment/docker.html#scaling-and-performance">Scaling and Performance</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="deployment/docker.html#horizontal-scaling">Horizontal Scaling</a></li>
+<li class="toctree-l3"><a class="reference internal" href="deployment/docker.html#performance-optimization">Performance Optimization</a></li>
+<li class="toctree-l3"><a class="reference internal" href="deployment/docker.html#health-checks-and-monitoring">Health Checks and Monitoring</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="deployment/docker.html#security-best-practices">Security Best Practices</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="deployment/docker.html#container-security">Container Security</a></li>
+<li class="toctree-l3"><a class="reference internal" href="deployment/docker.html#network-security">Network Security</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="deployment/docker.html#next-steps">Next Steps</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="deployment/production.html">Production Deployment</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="deployment/production.html#deployment-overview">Deployment Overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="deployment/production.html#architecture-options">Architecture Options</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="deployment/production.html#single-server-deployment">Single Server Deployment</a></li>
+<li class="toctree-l3"><a class="reference internal" href="deployment/production.html#multi-server-deployment">Multi-Server Deployment</a></li>
+<li class="toctree-l3"><a class="reference internal" href="deployment/production.html#cloud-deployment">Cloud Deployment</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="deployment/production.html#docker-deployment">Docker Deployment</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="deployment/production.html#basic-docker-setup">Basic Docker Setup</a></li>
+<li class="toctree-l3"><a class="reference internal" href="deployment/production.html#multi-service-docker-compose">Multi-Service Docker Compose</a></li>
+<li class="toctree-l3"><a class="reference internal" href="deployment/production.html#nginx-configuration">Nginx Configuration</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="deployment/production.html#kubernetes-deployment">Kubernetes Deployment</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="deployment/production.html#kubernetes-manifests">Kubernetes Manifests</a></li>
+<li class="toctree-l3"><a class="reference internal" href="deployment/production.html#helm-chart-deployment">Helm Chart Deployment</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="deployment/production.html#cloud-specific-deployments">Cloud-Specific Deployments</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="deployment/production.html#azure-container-instances">Azure Container Instances</a></li>
+<li class="toctree-l3"><a class="reference internal" href="deployment/production.html#aws-ecs-deployment">AWS ECS Deployment</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="deployment/production.html#security-best-practices">Security Best Practices</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="deployment/production.html#environment-security">Environment Security</a></li>
+<li class="toctree-l3"><a class="reference internal" href="deployment/production.html#application-security">Application Security</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="deployment/production.html#monitoring-and-observability">Monitoring and Observability</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="deployment/production.html#application-monitoring">Application Monitoring</a></li>
+<li class="toctree-l3"><a class="reference internal" href="deployment/production.html#logging-configuration">Logging Configuration</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="deployment/production.html#ci-cd-pipeline">CI/CD Pipeline</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="deployment/production.html#github-actions-workflow">GitHub Actions Workflow</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="deployment/production.html#performance-optimization">Performance Optimization</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="deployment/production.html#application-performance">Application Performance</a></li>
+<li class="toctree-l3"><a class="reference internal" href="deployment/production.html#database-optimization">Database Optimization</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="deployment/production.html#troubleshooting">Troubleshooting</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="deployment/production.html#common-issues">Common Issues</a></li>
+<li class="toctree-l3"><a class="reference internal" href="deployment/production.html#monitoring-checklist">Monitoring Checklist</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="deployment/production.html#next-steps">Next Steps</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Examples:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="examples/basic_usage.html">Basic Usage Examples</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="examples/basic_usage.html#getting-started">Getting Started</a></li>
+<li class="toctree-l2"><a class="reference internal" href="examples/basic_usage.html#example-1-simple-query">Example 1: Simple Query</a></li>
+<li class="toctree-l2"><a class="reference internal" href="examples/basic_usage.html#example-2-multi-sector-analysis">Example 2: Multi-Sector Analysis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="examples/basic_usage.html#example-3-web-enhanced-search">Example 3: Web-Enhanced Search</a></li>
+<li class="toctree-l2"><a class="reference internal" href="examples/basic_usage.html#example-4-direct-rag-search">Example 4: Direct RAG Search</a></li>
+<li class="toctree-l2"><a class="reference internal" href="examples/basic_usage.html#example-5-streaming-interface">Example 5: Streaming Interface</a></li>
+<li class="toctree-l2"><a class="reference internal" href="examples/basic_usage.html#example-6-batch-processing">Example 6: Batch Processing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="examples/basic_usage.html#example-7-custom-tool-integration">Example 7: Custom Tool Integration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="examples/basic_usage.html#example-8-error-handling">Example 8: Error Handling</a></li>
+<li class="toctree-l2"><a class="reference internal" href="examples/basic_usage.html#example-9-performance-monitoring">Example 9: Performance Monitoring</a></li>
+<li class="toctree-l2"><a class="reference internal" href="examples/basic_usage.html#example-10-configuration-testing">Example 10: Configuration Testing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="examples/basic_usage.html#best-practices">Best Practices</a></li>
+<li class="toctree-l2"><a class="reference internal" href="examples/basic_usage.html#common-patterns">Common Patterns</a></li>
+<li class="toctree-l2"><a class="reference internal" href="examples/basic_usage.html#next-steps">Next Steps</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu"  style="background: #2980B9" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Agentic RAG</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Configuration Guide</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/configuration.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="configuration-guide">
+<h1>Configuration Guide<a class="headerlink" href="#configuration-guide" title="Link to this heading"></a></h1>
+<p>This guide covers all configuration options for Agentic RAG, from basic setup to advanced customization.</p>
+<section id="environment-variables">
+<h2>Environment Variables<a class="headerlink" href="#environment-variables" title="Link to this heading"></a></h2>
+<p>All core configuration is handled through environment variables in your <cite>.env</cite> file.</p>
+<section id="azure-openai-configuration">
+<h3>Azure OpenAI Configuration<a class="headerlink" href="#azure-openai-configuration" title="Link to this heading"></a></h3>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Required: Azure OpenAI API Configuration</span>
+<span class="nv">AZURE_OPENAI_API_KEY</span><span class="o">=</span>your_api_key_here
+<span class="nv">AZURE_OPENAI_ENDPOINT</span><span class="o">=</span>https://your-resource.openai.azure.com/
+<span class="nv">AZURE_OPENAI_API_VERSION</span><span class="o">=</span><span class="m">2024</span>-02-15-preview
+
+<span class="c1"># Model Deployment Names</span>
+<span class="nv">AZURE_OPENAI_CHAT_DEPLOYMENT_NAME</span><span class="o">=</span>gpt-4o
+<span class="nv">AZURE_OPENAI_EMBEDDINGS_DEPLOYMENT_NAME</span><span class="o">=</span>text-embedding-ada-002
+
+<span class="c1"># Optional: Model Parameters</span>
+<span class="nv">AZURE_OPENAI_TEMPERATURE</span><span class="o">=</span><span class="m">0</span>.1
+<span class="nv">AZURE_OPENAI_MAX_TOKENS</span><span class="o">=</span><span class="m">4000</span>
+</pre></div>
+</div>
+</section>
+<section id="qdrant-configuration">
+<h3>Qdrant Configuration<a class="headerlink" href="#qdrant-configuration" title="Link to this heading"></a></h3>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Local Qdrant Instance</span>
+<span class="nv">QDRANT_URL</span><span class="o">=</span>http://localhost:6333
+
+<span class="c1"># Or Qdrant Cloud</span>
+<span class="nv">QDRANT_URL</span><span class="o">=</span>https://your-cluster.qdrant.app
+<span class="nv">QDRANT_API_KEY</span><span class="o">=</span>your_qdrant_api_key
+
+<span class="c1"># Collection Settings</span>
+<span class="nv">QDRANT_COLLECTION_NAME</span><span class="o">=</span>agentic_rag_docs
+<span class="nv">QDRANT_VECTOR_SIZE</span><span class="o">=</span><span class="m">1536</span><span class="w">  </span><span class="c1"># For text-embedding-ada-002</span>
+</pre></div>
+</div>
+</section>
+<section id="web-search-configuration">
+<h3>Web Search Configuration<a class="headerlink" href="#web-search-configuration" title="Link to this heading"></a></h3>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Optional: OpenAI for web search fallback</span>
+<span class="nv">OPENAI_API_KEY</span><span class="o">=</span>your_openai_api_key
+
+<span class="c1"># Search Engine Configuration</span>
+<span class="nv">SEARCH_ENGINE</span><span class="o">=</span>duckduckgo<span class="w">  </span><span class="c1"># or bing, google</span>
+<span class="nv">MAX_SEARCH_RESULTS</span><span class="o">=</span><span class="m">10</span>
+</pre></div>
+</div>
+</section>
+<section id="monitoring-and-logging">
+<h3>Monitoring and Logging<a class="headerlink" href="#monitoring-and-logging" title="Link to this heading"></a></h3>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Opik Monitoring (optional)</span>
+<span class="nv">OPIK_PROJECT_NAME</span><span class="o">=</span>agentic_rag_project
+<span class="nv">OPIK_USE_LOCAL</span><span class="o">=</span><span class="nb">true</span>
+
+<span class="c1"># Logging Level</span>
+<span class="nv">LOG_LEVEL</span><span class="o">=</span>INFO<span class="w">  </span><span class="c1"># DEBUG, INFO, WARNING, ERROR</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="crew-configuration">
+<h2>Crew Configuration<a class="headerlink" href="#crew-configuration" title="Link to this heading"></a></h2>
+<p>Each crew can be configured through YAML files in the <cite>config/</cite> directories.</p>
+<section id="check-crew-configuration">
+<h3>Check Crew Configuration<a class="headerlink" href="#check-crew-configuration" title="Link to this heading"></a></h3>
+<p>Located at <cite>src/agentic_rag/crews/check_crew/config/agents.yaml</cite>:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">relevance_checker</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">role</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">&gt;</span>
+<span class="w">    </span><span class="no">Question Relevance Analyst</span>
+<span class="w">  </span><span class="nt">goal</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">&gt;</span>
+<span class="w">    </span><span class="no">Determine if user questions are relevant to available knowledge domains</span>
+<span class="w">  </span><span class="nt">backstory</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">&gt;</span>
+<span class="w">    </span><span class="no">You are an expert analyst who evaluates whether user queries can be</span>
+<span class="w">    </span><span class="no">effectively answered using available domain-specific knowledge bases.</span>
+<span class="w">  </span><span class="nt">llm</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">azure_openai_gpt4</span>
+<span class="w">  </span><span class="nt">max_iter</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">3</span>
+<span class="w">  </span><span class="nt">temperature</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.1</span>
+</pre></div>
+</div>
+<p>And <cite>src/agentic_rag/crews/check_crew/config/tasks.yaml</cite>:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">check_relevance</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">&gt;</span>
+<span class="w">    </span><span class="no">Analyze the user&#39;s question: &quot;{question}&quot;</span>
+<span class="w">    </span><span class="no">Determine if it&#39;s relevant to banking, energy, or other available domains.</span>
+<span class="w">  </span><span class="nt">expected_output</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">&gt;</span>
+<span class="w">    </span><span class="no">A structured analysis indicating relevance score, recommended sectors,</span>
+<span class="w">    </span><span class="no">and whether to proceed with RAG search or web search.</span>
+</pre></div>
+</div>
+</section>
+<section id="web-search-crew-configuration">
+<h3>Web Search Crew Configuration<a class="headerlink" href="#web-search-crew-configuration" title="Link to this heading"></a></h3>
+<p>Located at <cite>src/agentic_rag/crews/web_search_crew/config/agents.yaml</cite>:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">web_researcher</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">role</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">&gt;</span>
+<span class="w">    </span><span class="no">Web Research Specialist</span>
+<span class="w">  </span><span class="nt">goal</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">&gt;</span>
+<span class="w">    </span><span class="no">Find comprehensive and current information through web searches</span>
+<span class="w">  </span><span class="nt">backstory</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">&gt;</span>
+<span class="w">    </span><span class="no">You are a skilled researcher who excels at finding relevant,</span>
+<span class="w">    </span><span class="no">current information from web sources.</span>
+<span class="w">  </span><span class="nt">llm</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">azure_openai_gpt4</span>
+<span class="w">  </span><span class="nt">max_execution_time</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">180</span>
+<span class="w">  </span><span class="nt">max_iter</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">5</span>
+</pre></div>
+</div>
+</section>
+<section id="synthesis-crew-configuration">
+<h3>Synthesis Crew Configuration<a class="headerlink" href="#synthesis-crew-configuration" title="Link to this heading"></a></h3>
+<p>Located at <cite>src/agentic_rag/crews/synthesis_crew/config/agents.yaml</cite>:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">synthesis_agent</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">role</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">&gt;</span>
+<span class="w">    </span><span class="no">Information Synthesis Expert</span>
+<span class="w">  </span><span class="nt">goal</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">&gt;</span>
+<span class="w">    </span><span class="no">Combine information from multiple sources into comprehensive responses</span>
+<span class="w">  </span><span class="nt">backstory</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">&gt;</span>
+<span class="w">    </span><span class="no">You are an expert at synthesizing information from various sources</span>
+<span class="w">    </span><span class="no">to create coherent, comprehensive, and accurate responses.</span>
+<span class="w">  </span><span class="nt">llm</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">azure_openai_gpt4</span>
+<span class="w">  </span><span class="nt">temperature</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.2</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="rag-tool-configuration">
+<h2>RAG Tool Configuration<a class="headerlink" href="#rag-tool-configuration" title="Link to this heading"></a></h2>
+<p>The RAG tool can be configured in <cite>src/agentic_rag/tools/rag_module.py</cite>:</p>
+<section id="vector-search-parameters">
+<h3>Vector Search Parameters<a class="headerlink" href="#vector-search-parameters" title="Link to this heading"></a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Hybrid Search Configuration</span>
+<span class="n">HYBRID_SEARCH_CONFIG</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">&quot;semantic_weight&quot;</span><span class="p">:</span> <span class="mf">0.7</span><span class="p">,</span>        <span class="c1"># Weight for semantic search (0.0-1.0)</span>
+    <span class="s2">&quot;keyword_weight&quot;</span><span class="p">:</span> <span class="mf">0.3</span><span class="p">,</span>         <span class="c1"># Weight for keyword search (0.0-1.0)</span>
+    <span class="s2">&quot;top_k&quot;</span><span class="p">:</span> <span class="mi">20</span><span class="p">,</span>                   <span class="c1"># Initial results to retrieve</span>
+    <span class="s2">&quot;mmr_diversity_factor&quot;</span><span class="p">:</span> <span class="mf">0.3</span><span class="p">,</span>   <span class="c1"># Diversity in MMR (0.0-1.0)</span>
+    <span class="s2">&quot;final_k&quot;</span><span class="p">:</span> <span class="mi">5</span>                   <span class="c1"># Final results after MMR</span>
+<span class="p">}</span>
+
+<span class="c1"># Qdrant Search Configuration</span>
+<span class="n">QDRANT_CONFIG</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">&quot;search_params&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s2">&quot;hnsw_ef&quot;</span><span class="p">:</span> <span class="mi">128</span><span class="p">,</span>            <span class="c1"># HNSW search parameter</span>
+        <span class="s2">&quot;exact&quot;</span><span class="p">:</span> <span class="kc">False</span>             <span class="c1"># Use approximate search</span>
+    <span class="p">},</span>
+    <span class="s2">&quot;score_threshold&quot;</span><span class="p">:</span> <span class="mf">0.3</span>         <span class="c1"># Minimum relevance score</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</section>
+<section id="document-processing-configuration">
+<h3>Document Processing Configuration<a class="headerlink" href="#document-processing-configuration" title="Link to this heading"></a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Document Chunking</span>
+<span class="n">CHUNK_CONFIG</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">&quot;chunk_size&quot;</span><span class="p">:</span> <span class="mi">1000</span><span class="p">,</span>           <span class="c1"># Characters per chunk</span>
+    <span class="s2">&quot;chunk_overlap&quot;</span><span class="p">:</span> <span class="mi">200</span><span class="p">,</span>         <span class="c1"># Overlap between chunks</span>
+    <span class="s2">&quot;separators&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;</span><span class="se">\n\n</span><span class="s2">&quot;</span><span class="p">,</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span> <span class="s2">&quot;. &quot;</span><span class="p">,</span> <span class="s2">&quot;! &quot;</span><span class="p">,</span> <span class="s2">&quot;? &quot;</span><span class="p">]</span>
+<span class="p">}</span>
+
+<span class="c1"># Supported File Types</span>
+<span class="n">SUPPORTED_EXTENSIONS</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;.pdf&quot;</span><span class="p">,</span> <span class="s2">&quot;.txt&quot;</span><span class="p">,</span> <span class="s2">&quot;.md&quot;</span><span class="p">,</span> <span class="s2">&quot;.docx&quot;</span><span class="p">]</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="streamlit-interface-configuration">
+<h2>Streamlit Interface Configuration<a class="headerlink" href="#streamlit-interface-configuration" title="Link to this heading"></a></h2>
+<p>Configure the web interface in <cite>streamlit_app.py</cite>:</p>
+<section id="ui-configuration">
+<h3>UI Configuration<a class="headerlink" href="#ui-configuration" title="Link to this heading"></a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Page Configuration</span>
+<span class="n">st</span><span class="o">.</span><span class="n">set_page_config</span><span class="p">(</span>
+    <span class="n">page_title</span><span class="o">=</span><span class="s2">&quot;Agentic RAG System&quot;</span><span class="p">,</span>
+    <span class="n">page_icon</span><span class="o">=</span><span class="s2">&quot;🤖&quot;</span><span class="p">,</span>
+    <span class="n">layout</span><span class="o">=</span><span class="s2">&quot;wide&quot;</span><span class="p">,</span>
+    <span class="n">initial_sidebar_state</span><span class="o">=</span><span class="s2">&quot;expanded&quot;</span>
+<span class="p">)</span>
+
+<span class="c1"># Available Sectors</span>
+<span class="n">AVAILABLE_SECTORS</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">&quot;bancario&quot;</span><span class="p">:</span> <span class="s2">&quot;Banking &amp; Finance&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;energia&quot;</span><span class="p">:</span> <span class="s2">&quot;Energy &amp; Utilities&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;all&quot;</span><span class="p">:</span> <span class="s2">&quot;All Sectors&quot;</span>
+<span class="p">}</span>
+
+<span class="c1"># Interface Settings</span>
+<span class="n">UI_CONFIG</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">&quot;max_question_length&quot;</span><span class="p">:</span> <span class="mi">500</span><span class="p">,</span>
+    <span class="s2">&quot;default_sector&quot;</span><span class="p">:</span> <span class="s2">&quot;all&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;show_advanced_options&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
+    <span class="s2">&quot;enable_history&quot;</span><span class="p">:</span> <span class="kc">True</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="ragas-evaluation-configuration">
+<h2>RAGAS Evaluation Configuration<a class="headerlink" href="#ragas-evaluation-configuration" title="Link to this heading"></a></h2>
+<p>Configure evaluation in <cite>test_ragas/rag_ragas_qdrant.py</cite>:</p>
+<section id="evaluation-metrics">
+<h3>Evaluation Metrics<a class="headerlink" href="#evaluation-metrics" title="Link to this heading"></a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># RAGAS Metrics Configuration</span>
+<span class="n">RAGAS_METRICS</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="n">context_precision</span><span class="p">,</span>          <span class="c1"># How precise is the retrieved context</span>
+    <span class="n">context_recall</span><span class="p">,</span>            <span class="c1"># How much relevant context is retrieved</span>
+    <span class="n">faithfulness</span><span class="p">,</span>              <span class="c1"># How faithful is the answer to context</span>
+    <span class="n">answer_relevancy</span><span class="p">,</span>          <span class="c1"># How relevant is the answer to question</span>
+    <span class="n">answer_correctness</span>         <span class="c1"># Overall correctness of the answer</span>
+<span class="p">]</span>
+
+<span class="c1"># Evaluation Parameters</span>
+<span class="n">EVAL_CONFIG</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">&quot;test_size&quot;</span><span class="p">:</span> <span class="mi">20</span><span class="p">,</span>           <span class="c1"># Number of test questions</span>
+    <span class="s2">&quot;batch_size&quot;</span><span class="p">:</span> <span class="mi">5</span><span class="p">,</span>           <span class="c1"># Evaluation batch size</span>
+    <span class="s2">&quot;max_retries&quot;</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span>          <span class="c1"># Retries for failed evaluations</span>
+    <span class="s2">&quot;timeout&quot;</span><span class="p">:</span> <span class="mi">60</span>              <span class="c1"># Timeout per evaluation (seconds)</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</section>
+<section id="dataset-configuration">
+<h3>Dataset Configuration<a class="headerlink" href="#dataset-configuration" title="Link to this heading"></a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Test Dataset</span>
+<span class="n">EVALUATION_QUESTIONS</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="p">{</span>
+        <span class="s2">&quot;question&quot;</span><span class="p">:</span> <span class="s2">&quot;What are Basel III requirements?&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;sector&quot;</span><span class="p">:</span> <span class="s2">&quot;bancario&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;expected_topics&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;basel&quot;</span><span class="p">,</span> <span class="s2">&quot;capital&quot;</span><span class="p">,</span> <span class="s2">&quot;requirements&quot;</span><span class="p">]</span>
+    <span class="p">},</span>
+    <span class="p">{</span>
+        <span class="s2">&quot;question&quot;</span><span class="p">:</span> <span class="s2">&quot;How does renewable energy affect grid stability?&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;sector&quot;</span><span class="p">:</span> <span class="s2">&quot;energia&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;expected_topics&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;renewable&quot;</span><span class="p">,</span> <span class="s2">&quot;grid&quot;</span><span class="p">,</span> <span class="s2">&quot;stability&quot;</span><span class="p">]</span>
+    <span class="p">}</span>
+<span class="p">]</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="advanced-configuration">
+<h2>Advanced Configuration<a class="headerlink" href="#advanced-configuration" title="Link to this heading"></a></h2>
+<section id="performance-tuning">
+<h3>Performance Tuning<a class="headerlink" href="#performance-tuning" title="Link to this heading"></a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Memory Management</span>
+<span class="n">MEMORY_CONFIG</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">&quot;max_concurrent_requests&quot;</span><span class="p">:</span> <span class="mi">5</span><span class="p">,</span>
+    <span class="s2">&quot;request_timeout&quot;</span><span class="p">:</span> <span class="mi">300</span><span class="p">,</span>
+    <span class="s2">&quot;cache_size&quot;</span><span class="p">:</span> <span class="mi">1000</span><span class="p">,</span>
+    <span class="s2">&quot;garbage_collection_interval&quot;</span><span class="p">:</span> <span class="mi">100</span>
+<span class="p">}</span>
+
+<span class="c1"># Qdrant Performance</span>
+<span class="n">QDRANT_PERFORMANCE</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">&quot;prefer_grpc&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>          <span class="c1"># Use gRPC for better performance</span>
+    <span class="s2">&quot;connection_pool_size&quot;</span><span class="p">:</span> <span class="mi">10</span><span class="p">,</span>   <span class="c1"># Connection pool size</span>
+    <span class="s2">&quot;timeout&quot;</span><span class="p">:</span> <span class="mi">30</span><span class="p">,</span>                <span class="c1"># Request timeout</span>
+    <span class="s2">&quot;retries&quot;</span><span class="p">:</span> <span class="mi">3</span>                  <span class="c1"># Number of retries</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</section>
+<section id="security-configuration">
+<h3>Security Configuration<a class="headerlink" href="#security-configuration" title="Link to this heading"></a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># API Security</span>
+<span class="n">SECURITY_CONFIG</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">&quot;rate_limit&quot;</span><span class="p">:</span> <span class="s2">&quot;100/hour&quot;</span><span class="p">,</span>     <span class="c1"># Rate limiting</span>
+    <span class="s2">&quot;max_request_size&quot;</span><span class="p">:</span> <span class="s2">&quot;10MB&quot;</span><span class="p">,</span>   <span class="c1"># Maximum request size</span>
+    <span class="s2">&quot;enable_cors&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>          <span class="c1"># Enable CORS</span>
+    <span class="s2">&quot;allowed_origins&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;*&quot;</span><span class="p">]</span>      <span class="c1"># Allowed origins</span>
+<span class="p">}</span>
+
+<span class="c1"># Data Privacy</span>
+<span class="n">PRIVACY_CONFIG</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">&quot;log_queries&quot;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>         <span class="c1"># Log user queries</span>
+    <span class="s2">&quot;anonymize_logs&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>       <span class="c1"># Anonymize logged data</span>
+    <span class="s2">&quot;data_retention_days&quot;</span><span class="p">:</span> <span class="mi">30</span>     <span class="c1"># Data retention period</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</section>
+<section id="development-configuration">
+<h3>Development Configuration<a class="headerlink" href="#development-configuration" title="Link to this heading"></a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Debug Settings</span>
+<span class="n">DEBUG_CONFIG</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">&quot;verbose_logging&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
+    <span class="s2">&quot;profile_performance&quot;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
+    <span class="s2">&quot;save_intermediate_results&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
+    <span class="s2">&quot;debug_embeddings&quot;</span><span class="p">:</span> <span class="kc">False</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="configuration-validation">
+<h2>Configuration Validation<a class="headerlink" href="#configuration-validation" title="Link to this heading"></a></h2>
+<p>Use the built-in configuration validator:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">agentic_rag.config_validator</span><span class="w"> </span><span class="kn">import</span> <span class="n">validate_config</span>
+
+<span class="c1"># Validate current configuration</span>
+<span class="n">is_valid</span><span class="p">,</span> <span class="n">errors</span> <span class="o">=</span> <span class="n">validate_config</span><span class="p">()</span>
+
+<span class="k">if</span> <span class="ow">not</span> <span class="n">is_valid</span><span class="p">:</span>
+    <span class="k">for</span> <span class="n">error</span> <span class="ow">in</span> <span class="n">errors</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Configuration Error: </span><span class="si">{</span><span class="n">error</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="environment-specific-configurations">
+<h2>Environment-Specific Configurations<a class="headerlink" href="#environment-specific-configurations" title="Link to this heading"></a></h2>
+<section id="development-environment">
+<h3>Development Environment<a class="headerlink" href="#development-environment" title="Link to this heading"></a></h3>
+<p>Create <cite>.env.development</cite>:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Development settings</span>
+<span class="nv">LOG_LEVEL</span><span class="o">=</span>DEBUG
+<span class="nv">AZURE_OPENAI_TEMPERATURE</span><span class="o">=</span><span class="m">0</span>.0
+<span class="nv">QDRANT_URL</span><span class="o">=</span>http://localhost:6333
+<span class="nv">OPIK_USE_LOCAL</span><span class="o">=</span><span class="nb">true</span>
+</pre></div>
+</div>
+</section>
+<section id="production-environment">
+<h3>Production Environment<a class="headerlink" href="#production-environment" title="Link to this heading"></a></h3>
+<p>Create <cite>.env.production</cite>:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Production settings</span>
+<span class="nv">LOG_LEVEL</span><span class="o">=</span>WARNING
+<span class="nv">AZURE_OPENAI_TEMPERATURE</span><span class="o">=</span><span class="m">0</span>.1
+<span class="nv">QDRANT_URL</span><span class="o">=</span>https://your-production-cluster.qdrant.app
+<span class="nv">QDRANT_API_KEY</span><span class="o">=</span>your_production_api_key
+<span class="nv">OPIK_USE_LOCAL</span><span class="o">=</span><span class="nb">false</span>
+</pre></div>
+</div>
+</section>
+<section id="testing-environment">
+<h3>Testing Environment<a class="headerlink" href="#testing-environment" title="Link to this heading"></a></h3>
+<p>Create <cite>.env.testing</cite>:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Testing settings</span>
+<span class="nv">LOG_LEVEL</span><span class="o">=</span>ERROR
+<span class="nv">AZURE_OPENAI_TEMPERATURE</span><span class="o">=</span><span class="m">0</span>.0
+<span class="nv">QDRANT_URL</span><span class="o">=</span>http://localhost:6333
+<span class="nv">RAGAS_TEST_SIZE</span><span class="o">=</span><span class="m">5</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="configuration-best-practices">
+<h2>Configuration Best Practices<a class="headerlink" href="#configuration-best-practices" title="Link to this heading"></a></h2>
+<ol class="arabic simple">
+<li><p><strong>Security</strong>
+- Never commit <cite>.env</cite> files to version control
+- Use strong API keys and rotate them regularly
+- Limit API access to necessary resources only</p></li>
+<li><p><strong>Performance</strong>
+- Use local Qdrant for development
+- Configure appropriate timeout values
+- Monitor and adjust chunk sizes based on your documents</p></li>
+<li><p><strong>Reliability</strong>
+- Set appropriate retry policies
+- Configure proper error handling
+- Use health checks for external services</p></li>
+<li><p><strong>Monitoring</strong>
+- Enable logging for production
+- Use Opik for performance monitoring
+- Set up alerts for API rate limits</p></li>
+<li><p><strong>Cost Optimization</strong>
+- Monitor Azure OpenAI usage
+- Adjust model parameters to balance cost/quality
+- Use caching for frequently accessed results</p></li>
+</ol>
+</section>
+<section id="next-steps">
+<h2>Next Steps<a class="headerlink" href="#next-steps" title="Link to this heading"></a></h2>
+<p>After configuring your system:</p>
+<ol class="arabic simple">
+<li><p>Test configuration with <a class="reference internal" href="quickstart.html"><span class="doc">Quick Start Guide</span></a></p></li>
+<li><p>Understand the <a class="reference internal" href="architecture/overview.html"><span class="doc">Architecture Overview</span></a></p></li>
+<li><p>Set up <a class="reference internal" href="evaluation/ragas.html"><span class="doc">RAGAS Evaluation System</span></a></p></li>
+<li><p>Deploy using <a class="reference internal" href="deployment/production.html"><span class="doc">Production Deployment</span></a></p></li>
+</ol>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="quickstart.html" class="btn btn-neutral float-left" title="Quick Start Guide" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="usage.html" class="btn btn-neutral float-right" title="Getting started" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, Luca Battaglione.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

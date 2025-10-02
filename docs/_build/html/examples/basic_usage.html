@@ -1,0 +1,1059 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Basic Usage Examples &mdash; Agentic RAG 0.1.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=e59714d7" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=01f34227"></script>
+      <script src="../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="prev" title="Production Deployment" href="../deployment/production.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search"  style="background: #2980B9" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            Agentic RAG
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">User Guide:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation Guide</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../installation.html#system-requirements">System Requirements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../installation.html#prerequisites">Prerequisites</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../installation.html#installing-uv">Installing UV</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../installation.html#quick-installation">Quick Installation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../installation.html#development-installation">Development Installation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../installation.html#setting-up-qdrant">Setting Up Qdrant</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../installation.html#azure-openai-setup">Azure OpenAI Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../installation.html#troubleshooting">Troubleshooting</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../installation.html#verification">Verification</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../installation.html#next-steps">Next Steps</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../quickstart.html">Quick Start Guide</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../quickstart.html#prerequisites">Prerequisites</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../quickstart.html#basic-usage">Basic Usage</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../quickstart.html#first-query-example">First Query Example</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../quickstart.html#understanding-the-flow">Understanding the Flow</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../quickstart.html#configuration-tips">Configuration Tips</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../quickstart.html#common-use-cases">Common Use Cases</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../quickstart.html#performance-optimization">Performance Optimization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../quickstart.html#troubleshooting-quick-issues">Troubleshooting Quick Issues</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../quickstart.html#next-steps">Next Steps</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../quickstart.html#need-help">Need Help?</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../configuration.html">Configuration Guide</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../configuration.html#environment-variables">Environment Variables</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../configuration.html#azure-openai-configuration">Azure OpenAI Configuration</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../configuration.html#qdrant-configuration">Qdrant Configuration</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../configuration.html#web-search-configuration">Web Search Configuration</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../configuration.html#monitoring-and-logging">Monitoring and Logging</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../configuration.html#crew-configuration">Crew Configuration</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../configuration.html#check-crew-configuration">Check Crew Configuration</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../configuration.html#web-search-crew-configuration">Web Search Crew Configuration</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../configuration.html#synthesis-crew-configuration">Synthesis Crew Configuration</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../configuration.html#rag-tool-configuration">RAG Tool Configuration</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../configuration.html#vector-search-parameters">Vector Search Parameters</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../configuration.html#document-processing-configuration">Document Processing Configuration</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../configuration.html#streamlit-interface-configuration">Streamlit Interface Configuration</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../configuration.html#ui-configuration">UI Configuration</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../configuration.html#ragas-evaluation-configuration">RAGAS Evaluation Configuration</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../configuration.html#evaluation-metrics">Evaluation Metrics</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../configuration.html#dataset-configuration">Dataset Configuration</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../configuration.html#advanced-configuration">Advanced Configuration</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../configuration.html#performance-tuning">Performance Tuning</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../configuration.html#security-configuration">Security Configuration</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../configuration.html#development-configuration">Development Configuration</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../configuration.html#configuration-validation">Configuration Validation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../configuration.html#environment-specific-configurations">Environment-Specific Configurations</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../configuration.html#development-environment">Development Environment</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../configuration.html#production-environment">Production Environment</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../configuration.html#testing-environment">Testing Environment</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../configuration.html#configuration-best-practices">Configuration Best Practices</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../configuration.html#next-steps">Next Steps</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../usage.html">Getting started</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../usage.html#installation">Installation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../usage.html#build-the-faiss-index-and-run-the-flow">Build the FAISS index and run the flow</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../usage.html#generate-docs">Generate docs</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Architecture:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../architecture/overview.html">Architecture Overview</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../architecture/overview.html#system-architecture">System Architecture</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../architecture/overview.html#core-components">Core Components</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../architecture/overview.html#data-flow-architecture">Data Flow Architecture</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../architecture/overview.html#component-interactions">Component Interactions</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../architecture/overview.html#agent-communication">Agent Communication</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../architecture/overview.html#tool-integration">Tool Integration</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../architecture/overview.html#state-management">State Management</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../architecture/overview.html#scalability-design">Scalability Design</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../architecture/overview.html#horizontal-scaling">Horizontal Scaling</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../architecture/overview.html#vertical-scaling">Vertical Scaling</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../architecture/overview.html#performance-characteristics">Performance Characteristics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../architecture/overview.html#security-architecture">Security Architecture</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../architecture/overview.html#monitoring-and-observability">Monitoring and Observability</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../architecture/overview.html#deployment-architecture">Deployment Architecture</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../architecture/overview.html#extensibility-points">Extensibility Points</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../architecture/overview.html#technology-stack">Technology Stack</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../architecture/overview.html#next-steps">Next Steps</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../architecture/crews.html">Agent Crews Architecture</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../architecture/crews.html#crew-overview">Crew Overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../architecture/crews.html#check-crew">Check Crew</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../architecture/crews.html#architecture">Architecture</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../architecture/crews.html#agent-configuration">Agent Configuration</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../architecture/crews.html#task-definition">Task Definition</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../architecture/crews.html#decision-logic">Decision Logic</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../architecture/crews.html#example-scenarios">Example Scenarios</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../architecture/crews.html#web-search-crew">Web Search Crew</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../architecture/crews.html#id1">Architecture</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../architecture/crews.html#id2">Agent Configuration</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../architecture/crews.html#available-tools">Available Tools</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../architecture/crews.html#task-configuration">Task Configuration</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../architecture/crews.html#search-strategy">Search Strategy</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../architecture/crews.html#synthesis-crew">Synthesis Crew</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../architecture/crews.html#id3">Architecture</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../architecture/crews.html#id4">Agent Configuration</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../architecture/crews.html#synthesis-process">Synthesis Process</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../architecture/crews.html#id5">Task Configuration</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../architecture/crews.html#response-structure">Response Structure</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../architecture/crews.html#crew-interaction-patterns">Crew Interaction Patterns</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../architecture/crews.html#sequential-processing">Sequential Processing</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../architecture/crews.html#parallel-processing">Parallel Processing</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../architecture/crews.html#error-handling-and-fallbacks">Error Handling and Fallbacks</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../architecture/crews.html#crew-level-error-handling">Crew-Level Error Handling</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../architecture/crews.html#fallback-strategies">Fallback Strategies</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../architecture/crews.html#performance-optimization">Performance Optimization</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../architecture/crews.html#crew-caching">Crew Caching</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../architecture/crews.html#async-execution">Async Execution</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../architecture/crews.html#monitoring-and-observability">Monitoring and Observability</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../architecture/crews.html#crew-performance-metrics">Crew Performance Metrics</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../architecture/crews.html#custom-crew-development">Custom Crew Development</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../architecture/crews.html#creating-custom-crews">Creating Custom Crews</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../architecture/crews.html#extending-existing-crews">Extending Existing Crews</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../architecture/crews.html#next-steps">Next Steps</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Evaluation:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../evaluation/ragas.html">RAGAS Evaluation System</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../evaluation/ragas.html#overview">Overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../evaluation/ragas.html#key-features">Key Features</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../evaluation/ragas.html#quick-start">Quick Start</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../evaluation/ragas.html#evaluation-metrics">Evaluation Metrics</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../evaluation/ragas.html#context-precision">Context Precision</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../evaluation/ragas.html#context-recall">Context Recall</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../evaluation/ragas.html#faithfulness">Faithfulness</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../evaluation/ragas.html#answer-relevancy">Answer Relevancy</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../evaluation/ragas.html#answer-correctness">Answer Correctness</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../evaluation/ragas.html#evaluation-setup">Evaluation Setup</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../evaluation/ragas.html#dataset-preparation">Dataset Preparation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../evaluation/ragas.html#custom-test-questions">Custom Test Questions</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../evaluation/ragas.html#running-evaluations">Running Evaluations</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../evaluation/ragas.html#basic-evaluation">Basic Evaluation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../evaluation/ragas.html#custom-evaluation">Custom Evaluation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../evaluation/ragas.html#sector-specific-evaluation">Sector-Specific Evaluation</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../evaluation/ragas.html#evaluation-analysis">Evaluation Analysis</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../evaluation/ragas.html#performance-benchmarks">Performance Benchmarks</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../evaluation/ragas.html#score-interpretation">Score Interpretation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../evaluation/ragas.html#improving-scores">Improving Scores</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../evaluation/ragas.html#advanced-evaluation">Advanced Evaluation</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../evaluation/ragas.html#batch-evaluation">Batch Evaluation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../evaluation/ragas.html#cross-validation">Cross-Validation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../evaluation/ragas.html#a-b-testing">A/B Testing</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../evaluation/ragas.html#troubleshooting">Troubleshooting</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../evaluation/ragas.html#common-issues">Common Issues</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../evaluation/ragas.html#performance-optimization">Performance Optimization</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../evaluation/ragas.html#next-steps">Next Steps</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../evaluation/metrics.html">Evaluation Metrics</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../evaluation/metrics.html#overview">Overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../evaluation/metrics.html#detailed-metric-descriptions">Detailed Metric Descriptions</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../evaluation/metrics.html#context-precision">Context Precision</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../evaluation/metrics.html#context-recall">Context Recall</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../evaluation/metrics.html#faithfulness">Faithfulness</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../evaluation/metrics.html#answer-relevancy">Answer Relevancy</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../evaluation/metrics.html#answer-correctness">Answer Correctness</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../evaluation/metrics.html#metric-relationships">Metric Relationships</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../evaluation/metrics.html#interpretation-guidelines">Interpretation Guidelines</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../evaluation/metrics.html#score-ranges-and-actions">Score Ranges and Actions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../evaluation/metrics.html#debugging-with-metrics">Debugging with Metrics</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../evaluation/metrics.html#metric-calculation-code">Metric Calculation Code</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../evaluation/metrics.html#custom-metrics">Custom Metrics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../evaluation/metrics.html#automated-monitoring">Automated Monitoring</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../evaluation/metrics.html#best-practices">Best Practices</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../evaluation/metrics.html#next-steps">Next Steps</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../evaluation/setup.html">Evaluation Setup</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../evaluation/setup.html#prerequisites">Prerequisites</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../evaluation/setup.html#environment-setup">Environment Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../evaluation/setup.html#configuration">Configuration</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../evaluation/setup.html#environment-variables">Environment Variables</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../evaluation/setup.html#evaluation-configuration-file">Evaluation Configuration File</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../evaluation/setup.html#loading-configuration">Loading Configuration</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../evaluation/setup.html#dataset-preparation">Dataset Preparation</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../evaluation/setup.html#ground-truth-dataset">Ground Truth Dataset</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../evaluation/setup.html#question-generation">Question Generation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../evaluation/setup.html#answer-generation">Answer Generation</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../evaluation/setup.html#evaluation-pipeline-setup">Evaluation Pipeline Setup</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../evaluation/setup.html#basic-evaluation-pipeline">Basic Evaluation Pipeline</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../evaluation/setup.html#advanced-configuration">Advanced Configuration</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../evaluation/setup.html#custom-metrics-configuration">Custom Metrics Configuration</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../evaluation/setup.html#parallel-evaluation-setup">Parallel Evaluation Setup</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../evaluation/setup.html#monitoring-and-alerts">Monitoring and Alerts</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../evaluation/setup.html#performance-monitoring">Performance Monitoring</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../evaluation/setup.html#automated-quality-checks">Automated Quality Checks</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../evaluation/setup.html#continuous-integration">Continuous Integration</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../evaluation/setup.html#ci-cd-pipeline-integration">CI/CD Pipeline Integration</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../evaluation/setup.html#next-steps">Next Steps</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">API Reference:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../api/index.html">API Reference</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../api/agentic_rag.html">agentic_rag package</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../api/agentic_rag.html#subpackages">Subpackages</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../api/agentic_rag.tools.html">agentic_rag.tools package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/agentic_rag.crews.html">agentic_rag.crews package</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../api/agentic_rag.tools.html">agentic_rag.tools package</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../api/agentic_rag.tools.html#rag-tool-module">rag_tool module</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../api/agentic_rag.crews.html">agentic_rag.crews package</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../api/agentic_rag.crews.html#subpackages">Subpackages</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../api/agentic_rag.crews.check_crew.html">agentic_rag.crews.check_crew package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/agentic_rag.crews.rag_crew.html">agentic_rag.crews.rag_crew package</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../api/agentic_rag.crews.check_crew.html">agentic_rag.crews.check_crew package</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../api/agentic_rag.crews.check_crew.html#module-agentic_rag.crews.check_crew.check_crew">check_crew module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../api/agentic_rag.crews.check_crew.html#agentic_rag.crews.check_crew.check_crew.Result"><code class="docutils literal notranslate"><span class="pre">Result</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../api/agentic_rag.crews.rag_crew.html">agentic_rag.crews.rag_crew package</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../api/agentic_rag.crews.rag_crew.html#rag-crew-module">rag_crew module</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Deployment:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../deployment/docker.html">Docker Deployment</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../deployment/docker.html#overview">Overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../deployment/docker.html#prerequisites">Prerequisites</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../deployment/docker.html#basic-docker-setup">Basic Docker Setup</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../deployment/docker.html#single-container-deployment">Single Container Deployment</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../deployment/docker.html#build-and-run">Build and Run</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../deployment/docker.html#multi-container-setup">Multi-Container Setup</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../deployment/docker.html#docker-compose-configuration">Docker Compose Configuration</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../deployment/docker.html#environment-configuration">Environment Configuration</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../deployment/docker.html#qdrant-configuration">Qdrant Configuration</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../deployment/docker.html#production-deployment">Production Deployment</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../deployment/docker.html#production-docker-compose">Production Docker Compose</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../deployment/docker.html#production-dockerfile">Production Dockerfile</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../deployment/docker.html#load-balancer-configuration">Load Balancer Configuration</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../deployment/docker.html#monitoring-setup">Monitoring Setup</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../deployment/docker.html#prometheus-configuration">Prometheus Configuration</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../deployment/docker.html#grafana-dashboard">Grafana Dashboard</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../deployment/docker.html#deployment-commands">Deployment Commands</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../deployment/docker.html#development-deployment">Development Deployment</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../deployment/docker.html#id1">Production Deployment</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../deployment/docker.html#data-management">Data Management</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../deployment/docker.html#volume-management">Volume Management</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../deployment/docker.html#document-indexing">Document Indexing</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../deployment/docker.html#troubleshooting">Troubleshooting</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../deployment/docker.html#common-issues">Common Issues</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../deployment/docker.html#debug-commands">Debug Commands</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../deployment/docker.html#scaling-and-performance">Scaling and Performance</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../deployment/docker.html#horizontal-scaling">Horizontal Scaling</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../deployment/docker.html#performance-optimization">Performance Optimization</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../deployment/docker.html#health-checks-and-monitoring">Health Checks and Monitoring</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../deployment/docker.html#security-best-practices">Security Best Practices</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../deployment/docker.html#container-security">Container Security</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../deployment/docker.html#network-security">Network Security</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../deployment/docker.html#next-steps">Next Steps</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../deployment/production.html">Production Deployment</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../deployment/production.html#deployment-overview">Deployment Overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../deployment/production.html#architecture-options">Architecture Options</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../deployment/production.html#single-server-deployment">Single Server Deployment</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../deployment/production.html#multi-server-deployment">Multi-Server Deployment</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../deployment/production.html#cloud-deployment">Cloud Deployment</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../deployment/production.html#docker-deployment">Docker Deployment</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../deployment/production.html#basic-docker-setup">Basic Docker Setup</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../deployment/production.html#multi-service-docker-compose">Multi-Service Docker Compose</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../deployment/production.html#nginx-configuration">Nginx Configuration</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../deployment/production.html#kubernetes-deployment">Kubernetes Deployment</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../deployment/production.html#kubernetes-manifests">Kubernetes Manifests</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../deployment/production.html#helm-chart-deployment">Helm Chart Deployment</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../deployment/production.html#cloud-specific-deployments">Cloud-Specific Deployments</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../deployment/production.html#azure-container-instances">Azure Container Instances</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../deployment/production.html#aws-ecs-deployment">AWS ECS Deployment</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../deployment/production.html#security-best-practices">Security Best Practices</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../deployment/production.html#environment-security">Environment Security</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../deployment/production.html#application-security">Application Security</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../deployment/production.html#monitoring-and-observability">Monitoring and Observability</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../deployment/production.html#application-monitoring">Application Monitoring</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../deployment/production.html#logging-configuration">Logging Configuration</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../deployment/production.html#ci-cd-pipeline">CI/CD Pipeline</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../deployment/production.html#github-actions-workflow">GitHub Actions Workflow</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../deployment/production.html#performance-optimization">Performance Optimization</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../deployment/production.html#application-performance">Application Performance</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../deployment/production.html#database-optimization">Database Optimization</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../deployment/production.html#troubleshooting">Troubleshooting</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../deployment/production.html#common-issues">Common Issues</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../deployment/production.html#monitoring-checklist">Monitoring Checklist</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../deployment/production.html#next-steps">Next Steps</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Examples:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Basic Usage Examples</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#getting-started">Getting Started</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#example-1-simple-query">Example 1: Simple Query</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#example-2-multi-sector-analysis">Example 2: Multi-Sector Analysis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#example-3-web-enhanced-search">Example 3: Web-Enhanced Search</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#example-4-direct-rag-search">Example 4: Direct RAG Search</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#example-5-streaming-interface">Example 5: Streaming Interface</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#example-6-batch-processing">Example 6: Batch Processing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#example-7-custom-tool-integration">Example 7: Custom Tool Integration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#example-8-error-handling">Example 8: Error Handling</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#example-9-performance-monitoring">Example 9: Performance Monitoring</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#example-10-configuration-testing">Example 10: Configuration Testing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#best-practices">Best Practices</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#common-patterns">Common Patterns</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#next-steps">Next Steps</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu"  style="background: #2980B9" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Agentic RAG</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Basic Usage Examples</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/examples/basic_usage.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="basic-usage-examples">
+<h1>Basic Usage Examples<a class="headerlink" href="#basic-usage-examples" title="Link to this heading"></a></h1>
+<p>This guide provides practical examples of using Agentic RAG for different scenarios and use cases.</p>
+<section id="getting-started">
+<h2>Getting Started<a class="headerlink" href="#getting-started" title="Link to this heading"></a></h2>
+<p>Before running examples, ensure you have:</p>
+<ul class="simple">
+<li><p>Completed the <a class="reference internal" href="../installation.html"><span class="doc">Installation Guide</span></a></p></li>
+<li><p>Configured your <cite>.env</cite> file</p></li>
+<li><p>Started Qdrant (local or cloud)</p></li>
+</ul>
+</section>
+<section id="example-1-simple-query">
+<h2>Example 1: Simple Query<a class="headerlink" href="#example-1-simple-query" title="Link to this heading"></a></h2>
+<p><strong>Use Case</strong>: Basic question answering with banking domain</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">agentic_rag.main</span><span class="w"> </span><span class="kn">import</span> <span class="n">RagFlow</span>
+
+<span class="c1"># Initialize the flow</span>
+<span class="n">flow</span> <span class="o">=</span> <span class="n">RagFlow</span><span class="p">()</span>
+
+<span class="c1"># Set question and sector</span>
+<span class="n">flow</span><span class="o">.</span><span class="n">set_question_and_sector</span><span class="p">(</span>
+    <span class="n">question</span><span class="o">=</span><span class="s2">&quot;What is the minimum capital ratio under Basel III?&quot;</span><span class="p">,</span>
+    <span class="n">sector</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;bancario&quot;</span><span class="p">],</span>
+    <span class="n">skip_relevance_check</span><span class="o">=</span><span class="kc">False</span>
+<span class="p">)</span>
+
+<span class="c1"># Execute the flow</span>
+<span class="n">result</span> <span class="o">=</span> <span class="n">flow</span><span class="o">.</span><span class="n">kickoff</span><span class="p">()</span>
+
+<span class="c1"># Display result</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Answer:&quot;</span><span class="p">,</span> <span class="n">result</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;final_answer&#39;</span><span class="p">,</span> <span class="s1">&#39;No answer generated&#39;</span><span class="p">))</span>
+</pre></div>
+</div>
+<p><strong>Expected Output</strong>:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>Answer: Under Basel III regulations, banks are required to maintain
+a minimum capital adequacy ratio of 8%, with additional buffers
+bringing the total requirement to approximately 10.5% in normal
+conditions...
+</pre></div>
+</div>
+</section>
+<section id="example-2-multi-sector-analysis">
+<h2>Example 2: Multi-Sector Analysis<a class="headerlink" href="#example-2-multi-sector-analysis" title="Link to this heading"></a></h2>
+<p><strong>Use Case</strong>: Comparing regulations across different sectors</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">agentic_rag.main</span><span class="w"> </span><span class="kn">import</span> <span class="n">RagFlow</span>
+
+<span class="c1"># Initialize flow</span>
+<span class="n">flow</span> <span class="o">=</span> <span class="n">RagFlow</span><span class="p">()</span>
+
+<span class="c1"># Multi-sector query</span>
+<span class="n">flow</span><span class="o">.</span><span class="n">set_question_and_sector</span><span class="p">(</span>
+    <span class="n">question</span><span class="o">=</span><span class="s2">&quot;Compare environmental regulations in banking vs energy sector&quot;</span><span class="p">,</span>
+    <span class="n">sector</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;bancario&quot;</span><span class="p">,</span> <span class="s2">&quot;energia&quot;</span><span class="p">],</span>
+    <span class="n">skip_relevance_check</span><span class="o">=</span><span class="kc">False</span>
+<span class="p">)</span>
+
+<span class="c1"># Execute</span>
+<span class="n">result</span> <span class="o">=</span> <span class="n">flow</span><span class="o">.</span><span class="n">kickoff</span><span class="p">()</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Comparative Analysis:&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;final_answer&#39;</span><span class="p">,</span> <span class="s1">&#39;Analysis not available&#39;</span><span class="p">))</span>
+</pre></div>
+</div>
+<p><strong>Expected Behavior</strong>:</p>
+<ol class="arabic simple">
+<li><p><strong>Check Crew</strong> analyzes the comparative nature of the query</p></li>
+<li><p><strong>RAG Tool</strong> searches both banking and energy collections</p></li>
+<li><p><strong>Synthesis Crew</strong> creates a comparative analysis</p></li>
+<li><p>Returns structured comparison of environmental regulations</p></li>
+</ol>
+</section>
+<section id="example-3-web-enhanced-search">
+<h2>Example 3: Web-Enhanced Search<a class="headerlink" href="#example-3-web-enhanced-search" title="Link to this heading"></a></h2>
+<p><strong>Use Case</strong>: Recent information that may not be in the knowledge base</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">agentic_rag.main</span><span class="w"> </span><span class="kn">import</span> <span class="n">RagFlow</span>
+
+<span class="c1"># Initialize flow</span>
+<span class="n">flow</span> <span class="o">=</span> <span class="n">RagFlow</span><span class="p">()</span>
+
+<span class="c1"># Query about recent developments</span>
+<span class="n">flow</span><span class="o">.</span><span class="n">set_question_and_sector</span><span class="p">(</span>
+    <span class="n">question</span><span class="o">=</span><span class="s2">&quot;What are the latest updates to ESG reporting requirements in 2024?&quot;</span><span class="p">,</span>
+    <span class="n">sector</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;bancario&quot;</span><span class="p">,</span> <span class="s2">&quot;energia&quot;</span><span class="p">],</span>
+    <span class="n">skip_relevance_check</span><span class="o">=</span><span class="kc">False</span>
+<span class="p">)</span>
+
+<span class="c1"># Execute - this will likely trigger web search</span>
+<span class="n">result</span> <span class="o">=</span> <span class="n">flow</span><span class="o">.</span><span class="n">kickoff</span><span class="p">()</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Latest Information:&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;final_answer&#39;</span><span class="p">,</span> <span class="s1">&#39;Information not available&#39;</span><span class="p">))</span>
+</pre></div>
+</div>
+<p><strong>Expected Flow</strong>:</p>
+<ol class="arabic simple">
+<li><p><strong>Check Crew</strong> determines query needs recent information</p></li>
+<li><p><strong>Web Search Crew</strong> activated to find latest updates</p></li>
+<li><p><strong>RAG Tool</strong> provides foundational knowledge</p></li>
+<li><p><strong>Synthesis Crew</strong> combines local and web information</p></li>
+</ol>
+</section>
+<section id="example-4-direct-rag-search">
+<h2>Example 4: Direct RAG Search<a class="headerlink" href="#example-4-direct-rag-search" title="Link to this heading"></a></h2>
+<p><strong>Use Case</strong>: Skip relevance checking for known relevant queries</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">agentic_rag.main</span><span class="w"> </span><span class="kn">import</span> <span class="n">RagFlow</span>
+
+<span class="c1"># For known relevant queries, skip the check step</span>
+<span class="n">flow</span> <span class="o">=</span> <span class="n">RagFlow</span><span class="p">()</span>
+
+<span class="n">flow</span><span class="o">.</span><span class="n">set_question_and_sector</span><span class="p">(</span>
+    <span class="n">question</span><span class="o">=</span><span class="s2">&quot;Explain the liquidity coverage ratio in Basel III&quot;</span><span class="p">,</span>
+    <span class="n">sector</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;bancario&quot;</span><span class="p">],</span>
+    <span class="n">skip_relevance_check</span><span class="o">=</span><span class="kc">True</span>  <span class="c1"># Skip directly to RAG</span>
+<span class="p">)</span>
+
+<span class="n">result</span> <span class="o">=</span> <span class="n">flow</span><span class="o">.</span><span class="n">kickoff</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Direct RAG Answer:&quot;</span><span class="p">,</span> <span class="n">result</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;final_answer&#39;</span><span class="p">))</span>
+</pre></div>
+</div>
+<p><strong>Benefits</strong>:
+- Faster response time
+- Reduced API calls
+- More predictable behavior</p>
+</section>
+<section id="example-5-streaming-interface">
+<h2>Example 5: Streaming Interface<a class="headerlink" href="#example-5-streaming-interface" title="Link to this heading"></a></h2>
+<p><strong>Use Case</strong>: Real-time question answering with Streamlit</p>
+<p><strong>Run the Streamlit App</strong>:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>streamlit<span class="w"> </span>run<span class="w"> </span>streamlit_app.py
+</pre></div>
+</div>
+<p><strong>Interactive Usage</strong>:</p>
+<ol class="arabic simple">
+<li><p><strong>Open Browser</strong>: Navigate to <cite>http://localhost:8501</cite></p></li>
+<li><p><strong>Enter Question</strong>: “What are the key components of Solvency II?”</p></li>
+<li><p><strong>Select Sector</strong>: Choose “Banking” or “All Sectors”</p></li>
+<li><p><strong>Advanced Options</strong>: Configure search parameters</p></li>
+<li><p><strong>Submit</strong>: Get real-time response</p></li>
+</ol>
+<p><strong>Streamlit Code Example</strong>:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">streamlit</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">st</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">agentic_rag.main</span><span class="w"> </span><span class="kn">import</span> <span class="n">RagFlow</span>
+
+<span class="n">st</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Agentic RAG Query Interface&quot;</span><span class="p">)</span>
+
+<span class="c1"># User inputs</span>
+<span class="n">question</span> <span class="o">=</span> <span class="n">st</span><span class="o">.</span><span class="n">text_area</span><span class="p">(</span><span class="s2">&quot;Enter your question:&quot;</span><span class="p">)</span>
+<span class="n">sector</span> <span class="o">=</span> <span class="n">st</span><span class="o">.</span><span class="n">selectbox</span><span class="p">(</span><span class="s2">&quot;Select sector:&quot;</span><span class="p">,</span> <span class="p">[</span><span class="s2">&quot;bancario&quot;</span><span class="p">,</span> <span class="s2">&quot;energia&quot;</span><span class="p">,</span> <span class="s2">&quot;all&quot;</span><span class="p">])</span>
+<span class="n">skip_check</span> <span class="o">=</span> <span class="n">st</span><span class="o">.</span><span class="n">checkbox</span><span class="p">(</span><span class="s2">&quot;Skip relevance check&quot;</span><span class="p">)</span>
+
+<span class="k">if</span> <span class="n">st</span><span class="o">.</span><span class="n">button</span><span class="p">(</span><span class="s2">&quot;Submit Query&quot;</span><span class="p">):</span>
+    <span class="k">with</span> <span class="n">st</span><span class="o">.</span><span class="n">spinner</span><span class="p">(</span><span class="s2">&quot;Processing...&quot;</span><span class="p">):</span>
+        <span class="n">flow</span> <span class="o">=</span> <span class="n">RagFlow</span><span class="p">()</span>
+        <span class="n">flow</span><span class="o">.</span><span class="n">set_question_and_sector</span><span class="p">(</span>
+            <span class="n">question</span><span class="o">=</span><span class="n">question</span><span class="p">,</span>
+            <span class="n">sector</span><span class="o">=</span><span class="p">[</span><span class="n">sector</span><span class="p">]</span> <span class="k">if</span> <span class="n">sector</span> <span class="o">!=</span> <span class="s2">&quot;all&quot;</span> <span class="k">else</span> <span class="p">[</span><span class="s2">&quot;bancario&quot;</span><span class="p">,</span> <span class="s2">&quot;energia&quot;</span><span class="p">],</span>
+            <span class="n">skip_relevance_check</span><span class="o">=</span><span class="n">skip_check</span>
+        <span class="p">)</span>
+
+        <span class="n">result</span> <span class="o">=</span> <span class="n">flow</span><span class="o">.</span><span class="n">kickoff</span><span class="p">()</span>
+
+        <span class="n">st</span><span class="o">.</span><span class="n">success</span><span class="p">(</span><span class="s2">&quot;Query completed!&quot;</span><span class="p">)</span>
+        <span class="n">st</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;**Answer:**&quot;</span><span class="p">)</span>
+        <span class="n">st</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;final_answer&#39;</span><span class="p">,</span> <span class="s1">&#39;No answer generated&#39;</span><span class="p">))</span>
+</pre></div>
+</div>
+</section>
+<section id="example-6-batch-processing">
+<h2>Example 6: Batch Processing<a class="headerlink" href="#example-6-batch-processing" title="Link to this heading"></a></h2>
+<p><strong>Use Case</strong>: Processing multiple queries efficiently</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">asyncio</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">agentic_rag.main</span><span class="w"> </span><span class="kn">import</span> <span class="n">RagFlow</span>
+
+<span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">process_batch_queries</span><span class="p">():</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Process multiple queries in batch&quot;&quot;&quot;</span>
+
+    <span class="n">queries</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="p">{</span>
+            <span class="s2">&quot;question&quot;</span><span class="p">:</span> <span class="s2">&quot;What is operational risk in banking?&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;sector&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;bancario&quot;</span><span class="p">]</span>
+        <span class="p">},</span>
+        <span class="p">{</span>
+            <span class="s2">&quot;question&quot;</span><span class="p">:</span> <span class="s2">&quot;How do smart grids work in energy distribution?&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;sector&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;energia&quot;</span><span class="p">]</span>
+        <span class="p">},</span>
+        <span class="p">{</span>
+            <span class="s2">&quot;question&quot;</span><span class="p">:</span> <span class="s2">&quot;Compare risk management frameworks&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;sector&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;bancario&quot;</span><span class="p">,</span> <span class="s2">&quot;energia&quot;</span><span class="p">]</span>
+        <span class="p">}</span>
+    <span class="p">]</span>
+
+    <span class="n">results</span> <span class="o">=</span> <span class="p">[]</span>
+
+    <span class="k">for</span> <span class="n">query</span> <span class="ow">in</span> <span class="n">queries</span><span class="p">:</span>
+        <span class="n">flow</span> <span class="o">=</span> <span class="n">RagFlow</span><span class="p">()</span>
+        <span class="n">flow</span><span class="o">.</span><span class="n">set_question_and_sector</span><span class="p">(</span>
+            <span class="n">question</span><span class="o">=</span><span class="n">query</span><span class="p">[</span><span class="s2">&quot;question&quot;</span><span class="p">],</span>
+            <span class="n">sector</span><span class="o">=</span><span class="n">query</span><span class="p">[</span><span class="s2">&quot;sector&quot;</span><span class="p">],</span>
+            <span class="n">skip_relevance_check</span><span class="o">=</span><span class="kc">False</span>
+        <span class="p">)</span>
+
+        <span class="n">result</span> <span class="o">=</span> <span class="n">flow</span><span class="o">.</span><span class="n">kickoff</span><span class="p">()</span>
+        <span class="n">results</span><span class="o">.</span><span class="n">append</span><span class="p">({</span>
+            <span class="s2">&quot;question&quot;</span><span class="p">:</span> <span class="n">query</span><span class="p">[</span><span class="s2">&quot;question&quot;</span><span class="p">],</span>
+            <span class="s2">&quot;answer&quot;</span><span class="p">:</span> <span class="n">result</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;final_answer&#39;</span><span class="p">),</span>
+            <span class="s2">&quot;sector&quot;</span><span class="p">:</span> <span class="n">query</span><span class="p">[</span><span class="s2">&quot;sector&quot;</span><span class="p">]</span>
+        <span class="p">})</span>
+
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Processed: </span><span class="si">{</span><span class="n">query</span><span class="p">[</span><span class="s1">&#39;question&#39;</span><span class="p">][:</span><span class="mi">50</span><span class="p">]</span><span class="si">}</span><span class="s2">...&quot;</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">results</span>
+
+<span class="c1"># Run batch processing</span>
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="n">results</span> <span class="o">=</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">process_batch_queries</span><span class="p">())</span>
+
+    <span class="c1"># Display results</span>
+    <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">result</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">results</span><span class="p">,</span> <span class="mi">1</span><span class="p">):</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">--- Query </span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2"> ---&quot;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Q: </span><span class="si">{</span><span class="n">result</span><span class="p">[</span><span class="s1">&#39;question&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;A: </span><span class="si">{</span><span class="n">result</span><span class="p">[</span><span class="s1">&#39;answer&#39;</span><span class="p">][:</span><span class="mi">200</span><span class="p">]</span><span class="si">}</span><span class="s2">...&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="example-7-custom-tool-integration">
+<h2>Example 7: Custom Tool Integration<a class="headerlink" href="#example-7-custom-tool-integration" title="Link to this heading"></a></h2>
+<p><strong>Use Case</strong>: Adding custom tools to the RAG workflow</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">crewai.tools</span><span class="w"> </span><span class="kn">import</span> <span class="n">tool</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">agentic_rag.main</span><span class="w"> </span><span class="kn">import</span> <span class="n">RagFlow</span>
+
+<span class="nd">@tool</span><span class="p">(</span><span class="s2">&quot;calculate_financial_ratio&quot;</span><span class="p">)</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">calculate_ratio</span><span class="p">(</span><span class="n">numerator</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">denominator</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Calculate financial ratios for analysis&quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">denominator</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="k">return</span> <span class="mi">0</span>
+    <span class="k">return</span> <span class="nb">round</span><span class="p">(</span><span class="n">numerator</span> <span class="o">/</span> <span class="n">denominator</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span>
+
+<span class="c1"># Custom crew with additional tools</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">agentic_rag.crews.synthesis_crew.synthesis_crew</span><span class="w"> </span><span class="kn">import</span> <span class="n">SynthesisCrew</span>
+
+<span class="k">class</span><span class="w"> </span><span class="nc">CustomSynthesisCrew</span><span class="p">(</span><span class="n">SynthesisCrew</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+        <span class="c1"># Add custom tools to agents</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">synthesis_agent</span><span class="o">.</span><span class="n">tools</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">calculate_ratio</span><span class="p">)</span>
+
+<span class="c1"># Use custom crew in flow</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">CustomRagFlow</span><span class="p">(</span><span class="n">RagFlow</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+        <span class="c1"># Override with custom crew</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">synthesis_crew</span> <span class="o">=</span> <span class="n">CustomSynthesisCrew</span><span class="p">()</span>
+
+<span class="c1"># Usage</span>
+<span class="n">flow</span> <span class="o">=</span> <span class="n">CustomRagFlow</span><span class="p">()</span>
+<span class="n">flow</span><span class="o">.</span><span class="n">set_question_and_sector</span><span class="p">(</span>
+    <span class="n">question</span><span class="o">=</span><span class="s2">&quot;Calculate the capital adequacy ratio if Tier 1 capital is 120 million and risk-weighted assets are 1 billion&quot;</span><span class="p">,</span>
+    <span class="n">sector</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;bancario&quot;</span><span class="p">]</span>
+<span class="p">)</span>
+
+<span class="n">result</span> <span class="o">=</span> <span class="n">flow</span><span class="o">.</span><span class="n">kickoff</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;final_answer&#39;</span><span class="p">))</span>
+</pre></div>
+</div>
+</section>
+<section id="example-8-error-handling">
+<h2>Example 8: Error Handling<a class="headerlink" href="#example-8-error-handling" title="Link to this heading"></a></h2>
+<p><strong>Use Case</strong>: Robust error handling in production</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">agentic_rag.main</span><span class="w"> </span><span class="kn">import</span> <span class="n">RagFlow</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">logging</span>
+
+<span class="c1"># Configure logging</span>
+<span class="n">logging</span><span class="o">.</span><span class="n">basicConfig</span><span class="p">(</span><span class="n">level</span><span class="o">=</span><span class="n">logging</span><span class="o">.</span><span class="n">INFO</span><span class="p">)</span>
+<span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">robust_query_processing</span><span class="p">(</span><span class="n">question</span><span class="p">,</span> <span class="n">sector</span><span class="p">,</span> <span class="n">max_retries</span><span class="o">=</span><span class="mi">3</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Process query with error handling and retries&quot;&quot;&quot;</span>
+
+    <span class="k">for</span> <span class="n">attempt</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">max_retries</span><span class="p">):</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">flow</span> <span class="o">=</span> <span class="n">RagFlow</span><span class="p">()</span>
+            <span class="n">flow</span><span class="o">.</span><span class="n">set_question_and_sector</span><span class="p">(</span>
+                <span class="n">question</span><span class="o">=</span><span class="n">question</span><span class="p">,</span>
+                <span class="n">sector</span><span class="o">=</span><span class="n">sector</span><span class="p">,</span>
+                <span class="n">skip_relevance_check</span><span class="o">=</span><span class="kc">False</span>
+            <span class="p">)</span>
+
+            <span class="n">result</span> <span class="o">=</span> <span class="n">flow</span><span class="o">.</span><span class="n">kickoff</span><span class="p">()</span>
+
+            <span class="k">if</span> <span class="n">result</span> <span class="ow">and</span> <span class="n">result</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;final_answer&#39;</span><span class="p">):</span>
+                <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Query successful on attempt </span><span class="si">{</span><span class="n">attempt</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+                <span class="k">return</span> <span class="n">result</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Empty result on attempt </span><span class="si">{</span><span class="n">attempt</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Attempt </span><span class="si">{</span><span class="n">attempt</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="si">}</span><span class="s2"> failed: </span><span class="si">{</span><span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+            <span class="k">if</span> <span class="n">attempt</span> <span class="o">==</span> <span class="n">max_retries</span> <span class="o">-</span> <span class="mi">1</span><span class="p">:</span>
+                <span class="c1"># Last attempt failed</span>
+                <span class="k">return</span> <span class="p">{</span>
+                    <span class="s2">&quot;final_answer&quot;</span><span class="p">:</span> <span class="sa">f</span><span class="s2">&quot;Sorry, I couldn&#39;t process your query after </span><span class="si">{</span><span class="n">max_retries</span><span class="si">}</span><span class="s2"> attempts. Please try again later.&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;error&quot;</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
+                <span class="p">}</span>
+
+            <span class="c1"># Wait before retry</span>
+            <span class="kn">import</span><span class="w"> </span><span class="nn">time</span>
+            <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">2</span> <span class="o">**</span> <span class="n">attempt</span><span class="p">)</span>  <span class="c1"># Exponential backoff</span>
+
+    <span class="k">return</span> <span class="kc">None</span>
+
+<span class="c1"># Usage</span>
+<span class="n">result</span> <span class="o">=</span> <span class="n">robust_query_processing</span><span class="p">(</span>
+    <span class="n">question</span><span class="o">=</span><span class="s2">&quot;What are the main components of Basel III?&quot;</span><span class="p">,</span>
+    <span class="n">sector</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;bancario&quot;</span><span class="p">]</span>
+<span class="p">)</span>
+
+<span class="k">if</span> <span class="n">result</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Answer:&quot;</span><span class="p">,</span> <span class="n">result</span><span class="p">[</span><span class="s1">&#39;final_answer&#39;</span><span class="p">])</span>
+    <span class="k">if</span> <span class="s1">&#39;error&#39;</span> <span class="ow">in</span> <span class="n">result</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Error occurred:&quot;</span><span class="p">,</span> <span class="n">result</span><span class="p">[</span><span class="s1">&#39;error&#39;</span><span class="p">])</span>
+</pre></div>
+</div>
+</section>
+<section id="example-9-performance-monitoring">
+<h2>Example 9: Performance Monitoring<a class="headerlink" href="#example-9-performance-monitoring" title="Link to this heading"></a></h2>
+<p><strong>Use Case</strong>: Monitoring query performance and success rates</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">time</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">agentic_rag.main</span><span class="w"> </span><span class="kn">import</span> <span class="n">RagFlow</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">opik</span>
+
+<span class="c1"># Configure Opik for monitoring</span>
+<span class="n">opik</span><span class="o">.</span><span class="n">configure</span><span class="p">(</span><span class="n">use_local</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="nd">@opik</span><span class="o">.</span><span class="n">track</span><span class="p">(</span><span class="n">project_name</span><span class="o">=</span><span class="s2">&quot;rag_performance_monitoring&quot;</span><span class="p">)</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">monitored_query</span><span class="p">(</span><span class="n">question</span><span class="p">,</span> <span class="n">sector</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Query with performance monitoring&quot;&quot;&quot;</span>
+
+    <span class="n">start_time</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">flow</span> <span class="o">=</span> <span class="n">RagFlow</span><span class="p">()</span>
+        <span class="n">flow</span><span class="o">.</span><span class="n">set_question_and_sector</span><span class="p">(</span>
+            <span class="n">question</span><span class="o">=</span><span class="n">question</span><span class="p">,</span>
+            <span class="n">sector</span><span class="o">=</span><span class="n">sector</span><span class="p">,</span>
+            <span class="n">skip_relevance_check</span><span class="o">=</span><span class="kc">False</span>
+        <span class="p">)</span>
+
+        <span class="n">result</span> <span class="o">=</span> <span class="n">flow</span><span class="o">.</span><span class="n">kickoff</span><span class="p">()</span>
+
+        <span class="c1"># Log metrics</span>
+        <span class="n">processing_time</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span> <span class="o">-</span> <span class="n">start_time</span>
+        <span class="n">success</span> <span class="o">=</span> <span class="nb">bool</span><span class="p">(</span><span class="n">result</span> <span class="ow">and</span> <span class="n">result</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;final_answer&#39;</span><span class="p">))</span>
+
+        <span class="c1"># Track with Opik</span>
+        <span class="n">opik</span><span class="o">.</span><span class="n">log_metric</span><span class="p">(</span><span class="s2">&quot;processing_time&quot;</span><span class="p">,</span> <span class="n">processing_time</span><span class="p">)</span>
+        <span class="n">opik</span><span class="o">.</span><span class="n">log_metric</span><span class="p">(</span><span class="s2">&quot;success&quot;</span><span class="p">,</span> <span class="n">success</span><span class="p">)</span>
+        <span class="n">opik</span><span class="o">.</span><span class="n">log_metric</span><span class="p">(</span><span class="s2">&quot;sector_count&quot;</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">sector</span><span class="p">))</span>
+
+        <span class="k">return</span> <span class="p">{</span>
+            <span class="s2">&quot;answer&quot;</span><span class="p">:</span> <span class="n">result</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;final_answer&#39;</span><span class="p">)</span> <span class="k">if</span> <span class="n">success</span> <span class="k">else</span> <span class="kc">None</span><span class="p">,</span>
+            <span class="s2">&quot;processing_time&quot;</span><span class="p">:</span> <span class="n">processing_time</span><span class="p">,</span>
+            <span class="s2">&quot;success&quot;</span><span class="p">:</span> <span class="n">success</span>
+        <span class="p">}</span>
+
+    <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+        <span class="n">processing_time</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span> <span class="o">-</span> <span class="n">start_time</span>
+        <span class="n">opik</span><span class="o">.</span><span class="n">log_metric</span><span class="p">(</span><span class="s2">&quot;processing_time&quot;</span><span class="p">,</span> <span class="n">processing_time</span><span class="p">)</span>
+        <span class="n">opik</span><span class="o">.</span><span class="n">log_metric</span><span class="p">(</span><span class="s2">&quot;success&quot;</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>
+        <span class="n">opik</span><span class="o">.</span><span class="n">log_metric</span><span class="p">(</span><span class="s2">&quot;error&quot;</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">))</span>
+
+        <span class="k">return</span> <span class="p">{</span>
+            <span class="s2">&quot;answer&quot;</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span>
+            <span class="s2">&quot;processing_time&quot;</span><span class="p">:</span> <span class="n">processing_time</span><span class="p">,</span>
+            <span class="s2">&quot;success&quot;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
+            <span class="s2">&quot;error&quot;</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
+        <span class="p">}</span>
+
+<span class="c1"># Usage with monitoring</span>
+<span class="n">result</span> <span class="o">=</span> <span class="n">monitored_query</span><span class="p">(</span>
+    <span class="n">question</span><span class="o">=</span><span class="s2">&quot;Explain credit risk management in banking&quot;</span><span class="p">,</span>
+    <span class="n">sector</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;bancario&quot;</span><span class="p">]</span>
+<span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Success: </span><span class="si">{</span><span class="n">result</span><span class="p">[</span><span class="s1">&#39;success&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Time: </span><span class="si">{</span><span class="n">result</span><span class="p">[</span><span class="s1">&#39;processing_time&#39;</span><span class="p">]</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">s&quot;</span><span class="p">)</span>
+<span class="k">if</span> <span class="n">result</span><span class="p">[</span><span class="s1">&#39;success&#39;</span><span class="p">]:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Answer: </span><span class="si">{</span><span class="n">result</span><span class="p">[</span><span class="s1">&#39;answer&#39;</span><span class="p">][:</span><span class="mi">100</span><span class="p">]</span><span class="si">}</span><span class="s2">...&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="example-10-configuration-testing">
+<h2>Example 10: Configuration Testing<a class="headerlink" href="#example-10-configuration-testing" title="Link to this heading"></a></h2>
+<p><strong>Use Case</strong>: Testing different configuration parameters</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">agentic_rag.main</span><span class="w"> </span><span class="kn">import</span> <span class="n">RagFlow</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">test_configuration_impact</span><span class="p">():</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Test different configurations and compare results&quot;&quot;&quot;</span>
+
+    <span class="n">test_question</span> <span class="o">=</span> <span class="s2">&quot;What are the main requirements of Basel III?&quot;</span>
+    <span class="n">sector</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;bancario&quot;</span><span class="p">]</span>
+
+    <span class="n">configurations</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="p">{</span><span class="s2">&quot;skip_relevance_check&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span> <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;Direct RAG&quot;</span><span class="p">},</span>
+        <span class="p">{</span><span class="s2">&quot;skip_relevance_check&quot;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span> <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;Full Flow&quot;</span><span class="p">},</span>
+    <span class="p">]</span>
+
+    <span class="n">results</span> <span class="o">=</span> <span class="p">{}</span>
+
+    <span class="k">for</span> <span class="n">config</span> <span class="ow">in</span> <span class="n">configurations</span><span class="p">:</span>
+        <span class="n">start_time</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+
+        <span class="n">flow</span> <span class="o">=</span> <span class="n">RagFlow</span><span class="p">()</span>
+        <span class="n">flow</span><span class="o">.</span><span class="n">set_question_and_sector</span><span class="p">(</span>
+            <span class="n">question</span><span class="o">=</span><span class="n">test_question</span><span class="p">,</span>
+            <span class="n">sector</span><span class="o">=</span><span class="n">sector</span><span class="p">,</span>
+            <span class="n">skip_relevance_check</span><span class="o">=</span><span class="n">config</span><span class="p">[</span><span class="s2">&quot;skip_relevance_check&quot;</span><span class="p">]</span>
+        <span class="p">)</span>
+
+        <span class="n">result</span> <span class="o">=</span> <span class="n">flow</span><span class="o">.</span><span class="n">kickoff</span><span class="p">()</span>
+        <span class="n">processing_time</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span> <span class="o">-</span> <span class="n">start_time</span>
+
+        <span class="n">results</span><span class="p">[</span><span class="n">config</span><span class="p">[</span><span class="s2">&quot;name&quot;</span><span class="p">]]</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s2">&quot;answer&quot;</span><span class="p">:</span> <span class="n">result</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;final_answer&#39;</span><span class="p">),</span>
+            <span class="s2">&quot;time&quot;</span><span class="p">:</span> <span class="n">processing_time</span><span class="p">,</span>
+            <span class="s2">&quot;config&quot;</span><span class="p">:</span> <span class="n">config</span>
+        <span class="p">}</span>
+
+    <span class="c1"># Compare results</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Configuration Comparison:&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;=&quot;</span> <span class="o">*</span> <span class="mi">50</span><span class="p">)</span>
+
+    <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">data</span> <span class="ow">in</span> <span class="n">results</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2">:&quot;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Time: </span><span class="si">{</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;time&#39;</span><span class="p">]</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">s&quot;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Answer Length: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;answer&#39;</span><span class="p">])</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;answer&#39;</span><span class="p">]</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="mi">0</span><span class="si">}</span><span class="s2"> chars&quot;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Answer Preview: </span><span class="si">{</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;answer&#39;</span><span class="p">][:</span><span class="mi">100</span><span class="p">]</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;answer&#39;</span><span class="p">]</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="s1">&#39;No answer&#39;</span><span class="si">}</span><span class="s2">...&quot;</span><span class="p">)</span>
+
+<span class="c1"># Run configuration test</span>
+<span class="n">test_configuration_impact</span><span class="p">()</span>
+</pre></div>
+</div>
+</section>
+<section id="best-practices">
+<h2>Best Practices<a class="headerlink" href="#best-practices" title="Link to this heading"></a></h2>
+<dl class="simple">
+<dt><strong>1. Question Formulation</strong></dt><dd><ul class="simple">
+<li><p>Be specific and clear in your questions</p></li>
+<li><p>Include relevant domain context</p></li>
+<li><p>Avoid overly broad or ambiguous queries</p></li>
+</ul>
+</dd>
+<dt><strong>2. Sector Selection</strong></dt><dd><ul class="simple">
+<li><p>Choose specific sectors when possible</p></li>
+<li><p>Use multiple sectors for comparative analysis</p></li>
+<li><p>Consider “all” sectors only for general queries</p></li>
+</ul>
+</dd>
+<dt><strong>3. Performance Optimization</strong></dt><dd><ul class="simple">
+<li><p>Use <cite>skip_relevance_check=True</cite> for known relevant queries</p></li>
+<li><p>Cache frequently asked questions</p></li>
+<li><p>Monitor and log query performance</p></li>
+</ul>
+</dd>
+<dt><strong>4. Error Handling</strong></dt><dd><ul class="simple">
+<li><p>Implement retry mechanisms for critical applications</p></li>
+<li><p>Log errors for debugging and improvement</p></li>
+<li><p>Provide meaningful fallback responses</p></li>
+</ul>
+</dd>
+<dt><strong>5. Monitoring</strong></dt><dd><ul class="simple">
+<li><p>Track query success rates</p></li>
+<li><p>Monitor response times</p></li>
+<li><p>Analyze query patterns for optimization</p></li>
+</ul>
+</dd>
+</dl>
+</section>
+<section id="common-patterns">
+<h2>Common Patterns<a class="headerlink" href="#common-patterns" title="Link to this heading"></a></h2>
+<p><strong>Research Pattern</strong>:
+.. code-block:: python</p>
+<blockquote>
+<div><p># Deep research on a specific topic
+flow.set_question_and_sector(</p>
+<blockquote>
+<div><p>question=”Comprehensive analysis of [topic]”,
+sector=[“relevant_sector”],
+skip_relevance_check=False</p>
+</div></blockquote>
+<p>)</p>
+</div></blockquote>
+<p><strong>Comparison Pattern</strong>:
+.. code-block:: python</p>
+<blockquote>
+<div><p># Compare across sectors or topics
+flow.set_question_and_sector(</p>
+<blockquote>
+<div><p>question=”Compare [topic A] vs [topic B]”,
+sector=[“sector1”, “sector2”],
+skip_relevance_check=False</p>
+</div></blockquote>
+<p>)</p>
+</div></blockquote>
+<p><strong>Quick Lookup Pattern</strong>:
+.. code-block:: python</p>
+<blockquote>
+<div><p># Fast factual lookup
+flow.set_question_and_sector(</p>
+<blockquote>
+<div><p>question=”What is [specific term]?”,
+sector=[“known_sector”],
+skip_relevance_check=True</p>
+</div></blockquote>
+<p>)</p>
+</div></blockquote>
+</section>
+<section id="next-steps">
+<h2>Next Steps<a class="headerlink" href="#next-steps" title="Link to this heading"></a></h2>
+<p>After exploring these examples:</p>
+<ol class="arabic simple">
+<li><p><strong>Try Custom Crews</strong>: <span class="xref std std-doc">custom_crews</span> - Build specialized agent teams</p></li>
+<li><p><strong>Evaluation Examples</strong>: <span class="xref std std-doc">evaluation</span> - Test your implementations</p></li>
+<li><p><strong>Production Deployment</strong>: <a class="reference internal" href="../deployment/production.html"><span class="doc">Production Deployment</span></a> - Scale your system</p></li>
+<li><p><strong>Advanced Configuration</strong>: <a class="reference internal" href="../configuration.html"><span class="doc">Configuration Guide</span></a> - Fine-tune performance</p></li>
+</ol>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="../deployment/production.html" class="btn btn-neutral float-left" title="Production Deployment" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, Luca Battaglione.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

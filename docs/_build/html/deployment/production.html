@@ -1,0 +1,1357 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Production Deployment &mdash; Agentic RAG 0.1.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=e59714d7" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=01f34227"></script>
+      <script src="../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Basic Usage Examples" href="../examples/basic_usage.html" />
+    <link rel="prev" title="Docker Deployment" href="docker.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search"  style="background: #2980B9" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            Agentic RAG
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">User Guide:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation Guide</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../installation.html#system-requirements">System Requirements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../installation.html#prerequisites">Prerequisites</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../installation.html#installing-uv">Installing UV</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../installation.html#quick-installation">Quick Installation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../installation.html#development-installation">Development Installation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../installation.html#setting-up-qdrant">Setting Up Qdrant</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../installation.html#azure-openai-setup">Azure OpenAI Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../installation.html#troubleshooting">Troubleshooting</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../installation.html#verification">Verification</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../installation.html#next-steps">Next Steps</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../quickstart.html">Quick Start Guide</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../quickstart.html#prerequisites">Prerequisites</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../quickstart.html#basic-usage">Basic Usage</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../quickstart.html#first-query-example">First Query Example</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../quickstart.html#understanding-the-flow">Understanding the Flow</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../quickstart.html#configuration-tips">Configuration Tips</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../quickstart.html#common-use-cases">Common Use Cases</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../quickstart.html#performance-optimization">Performance Optimization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../quickstart.html#troubleshooting-quick-issues">Troubleshooting Quick Issues</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../quickstart.html#next-steps">Next Steps</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../quickstart.html#need-help">Need Help?</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../configuration.html">Configuration Guide</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../configuration.html#environment-variables">Environment Variables</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../configuration.html#azure-openai-configuration">Azure OpenAI Configuration</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../configuration.html#qdrant-configuration">Qdrant Configuration</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../configuration.html#web-search-configuration">Web Search Configuration</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../configuration.html#monitoring-and-logging">Monitoring and Logging</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../configuration.html#crew-configuration">Crew Configuration</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../configuration.html#check-crew-configuration">Check Crew Configuration</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../configuration.html#web-search-crew-configuration">Web Search Crew Configuration</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../configuration.html#synthesis-crew-configuration">Synthesis Crew Configuration</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../configuration.html#rag-tool-configuration">RAG Tool Configuration</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../configuration.html#vector-search-parameters">Vector Search Parameters</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../configuration.html#document-processing-configuration">Document Processing Configuration</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../configuration.html#streamlit-interface-configuration">Streamlit Interface Configuration</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../configuration.html#ui-configuration">UI Configuration</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../configuration.html#ragas-evaluation-configuration">RAGAS Evaluation Configuration</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../configuration.html#evaluation-metrics">Evaluation Metrics</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../configuration.html#dataset-configuration">Dataset Configuration</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../configuration.html#advanced-configuration">Advanced Configuration</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../configuration.html#performance-tuning">Performance Tuning</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../configuration.html#security-configuration">Security Configuration</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../configuration.html#development-configuration">Development Configuration</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../configuration.html#configuration-validation">Configuration Validation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../configuration.html#environment-specific-configurations">Environment-Specific Configurations</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../configuration.html#development-environment">Development Environment</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../configuration.html#production-environment">Production Environment</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../configuration.html#testing-environment">Testing Environment</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../configuration.html#configuration-best-practices">Configuration Best Practices</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../configuration.html#next-steps">Next Steps</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../usage.html">Getting started</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../usage.html#installation">Installation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../usage.html#build-the-faiss-index-and-run-the-flow">Build the FAISS index and run the flow</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../usage.html#generate-docs">Generate docs</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Architecture:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../architecture/overview.html">Architecture Overview</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../architecture/overview.html#system-architecture">System Architecture</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../architecture/overview.html#core-components">Core Components</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../architecture/overview.html#data-flow-architecture">Data Flow Architecture</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../architecture/overview.html#component-interactions">Component Interactions</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../architecture/overview.html#agent-communication">Agent Communication</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../architecture/overview.html#tool-integration">Tool Integration</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../architecture/overview.html#state-management">State Management</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../architecture/overview.html#scalability-design">Scalability Design</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../architecture/overview.html#horizontal-scaling">Horizontal Scaling</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../architecture/overview.html#vertical-scaling">Vertical Scaling</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../architecture/overview.html#performance-characteristics">Performance Characteristics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../architecture/overview.html#security-architecture">Security Architecture</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../architecture/overview.html#monitoring-and-observability">Monitoring and Observability</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../architecture/overview.html#deployment-architecture">Deployment Architecture</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../architecture/overview.html#extensibility-points">Extensibility Points</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../architecture/overview.html#technology-stack">Technology Stack</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../architecture/overview.html#next-steps">Next Steps</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../architecture/crews.html">Agent Crews Architecture</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../architecture/crews.html#crew-overview">Crew Overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../architecture/crews.html#check-crew">Check Crew</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../architecture/crews.html#architecture">Architecture</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../architecture/crews.html#agent-configuration">Agent Configuration</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../architecture/crews.html#task-definition">Task Definition</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../architecture/crews.html#decision-logic">Decision Logic</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../architecture/crews.html#example-scenarios">Example Scenarios</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../architecture/crews.html#web-search-crew">Web Search Crew</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../architecture/crews.html#id1">Architecture</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../architecture/crews.html#id2">Agent Configuration</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../architecture/crews.html#available-tools">Available Tools</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../architecture/crews.html#task-configuration">Task Configuration</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../architecture/crews.html#search-strategy">Search Strategy</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../architecture/crews.html#synthesis-crew">Synthesis Crew</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../architecture/crews.html#id3">Architecture</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../architecture/crews.html#id4">Agent Configuration</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../architecture/crews.html#synthesis-process">Synthesis Process</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../architecture/crews.html#id5">Task Configuration</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../architecture/crews.html#response-structure">Response Structure</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../architecture/crews.html#crew-interaction-patterns">Crew Interaction Patterns</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../architecture/crews.html#sequential-processing">Sequential Processing</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../architecture/crews.html#parallel-processing">Parallel Processing</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../architecture/crews.html#error-handling-and-fallbacks">Error Handling and Fallbacks</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../architecture/crews.html#crew-level-error-handling">Crew-Level Error Handling</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../architecture/crews.html#fallback-strategies">Fallback Strategies</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../architecture/crews.html#performance-optimization">Performance Optimization</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../architecture/crews.html#crew-caching">Crew Caching</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../architecture/crews.html#async-execution">Async Execution</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../architecture/crews.html#monitoring-and-observability">Monitoring and Observability</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../architecture/crews.html#crew-performance-metrics">Crew Performance Metrics</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../architecture/crews.html#custom-crew-development">Custom Crew Development</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../architecture/crews.html#creating-custom-crews">Creating Custom Crews</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../architecture/crews.html#extending-existing-crews">Extending Existing Crews</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../architecture/crews.html#next-steps">Next Steps</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Evaluation:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../evaluation/ragas.html">RAGAS Evaluation System</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../evaluation/ragas.html#overview">Overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../evaluation/ragas.html#key-features">Key Features</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../evaluation/ragas.html#quick-start">Quick Start</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../evaluation/ragas.html#evaluation-metrics">Evaluation Metrics</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../evaluation/ragas.html#context-precision">Context Precision</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../evaluation/ragas.html#context-recall">Context Recall</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../evaluation/ragas.html#faithfulness">Faithfulness</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../evaluation/ragas.html#answer-relevancy">Answer Relevancy</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../evaluation/ragas.html#answer-correctness">Answer Correctness</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../evaluation/ragas.html#evaluation-setup">Evaluation Setup</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../evaluation/ragas.html#dataset-preparation">Dataset Preparation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../evaluation/ragas.html#custom-test-questions">Custom Test Questions</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../evaluation/ragas.html#running-evaluations">Running Evaluations</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../evaluation/ragas.html#basic-evaluation">Basic Evaluation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../evaluation/ragas.html#custom-evaluation">Custom Evaluation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../evaluation/ragas.html#sector-specific-evaluation">Sector-Specific Evaluation</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../evaluation/ragas.html#evaluation-analysis">Evaluation Analysis</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../evaluation/ragas.html#performance-benchmarks">Performance Benchmarks</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../evaluation/ragas.html#score-interpretation">Score Interpretation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../evaluation/ragas.html#improving-scores">Improving Scores</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../evaluation/ragas.html#advanced-evaluation">Advanced Evaluation</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../evaluation/ragas.html#batch-evaluation">Batch Evaluation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../evaluation/ragas.html#cross-validation">Cross-Validation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../evaluation/ragas.html#a-b-testing">A/B Testing</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../evaluation/ragas.html#troubleshooting">Troubleshooting</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../evaluation/ragas.html#common-issues">Common Issues</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../evaluation/ragas.html#performance-optimization">Performance Optimization</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../evaluation/ragas.html#next-steps">Next Steps</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../evaluation/metrics.html">Evaluation Metrics</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../evaluation/metrics.html#overview">Overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../evaluation/metrics.html#detailed-metric-descriptions">Detailed Metric Descriptions</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../evaluation/metrics.html#context-precision">Context Precision</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../evaluation/metrics.html#context-recall">Context Recall</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../evaluation/metrics.html#faithfulness">Faithfulness</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../evaluation/metrics.html#answer-relevancy">Answer Relevancy</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../evaluation/metrics.html#answer-correctness">Answer Correctness</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../evaluation/metrics.html#metric-relationships">Metric Relationships</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../evaluation/metrics.html#interpretation-guidelines">Interpretation Guidelines</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../evaluation/metrics.html#score-ranges-and-actions">Score Ranges and Actions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../evaluation/metrics.html#debugging-with-metrics">Debugging with Metrics</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../evaluation/metrics.html#metric-calculation-code">Metric Calculation Code</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../evaluation/metrics.html#custom-metrics">Custom Metrics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../evaluation/metrics.html#automated-monitoring">Automated Monitoring</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../evaluation/metrics.html#best-practices">Best Practices</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../evaluation/metrics.html#next-steps">Next Steps</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../evaluation/setup.html">Evaluation Setup</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../evaluation/setup.html#prerequisites">Prerequisites</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../evaluation/setup.html#environment-setup">Environment Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../evaluation/setup.html#configuration">Configuration</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../evaluation/setup.html#environment-variables">Environment Variables</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../evaluation/setup.html#evaluation-configuration-file">Evaluation Configuration File</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../evaluation/setup.html#loading-configuration">Loading Configuration</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../evaluation/setup.html#dataset-preparation">Dataset Preparation</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../evaluation/setup.html#ground-truth-dataset">Ground Truth Dataset</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../evaluation/setup.html#question-generation">Question Generation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../evaluation/setup.html#answer-generation">Answer Generation</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../evaluation/setup.html#evaluation-pipeline-setup">Evaluation Pipeline Setup</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../evaluation/setup.html#basic-evaluation-pipeline">Basic Evaluation Pipeline</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../evaluation/setup.html#advanced-configuration">Advanced Configuration</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../evaluation/setup.html#custom-metrics-configuration">Custom Metrics Configuration</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../evaluation/setup.html#parallel-evaluation-setup">Parallel Evaluation Setup</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../evaluation/setup.html#monitoring-and-alerts">Monitoring and Alerts</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../evaluation/setup.html#performance-monitoring">Performance Monitoring</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../evaluation/setup.html#automated-quality-checks">Automated Quality Checks</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../evaluation/setup.html#continuous-integration">Continuous Integration</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../evaluation/setup.html#ci-cd-pipeline-integration">CI/CD Pipeline Integration</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../evaluation/setup.html#next-steps">Next Steps</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">API Reference:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../api/index.html">API Reference</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../api/agentic_rag.html">agentic_rag package</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../api/agentic_rag.html#subpackages">Subpackages</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../api/agentic_rag.tools.html">agentic_rag.tools package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/agentic_rag.crews.html">agentic_rag.crews package</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../api/agentic_rag.tools.html">agentic_rag.tools package</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../api/agentic_rag.tools.html#rag-tool-module">rag_tool module</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../api/agentic_rag.crews.html">agentic_rag.crews package</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../api/agentic_rag.crews.html#subpackages">Subpackages</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../api/agentic_rag.crews.check_crew.html">agentic_rag.crews.check_crew package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/agentic_rag.crews.rag_crew.html">agentic_rag.crews.rag_crew package</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../api/agentic_rag.crews.check_crew.html">agentic_rag.crews.check_crew package</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../api/agentic_rag.crews.check_crew.html#module-agentic_rag.crews.check_crew.check_crew">check_crew module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../api/agentic_rag.crews.check_crew.html#agentic_rag.crews.check_crew.check_crew.Result"><code class="docutils literal notranslate"><span class="pre">Result</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../api/agentic_rag.crews.rag_crew.html">agentic_rag.crews.rag_crew package</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../api/agentic_rag.crews.rag_crew.html#rag-crew-module">rag_crew module</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Deployment:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="docker.html">Docker Deployment</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="docker.html#overview">Overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="docker.html#prerequisites">Prerequisites</a></li>
+<li class="toctree-l2"><a class="reference internal" href="docker.html#basic-docker-setup">Basic Docker Setup</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="docker.html#single-container-deployment">Single Container Deployment</a></li>
+<li class="toctree-l3"><a class="reference internal" href="docker.html#build-and-run">Build and Run</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="docker.html#multi-container-setup">Multi-Container Setup</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="docker.html#docker-compose-configuration">Docker Compose Configuration</a></li>
+<li class="toctree-l3"><a class="reference internal" href="docker.html#environment-configuration">Environment Configuration</a></li>
+<li class="toctree-l3"><a class="reference internal" href="docker.html#qdrant-configuration">Qdrant Configuration</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="docker.html#production-deployment">Production Deployment</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="docker.html#production-docker-compose">Production Docker Compose</a></li>
+<li class="toctree-l3"><a class="reference internal" href="docker.html#production-dockerfile">Production Dockerfile</a></li>
+<li class="toctree-l3"><a class="reference internal" href="docker.html#load-balancer-configuration">Load Balancer Configuration</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="docker.html#monitoring-setup">Monitoring Setup</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="docker.html#prometheus-configuration">Prometheus Configuration</a></li>
+<li class="toctree-l3"><a class="reference internal" href="docker.html#grafana-dashboard">Grafana Dashboard</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="docker.html#deployment-commands">Deployment Commands</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="docker.html#development-deployment">Development Deployment</a></li>
+<li class="toctree-l3"><a class="reference internal" href="docker.html#id1">Production Deployment</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="docker.html#data-management">Data Management</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="docker.html#volume-management">Volume Management</a></li>
+<li class="toctree-l3"><a class="reference internal" href="docker.html#document-indexing">Document Indexing</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="docker.html#troubleshooting">Troubleshooting</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="docker.html#common-issues">Common Issues</a></li>
+<li class="toctree-l3"><a class="reference internal" href="docker.html#debug-commands">Debug Commands</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="docker.html#scaling-and-performance">Scaling and Performance</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="docker.html#horizontal-scaling">Horizontal Scaling</a></li>
+<li class="toctree-l3"><a class="reference internal" href="docker.html#performance-optimization">Performance Optimization</a></li>
+<li class="toctree-l3"><a class="reference internal" href="docker.html#health-checks-and-monitoring">Health Checks and Monitoring</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="docker.html#security-best-practices">Security Best Practices</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="docker.html#container-security">Container Security</a></li>
+<li class="toctree-l3"><a class="reference internal" href="docker.html#network-security">Network Security</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="docker.html#next-steps">Next Steps</a></li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Production Deployment</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#deployment-overview">Deployment Overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#architecture-options">Architecture Options</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#single-server-deployment">Single Server Deployment</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#multi-server-deployment">Multi-Server Deployment</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#cloud-deployment">Cloud Deployment</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#docker-deployment">Docker Deployment</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#basic-docker-setup">Basic Docker Setup</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#multi-service-docker-compose">Multi-Service Docker Compose</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#nginx-configuration">Nginx Configuration</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#kubernetes-deployment">Kubernetes Deployment</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#kubernetes-manifests">Kubernetes Manifests</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#helm-chart-deployment">Helm Chart Deployment</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#cloud-specific-deployments">Cloud-Specific Deployments</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#azure-container-instances">Azure Container Instances</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#aws-ecs-deployment">AWS ECS Deployment</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#security-best-practices">Security Best Practices</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#environment-security">Environment Security</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#application-security">Application Security</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#monitoring-and-observability">Monitoring and Observability</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#application-monitoring">Application Monitoring</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#logging-configuration">Logging Configuration</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#ci-cd-pipeline">CI/CD Pipeline</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#github-actions-workflow">GitHub Actions Workflow</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#performance-optimization">Performance Optimization</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#application-performance">Application Performance</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#database-optimization">Database Optimization</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#troubleshooting">Troubleshooting</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#common-issues">Common Issues</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#monitoring-checklist">Monitoring Checklist</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#next-steps">Next Steps</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Examples:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../examples/basic_usage.html">Basic Usage Examples</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../examples/basic_usage.html#getting-started">Getting Started</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../examples/basic_usage.html#example-1-simple-query">Example 1: Simple Query</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../examples/basic_usage.html#example-2-multi-sector-analysis">Example 2: Multi-Sector Analysis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../examples/basic_usage.html#example-3-web-enhanced-search">Example 3: Web-Enhanced Search</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../examples/basic_usage.html#example-4-direct-rag-search">Example 4: Direct RAG Search</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../examples/basic_usage.html#example-5-streaming-interface">Example 5: Streaming Interface</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../examples/basic_usage.html#example-6-batch-processing">Example 6: Batch Processing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../examples/basic_usage.html#example-7-custom-tool-integration">Example 7: Custom Tool Integration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../examples/basic_usage.html#example-8-error-handling">Example 8: Error Handling</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../examples/basic_usage.html#example-9-performance-monitoring">Example 9: Performance Monitoring</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../examples/basic_usage.html#example-10-configuration-testing">Example 10: Configuration Testing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../examples/basic_usage.html#best-practices">Best Practices</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../examples/basic_usage.html#common-patterns">Common Patterns</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../examples/basic_usage.html#next-steps">Next Steps</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu"  style="background: #2980B9" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Agentic RAG</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Production Deployment</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/deployment/production.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="production-deployment">
+<h1>Production Deployment<a class="headerlink" href="#production-deployment" title="Link to this heading"></a></h1>
+<p>This guide covers deploying Agentic RAG to production environments with best practices for scalability, security, and reliability.</p>
+<section id="deployment-overview">
+<h2>Deployment Overview<a class="headerlink" href="#deployment-overview" title="Link to this heading"></a></h2>
+<p>Production deployment involves several components:</p>
+<ul class="simple">
+<li><p><strong>Application Server</strong>: Hosting the Agentic RAG application</p></li>
+<li><p><strong>Vector Database</strong>: Qdrant cluster for scalable search</p></li>
+<li><p><strong>Load Balancer</strong>: Distribution of requests across instances</p></li>
+<li><p><strong>Monitoring</strong>: System health and performance tracking</p></li>
+<li><p><strong>CI/CD Pipeline</strong>: Automated testing and deployment</p></li>
+</ul>
+</section>
+<section id="architecture-options">
+<h2>Architecture Options<a class="headerlink" href="#architecture-options" title="Link to this heading"></a></h2>
+<section id="single-server-deployment">
+<h3>Single Server Deployment<a class="headerlink" href="#single-server-deployment" title="Link to this heading"></a></h3>
+<p><strong>Suitable for</strong>: Small teams, development environments, proof of concepts</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>┌─────────────────────────────────────┐
+│          Single Server              │
+│                                     │
+│  ┌─────────────┐  ┌─────────────┐   │
+│  │  Agentic    │  │   Qdrant    │   │
+│  │    RAG      │  │   Local     │   │
+│  │             │  │             │   │
+│  └─────────────┘  └─────────────┘   │
+│                                     │
+│  ┌─────────────┐  ┌─────────────┐   │
+│  │  Streamlit  │  │ Monitoring  │   │
+│  │   Server    │  │   (Opik)    │   │
+│  └─────────────┘  └─────────────┘   │
+└─────────────────────────────────────┘
+</pre></div>
+</div>
+<p><strong>Pros</strong>: Simple setup, cost-effective, easy debugging
+<strong>Cons</strong>: Single point of failure, limited scalability</p>
+</section>
+<section id="multi-server-deployment">
+<h3>Multi-Server Deployment<a class="headerlink" href="#multi-server-deployment" title="Link to this heading"></a></h3>
+<p><strong>Suitable for</strong>: Production workloads, high availability requirements</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>┌─────────────────┐    ┌─────────────────┐    ┌─────────────────┐
+│  Load Balancer  │    │   Monitoring    │    │   CI/CD Server  │
+│    (nginx)      │    │   Dashboard     │    │    (GitHub)     │
+└─────────┬───────┘    └─────────────────┘    └─────────────────┘
+          │
+┌─────────▼─────────────────────────────────────────────────────┐
+│                    Application Layer                          │
+│  ┌─────────────┐  ┌─────────────┐  ┌─────────────┐          │
+│  │ App Server  │  │ App Server  │  │ App Server  │          │
+│  │     #1      │  │     #2      │  │     #3      │          │
+│  └─────────────┘  └─────────────┘  └─────────────┘          │
+└───────────┬───────────────────────────────────────────────────┘
+            │
+┌───────────▼───────────────────────────────────────────────────┐
+│                     Data Layer                                │
+│  ┌─────────────┐  ┌─────────────┐  ┌─────────────┐          │
+│  │   Qdrant    │  │   Qdrant    │  │   Qdrant    │          │
+│  │  Primary    │  │  Replica    │  │  Replica    │          │
+│  └─────────────┘  └─────────────┘  └─────────────┘          │
+└───────────────────────────────────────────────────────────────┘
+</pre></div>
+</div>
+<p><strong>Pros</strong>: High availability, scalable, fault tolerant
+<strong>Cons</strong>: Complex setup, higher costs, more maintenance</p>
+</section>
+<section id="cloud-deployment">
+<h3>Cloud Deployment<a class="headerlink" href="#cloud-deployment" title="Link to this heading"></a></h3>
+<p><strong>Suitable for</strong>: Enterprise deployments, global scale, managed services</p>
+<p>Options include:
+- <strong>Azure Container Instances (ACI)</strong>
+- <strong>Azure Kubernetes Service (AKS)</strong>
+- <strong>AWS ECS/EKS</strong>
+- <strong>Google Cloud Run/GKE</strong></p>
+</section>
+</section>
+<section id="docker-deployment">
+<h2>Docker Deployment<a class="headerlink" href="#docker-deployment" title="Link to this heading"></a></h2>
+<section id="basic-docker-setup">
+<h3>Basic Docker Setup<a class="headerlink" href="#basic-docker-setup" title="Link to this heading"></a></h3>
+<p>Create <cite>Dockerfile</cite>:</p>
+<div class="highlight-dockerfile notranslate"><div class="highlight"><pre><span></span><span class="k">FROM</span><span class="w"> </span><span class="s">python:3.10-slim</span>
+
+<span class="c"># Set working directory</span>
+<span class="k">WORKDIR</span><span class="w"> </span><span class="s">/app</span>
+
+<span class="c"># Install system dependencies</span>
+<span class="k">RUN</span><span class="w"> </span>apt-get<span class="w"> </span>update<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>apt-get<span class="w"> </span>install<span class="w"> </span>-y<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>gcc<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>g++<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span><span class="o">&amp;&amp;</span><span class="w"> </span>rm<span class="w"> </span>-rf<span class="w"> </span>/var/lib/apt/lists/*
+
+<span class="c"># Copy requirements and install Python dependencies</span>
+<span class="k">COPY</span><span class="w"> </span>requirements.txt<span class="w"> </span>.
+<span class="k">RUN</span><span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>--no-cache-dir<span class="w"> </span>-r<span class="w"> </span>requirements.txt
+
+<span class="c"># Copy application code</span>
+<span class="k">COPY</span><span class="w"> </span>src/<span class="w"> </span>./src/
+<span class="k">COPY</span><span class="w"> </span>streamlit_app.py<span class="w"> </span>.
+<span class="k">COPY</span><span class="w"> </span>.env<span class="w"> </span>.
+
+<span class="c"># Expose ports</span>
+<span class="k">EXPOSE</span><span class="w"> </span><span class="s">8501 8000</span>
+
+<span class="c"># Health check</span>
+<span class="k">HEALTHCHECK</span><span class="w"> </span>--interval<span class="o">=</span>30s<span class="w"> </span>--timeout<span class="o">=</span>10s<span class="w"> </span>--start-period<span class="o">=</span>5s<span class="w"> </span>--retries<span class="o">=</span><span class="m">3</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>CMD<span class="w"> </span>curl<span class="w"> </span>-f<span class="w"> </span>http://localhost:8501<span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="nb">exit</span><span class="w"> </span><span class="m">1</span>
+
+<span class="c"># Start command</span>
+<span class="k">CMD</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;streamlit&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;run&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;streamlit_app.py&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;--server.address&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;0.0.0.0&quot;</span><span class="p">]</span>
+</pre></div>
+</div>
+</section>
+<section id="multi-service-docker-compose">
+<h3>Multi-Service Docker Compose<a class="headerlink" href="#multi-service-docker-compose" title="Link to this heading"></a></h3>
+<p>Create <cite>docker-compose.prod.yml</cite>:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">version</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;3.8&#39;</span>
+
+<span class="nt">services</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">qdrant</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">qdrant/qdrant:latest</span>
+<span class="w">    </span><span class="nt">container_name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">qdrant</span>
+<span class="w">    </span><span class="nt">ports</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">&quot;6333:6333&quot;</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">&quot;6334:6334&quot;</span>
+<span class="w">    </span><span class="nt">volumes</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">qdrant_storage:/qdrant/storage</span>
+<span class="w">    </span><span class="nt">environment</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">QDRANT__SERVICE__HTTP_PORT=6333</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">QDRANT__SERVICE__GRPC_PORT=6334</span>
+<span class="w">    </span><span class="nt">restart</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">unless-stopped</span>
+<span class="w">    </span><span class="nt">healthcheck</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">test</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">&quot;CMD&quot;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&quot;curl&quot;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&quot;-f&quot;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&quot;http://localhost:6333/health&quot;</span><span class="p p-Indicator">]</span>
+<span class="w">      </span><span class="nt">interval</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">30s</span>
+<span class="w">      </span><span class="nt">timeout</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">10s</span>
+<span class="w">      </span><span class="nt">retries</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">3</span>
+
+<span class="w">  </span><span class="nt">agentic-rag</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">build</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">.</span>
+<span class="w">    </span><span class="nt">container_name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">agentic-rag</span>
+<span class="w">    </span><span class="nt">ports</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">&quot;8501:8501&quot;</span>
+<span class="w">    </span><span class="nt">environment</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">QDRANT_URL=http://qdrant:6333</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">AZURE_OPENAI_API_KEY=${AZURE_OPENAI_API_KEY}</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">AZURE_OPENAI_ENDPOINT=${AZURE_OPENAI_ENDPOINT}</span>
+<span class="w">    </span><span class="nt">depends_on</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">qdrant</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">condition</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">service_healthy</span>
+<span class="w">    </span><span class="nt">restart</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">unless-stopped</span>
+<span class="w">    </span><span class="nt">volumes</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">./logs:/app/logs</span>
+<span class="w">    </span><span class="nt">healthcheck</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">test</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">&quot;CMD&quot;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&quot;curl&quot;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&quot;-f&quot;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&quot;http://localhost:8501&quot;</span><span class="p p-Indicator">]</span>
+<span class="w">      </span><span class="nt">interval</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">30s</span>
+<span class="w">      </span><span class="nt">timeout</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">10s</span>
+<span class="w">      </span><span class="nt">retries</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">3</span>
+
+<span class="w">  </span><span class="nt">nginx</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">nginx:alpine</span>
+<span class="w">    </span><span class="nt">container_name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">nginx</span>
+<span class="w">    </span><span class="nt">ports</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">&quot;80:80&quot;</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">&quot;443:443&quot;</span>
+<span class="w">    </span><span class="nt">volumes</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">./nginx.conf:/etc/nginx/nginx.conf</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">./ssl:/etc/nginx/ssl</span>
+<span class="w">    </span><span class="nt">depends_on</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">agentic-rag</span>
+<span class="w">    </span><span class="nt">restart</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">unless-stopped</span>
+
+<span class="w">  </span><span class="nt">monitoring</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">opik-monitoring:latest</span>
+<span class="w">    </span><span class="nt">container_name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">monitoring</span>
+<span class="w">    </span><span class="nt">ports</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">&quot;3000:3000&quot;</span>
+<span class="w">    </span><span class="nt">environment</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">DATABASE_URL=postgresql://user:pass@db:5432/opik</span>
+<span class="w">    </span><span class="nt">restart</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">unless-stopped</span>
+
+<span class="nt">volumes</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">qdrant_storage</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">driver</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">local</span>
+</pre></div>
+</div>
+</section>
+<section id="nginx-configuration">
+<h3>Nginx Configuration<a class="headerlink" href="#nginx-configuration" title="Link to this heading"></a></h3>
+<p>Create <cite>nginx.conf</cite>:</p>
+<div class="highlight-nginx notranslate"><div class="highlight"><pre><span></span><span class="k">events</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kn">worker_connections</span><span class="w"> </span><span class="mi">1024</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="k">http</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kn">upstream</span><span class="w"> </span><span class="s">agentic-rag</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="kn">server</span><span class="w"> </span><span class="n">agentic-rag</span><span class="p">:</span><span class="mi">8501</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="kn">server</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="kn">listen</span><span class="w"> </span><span class="mi">80</span><span class="p">;</span>
+<span class="w">        </span><span class="kn">server_name</span><span class="w"> </span><span class="s">your-domain.com</span><span class="p">;</span>
+
+<span class="w">        </span><span class="c1"># Redirect HTTP to HTTPS</span>
+<span class="w">        </span><span class="kn">return</span><span class="w"> </span><span class="mi">301</span><span class="w"> </span><span class="s">https://</span><span class="nv">$host$request_uri</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="kn">server</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="kn">listen</span><span class="w"> </span><span class="mi">443</span><span class="w"> </span><span class="s">ssl</span><span class="w"> </span><span class="s">http2</span><span class="p">;</span>
+<span class="w">        </span><span class="kn">server_name</span><span class="w"> </span><span class="s">your-domain.com</span><span class="p">;</span>
+
+<span class="w">        </span><span class="kn">ssl_certificate</span><span class="w"> </span><span class="s">/etc/nginx/ssl/cert.pem</span><span class="p">;</span>
+<span class="w">        </span><span class="kn">ssl_certificate_key</span><span class="w"> </span><span class="s">/etc/nginx/ssl/key.pem</span><span class="p">;</span>
+
+<span class="w">        </span><span class="c1"># Security headers</span>
+<span class="w">        </span><span class="kn">add_header</span><span class="w"> </span><span class="s">X-Frame-Options</span><span class="w"> </span><span class="s">DENY</span><span class="p">;</span>
+<span class="w">        </span><span class="kn">add_header</span><span class="w"> </span><span class="s">X-Content-Type-Options</span><span class="w"> </span><span class="s">nosniff</span><span class="p">;</span>
+<span class="w">        </span><span class="kn">add_header</span><span class="w"> </span><span class="s">X-XSS-Protection</span><span class="w"> </span><span class="s">&quot;1</span><span class="p">;</span><span class="w"> </span><span class="kn">mode=block&quot;</span><span class="p">;</span>
+
+<span class="w">        </span><span class="c1"># Proxy settings</span>
+<span class="w">        </span><span class="kn">location</span><span class="w"> </span><span class="s">/</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="kn">proxy_pass</span><span class="w"> </span><span class="s">http://agentic-rag</span><span class="p">;</span>
+<span class="w">            </span><span class="kn">proxy_set_header</span><span class="w"> </span><span class="s">Host</span><span class="w"> </span><span class="nv">$host</span><span class="p">;</span>
+<span class="w">            </span><span class="kn">proxy_set_header</span><span class="w"> </span><span class="s">X-Real-IP</span><span class="w"> </span><span class="nv">$remote_addr</span><span class="p">;</span>
+<span class="w">            </span><span class="kn">proxy_set_header</span><span class="w"> </span><span class="s">X-Forwarded-For</span><span class="w"> </span><span class="nv">$proxy_add_x_forwarded_for</span><span class="p">;</span>
+<span class="w">            </span><span class="kn">proxy_set_header</span><span class="w"> </span><span class="s">X-Forwarded-Proto</span><span class="w"> </span><span class="nv">$scheme</span><span class="p">;</span>
+
+<span class="w">            </span><span class="c1"># WebSocket support for Streamlit</span>
+<span class="w">            </span><span class="kn">proxy_http_version</span><span class="w"> </span><span class="mi">1</span><span class="s">.1</span><span class="p">;</span>
+<span class="w">            </span><span class="kn">proxy_set_header</span><span class="w"> </span><span class="s">Upgrade</span><span class="w"> </span><span class="nv">$http_upgrade</span><span class="p">;</span>
+<span class="w">            </span><span class="kn">proxy_set_header</span><span class="w"> </span><span class="s">Connection</span><span class="w"> </span><span class="s">&quot;upgrade&quot;</span><span class="p">;</span>
+<span class="w">        </span><span class="p">}</span>
+
+<span class="w">        </span><span class="c1"># Health check endpoint</span>
+<span class="w">        </span><span class="kn">location</span><span class="w"> </span><span class="s">/health</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="kn">access_log</span><span class="w"> </span><span class="no">off</span><span class="p">;</span>
+<span class="w">            </span><span class="kn">return</span><span class="w"> </span><span class="mi">200</span><span class="w"> </span><span class="s">&quot;healthy\n&quot;</span><span class="p">;</span>
+<span class="w">            </span><span class="kn">add_header</span><span class="w"> </span><span class="s">Content-Type</span><span class="w"> </span><span class="s">text/plain</span><span class="p">;</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="kubernetes-deployment">
+<h2>Kubernetes Deployment<a class="headerlink" href="#kubernetes-deployment" title="Link to this heading"></a></h2>
+<section id="kubernetes-manifests">
+<h3>Kubernetes Manifests<a class="headerlink" href="#kubernetes-manifests" title="Link to this heading"></a></h3>
+<p>Create <cite>k8s/namespace.yaml</cite>:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">v1</span>
+<span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Namespace</span>
+<span class="nt">metadata</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">agentic-rag</span>
+</pre></div>
+</div>
+<p>Create <cite>k8s/configmap.yaml</cite>:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">v1</span>
+<span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ConfigMap</span>
+<span class="nt">metadata</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">agentic-rag-config</span>
+<span class="w">  </span><span class="nt">namespace</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">agentic-rag</span>
+<span class="nt">data</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">QDRANT_URL</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;http://qdrant-service:6333&quot;</span>
+<span class="w">  </span><span class="nt">AZURE_OPENAI_API_VERSION</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;2024-02-15-preview&quot;</span>
+<span class="w">  </span><span class="nt">LOG_LEVEL</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;INFO&quot;</span>
+</pre></div>
+</div>
+<p>Create <cite>k8s/secret.yaml</cite>:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">v1</span>
+<span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Secret</span>
+<span class="nt">metadata</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">agentic-rag-secrets</span>
+<span class="w">  </span><span class="nt">namespace</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">agentic-rag</span>
+<span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Opaque</span>
+<span class="nt">data</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">AZURE_OPENAI_API_KEY</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">&lt;base64-encoded-key&gt;</span>
+<span class="w">  </span><span class="nt">AZURE_OPENAI_ENDPOINT</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">&lt;base64-encoded-endpoint&gt;</span>
+<span class="w">  </span><span class="nt">QDRANT_API_KEY</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">&lt;base64-encoded-qdrant-key&gt;</span>
+</pre></div>
+</div>
+<p>Create <cite>k8s/qdrant-deployment.yaml</cite>:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">apps/v1</span>
+<span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Deployment</span>
+<span class="nt">metadata</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">qdrant</span>
+<span class="w">  </span><span class="nt">namespace</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">agentic-rag</span>
+<span class="nt">spec</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">replicas</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">3</span>
+<span class="w">  </span><span class="nt">selector</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">matchLabels</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">app</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">qdrant</span>
+<span class="w">  </span><span class="nt">template</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">metadata</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">labels</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">app</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">qdrant</span>
+<span class="w">    </span><span class="nt">spec</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">containers</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">qdrant</span>
+<span class="w">        </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">qdrant/qdrant:latest</span>
+<span class="w">        </span><span class="nt">ports</span><span class="p">:</span>
+<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">containerPort</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">6333</span>
+<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">containerPort</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">6334</span>
+<span class="w">        </span><span class="nt">env</span><span class="p">:</span>
+<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">QDRANT__SERVICE__HTTP_PORT</span>
+<span class="w">          </span><span class="nt">value</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;6333&quot;</span>
+<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">QDRANT__SERVICE__GRPC_PORT</span>
+<span class="w">          </span><span class="nt">value</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;6334&quot;</span>
+<span class="w">        </span><span class="nt">volumeMounts</span><span class="p">:</span>
+<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">qdrant-storage</span>
+<span class="w">          </span><span class="nt">mountPath</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/qdrant/storage</span>
+<span class="w">        </span><span class="nt">livenessProbe</span><span class="p">:</span>
+<span class="w">          </span><span class="nt">httpGet</span><span class="p">:</span>
+<span class="w">            </span><span class="nt">path</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/health</span>
+<span class="w">            </span><span class="nt">port</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">6333</span>
+<span class="w">          </span><span class="nt">initialDelaySeconds</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">30</span>
+<span class="w">          </span><span class="nt">periodSeconds</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">30</span>
+<span class="w">        </span><span class="nt">readinessProbe</span><span class="p">:</span>
+<span class="w">          </span><span class="nt">httpGet</span><span class="p">:</span>
+<span class="w">            </span><span class="nt">path</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/readiness</span>
+<span class="w">            </span><span class="nt">port</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">6333</span>
+<span class="w">          </span><span class="nt">initialDelaySeconds</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">5</span>
+<span class="w">          </span><span class="nt">periodSeconds</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">5</span>
+<span class="w">      </span><span class="nt">volumes</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">qdrant-storage</span>
+<span class="w">        </span><span class="nt">persistentVolumeClaim</span><span class="p">:</span>
+<span class="w">          </span><span class="nt">claimName</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">qdrant-pvc</span>
+</pre></div>
+</div>
+<p>Create <cite>k8s/app-deployment.yaml</cite>:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">apps/v1</span>
+<span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Deployment</span>
+<span class="nt">metadata</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">agentic-rag</span>
+<span class="w">  </span><span class="nt">namespace</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">agentic-rag</span>
+<span class="nt">spec</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">replicas</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">3</span>
+<span class="w">  </span><span class="nt">selector</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">matchLabels</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">app</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">agentic-rag</span>
+<span class="w">  </span><span class="nt">template</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">metadata</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">labels</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">app</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">agentic-rag</span>
+<span class="w">    </span><span class="nt">spec</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">containers</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">agentic-rag</span>
+<span class="w">        </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">your-registry/agentic-rag:latest</span>
+<span class="w">        </span><span class="nt">ports</span><span class="p">:</span>
+<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">containerPort</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">8501</span>
+<span class="w">        </span><span class="nt">env</span><span class="p">:</span>
+<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">QDRANT_URL</span>
+<span class="w">          </span><span class="nt">valueFrom</span><span class="p">:</span>
+<span class="w">            </span><span class="nt">configMapKeyRef</span><span class="p">:</span>
+<span class="w">              </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">agentic-rag-config</span>
+<span class="w">              </span><span class="nt">key</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">QDRANT_URL</span>
+<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">AZURE_OPENAI_API_KEY</span>
+<span class="w">          </span><span class="nt">valueFrom</span><span class="p">:</span>
+<span class="w">            </span><span class="nt">secretKeyRef</span><span class="p">:</span>
+<span class="w">              </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">agentic-rag-secrets</span>
+<span class="w">              </span><span class="nt">key</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">AZURE_OPENAI_API_KEY</span>
+<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">AZURE_OPENAI_ENDPOINT</span>
+<span class="w">          </span><span class="nt">valueFrom</span><span class="p">:</span>
+<span class="w">            </span><span class="nt">secretKeyRef</span><span class="p">:</span>
+<span class="w">              </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">agentic-rag-secrets</span>
+<span class="w">              </span><span class="nt">key</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">AZURE_OPENAI_ENDPOINT</span>
+<span class="w">        </span><span class="nt">resources</span><span class="p">:</span>
+<span class="w">          </span><span class="nt">requests</span><span class="p">:</span>
+<span class="w">            </span><span class="nt">memory</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;1Gi&quot;</span>
+<span class="w">            </span><span class="nt">cpu</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;500m&quot;</span>
+<span class="w">          </span><span class="nt">limits</span><span class="p">:</span>
+<span class="w">            </span><span class="nt">memory</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;2Gi&quot;</span>
+<span class="w">            </span><span class="nt">cpu</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;1000m&quot;</span>
+<span class="w">        </span><span class="nt">livenessProbe</span><span class="p">:</span>
+<span class="w">          </span><span class="nt">httpGet</span><span class="p">:</span>
+<span class="w">            </span><span class="nt">path</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/</span>
+<span class="w">            </span><span class="nt">port</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">8501</span>
+<span class="w">          </span><span class="nt">initialDelaySeconds</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">60</span>
+<span class="w">          </span><span class="nt">periodSeconds</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">30</span>
+<span class="w">        </span><span class="nt">readinessProbe</span><span class="p">:</span>
+<span class="w">          </span><span class="nt">httpGet</span><span class="p">:</span>
+<span class="w">            </span><span class="nt">path</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/</span>
+<span class="w">            </span><span class="nt">port</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">8501</span>
+<span class="w">          </span><span class="nt">initialDelaySeconds</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">10</span>
+<span class="w">          </span><span class="nt">periodSeconds</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">5</span>
+</pre></div>
+</div>
+</section>
+<section id="helm-chart-deployment">
+<h3>Helm Chart Deployment<a class="headerlink" href="#helm-chart-deployment" title="Link to this heading"></a></h3>
+<p>Create <cite>helm/agentic-rag/values.yaml</cite>:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">replicaCount</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">3</span>
+
+<span class="nt">image</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">repository</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">your-registry/agentic-rag</span>
+<span class="w">  </span><span class="nt">tag</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">latest</span>
+<span class="w">  </span><span class="nt">pullPolicy</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Always</span>
+
+<span class="nt">service</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ClusterIP</span>
+<span class="w">  </span><span class="nt">port</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">8501</span>
+
+<span class="nt">ingress</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">enabled</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">  </span><span class="nt">className</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">nginx</span>
+<span class="w">  </span><span class="nt">annotations</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">cert-manager.io/cluster-issuer</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">letsencrypt-prod</span>
+<span class="w">  </span><span class="nt">hosts</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">host</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">agentic-rag.your-domain.com</span>
+<span class="w">    </span><span class="nt">paths</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">path</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/</span>
+<span class="w">      </span><span class="nt">pathType</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Prefix</span>
+<span class="w">  </span><span class="nt">tls</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">secretName</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">agentic-rag-tls</span>
+<span class="w">    </span><span class="nt">hosts</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">agentic-rag.your-domain.com</span>
+
+<span class="nt">qdrant</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">enabled</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">  </span><span class="nt">replicas</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">3</span>
+<span class="w">  </span><span class="nt">storage</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">size</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">100Gi</span>
+<span class="w">    </span><span class="nt">storageClass</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">fast-ssd</span>
+
+<span class="nt">monitoring</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">enabled</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">  </span><span class="nt">opik</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">enabled</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+
+<span class="nt">autoscaling</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">enabled</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">  </span><span class="nt">minReplicas</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2</span>
+<span class="w">  </span><span class="nt">maxReplicas</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">10</span>
+<span class="w">  </span><span class="nt">targetCPUUtilizationPercentage</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">70</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="cloud-specific-deployments">
+<h2>Cloud-Specific Deployments<a class="headerlink" href="#cloud-specific-deployments" title="Link to this heading"></a></h2>
+<section id="azure-container-instances">
+<h3>Azure Container Instances<a class="headerlink" href="#azure-container-instances" title="Link to this heading"></a></h3>
+<p>Create <cite>azure-deployment.yml</cite>:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2019-12-01</span>
+<span class="nt">location</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">eastus</span>
+<span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">agentic-rag-container-group</span>
+<span class="nt">properties</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">containers</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">agentic-rag</span>
+<span class="w">    </span><span class="nt">properties</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">your-registry/agentic-rag:latest</span>
+<span class="w">      </span><span class="nt">resources</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">requests</span><span class="p">:</span>
+<span class="w">          </span><span class="nt">cpu</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2</span>
+<span class="w">          </span><span class="nt">memoryInGb</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">4</span>
+<span class="w">      </span><span class="nt">ports</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">port</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">8501</span>
+<span class="w">        </span><span class="nt">protocol</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">TCP</span>
+<span class="w">      </span><span class="nt">environmentVariables</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">AZURE_OPENAI_API_KEY</span>
+<span class="w">        </span><span class="nt">secureValue</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">your-api-key</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">AZURE_OPENAI_ENDPOINT</span>
+<span class="w">        </span><span class="nt">value</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">your-endpoint</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">QDRANT_URL</span>
+<span class="w">        </span><span class="nt">value</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">https://your-qdrant-cluster.qdrant.app</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">qdrant</span>
+<span class="w">    </span><span class="nt">properties</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">qdrant/qdrant:latest</span>
+<span class="w">      </span><span class="nt">resources</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">requests</span><span class="p">:</span>
+<span class="w">          </span><span class="nt">cpu</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span>
+<span class="w">          </span><span class="nt">memoryInGb</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2</span>
+<span class="w">      </span><span class="nt">ports</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">port</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">6333</span>
+<span class="w">        </span><span class="nt">protocol</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">TCP</span>
+<span class="w">  </span><span class="nt">osType</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Linux</span>
+<span class="w">  </span><span class="nt">ipAddress</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Public</span>
+<span class="w">    </span><span class="nt">ports</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">protocol</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">TCP</span>
+<span class="w">      </span><span class="nt">port</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">8501</span>
+<span class="w">    </span><span class="nt">dnsNameLabel</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">agentic-rag-demo</span>
+</pre></div>
+</div>
+<p>Deploy with Azure CLI:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>az<span class="w"> </span>container<span class="w"> </span>create<span class="w"> </span>--resource-group<span class="w"> </span>myResourceGroup<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--file<span class="w"> </span>azure-deployment.yml
+</pre></div>
+</div>
+</section>
+<section id="aws-ecs-deployment">
+<h3>AWS ECS Deployment<a class="headerlink" href="#aws-ecs-deployment" title="Link to this heading"></a></h3>
+<p>Create <cite>ecs-task-definition.json</cite>:</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;family&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;agentic-rag&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;networkMode&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;awsvpc&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;requiresCompatibilities&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;FARGATE&quot;</span><span class="p">],</span>
+<span class="w">  </span><span class="nt">&quot;cpu&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2048&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;memory&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;4096&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;executionRoleArn&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;arn:aws:iam::account:role/ecsTaskExecutionRole&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;containerDefinitions&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;agentic-rag&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;image&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;your-registry/agentic-rag:latest&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;portMappings&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">        </span><span class="p">{</span>
+<span class="w">          </span><span class="nt">&quot;containerPort&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">8501</span><span class="p">,</span>
+<span class="w">          </span><span class="nt">&quot;protocol&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;tcp&quot;</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">      </span><span class="p">],</span>
+<span class="w">      </span><span class="nt">&quot;environment&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">        </span><span class="p">{</span>
+<span class="w">          </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;AZURE_OPENAI_ENDPOINT&quot;</span><span class="p">,</span>
+<span class="w">          </span><span class="nt">&quot;value&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;your-endpoint&quot;</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">      </span><span class="p">],</span>
+<span class="w">      </span><span class="nt">&quot;secrets&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">        </span><span class="p">{</span>
+<span class="w">          </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;AZURE_OPENAI_API_KEY&quot;</span><span class="p">,</span>
+<span class="w">          </span><span class="nt">&quot;valueFrom&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;arn:aws:ssm:region:account:parameter/agentic-rag/api-key&quot;</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">      </span><span class="p">],</span>
+<span class="w">      </span><span class="nt">&quot;logConfiguration&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">&quot;logDriver&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;awslogs&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;options&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">          </span><span class="nt">&quot;awslogs-group&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;/ecs/agentic-rag&quot;</span><span class="p">,</span>
+<span class="w">          </span><span class="nt">&quot;awslogs-region&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;us-east-1&quot;</span><span class="p">,</span>
+<span class="w">          </span><span class="nt">&quot;awslogs-stream-prefix&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;ecs&quot;</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">      </span><span class="p">}</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">  </span><span class="p">]</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="security-best-practices">
+<h2>Security Best Practices<a class="headerlink" href="#security-best-practices" title="Link to this heading"></a></h2>
+<section id="environment-security">
+<h3>Environment Security<a class="headerlink" href="#environment-security" title="Link to this heading"></a></h3>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Use secrets management</span>
+<span class="nb">export</span><span class="w"> </span><span class="nv">AZURE_OPENAI_API_KEY</span><span class="o">=</span><span class="s2">&quot;</span><span class="k">$(</span>kubectl<span class="w"> </span>get<span class="w"> </span>secret<span class="w"> </span>agentic-rag-secrets<span class="w"> </span>-o<span class="w"> </span><span class="nv">jsonpath</span><span class="o">=</span><span class="s1">&#39;{.data.AZURE_OPENAI_API_KEY}&#39;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>base64<span class="w"> </span>-d<span class="k">)</span><span class="s2">&quot;</span>
+
+<span class="c1"># Network security</span>
+<span class="c1"># - Use private networks/VPCs</span>
+<span class="c1"># - Configure firewalls and security groups</span>
+<span class="c1"># - Enable HTTPS/TLS encryption</span>
+<span class="c1"># - Use API gateways for rate limiting</span>
+</pre></div>
+</div>
+</section>
+<section id="application-security">
+<h3>Application Security<a class="headerlink" href="#application-security" title="Link to this heading"></a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Input validation</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pydantic</span><span class="w"> </span><span class="kn">import</span> <span class="n">BaseModel</span><span class="p">,</span> <span class="n">validator</span>
+
+<span class="k">class</span><span class="w"> </span><span class="nc">QueryRequest</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
+    <span class="n">question</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">sector</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span>
+
+    <span class="nd">@validator</span><span class="p">(</span><span class="s1">&#39;question&#39;</span><span class="p">)</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">validate_question</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">v</span><span class="p">):</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">v</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">500</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;Question too long&#39;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">v</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+
+<span class="c1"># Rate limiting</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">slowapi</span><span class="w"> </span><span class="kn">import</span> <span class="n">Limiter</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">slowapi.util</span><span class="w"> </span><span class="kn">import</span> <span class="n">get_remote_address</span>
+
+<span class="n">limiter</span> <span class="o">=</span> <span class="n">Limiter</span><span class="p">(</span><span class="n">key_func</span><span class="o">=</span><span class="n">get_remote_address</span><span class="p">)</span>
+
+<span class="nd">@app</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="s2">&quot;/query&quot;</span><span class="p">)</span>
+<span class="nd">@limiter</span><span class="o">.</span><span class="n">limit</span><span class="p">(</span><span class="s2">&quot;10/minute&quot;</span><span class="p">)</span>
+<span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">query_endpoint</span><span class="p">(</span><span class="n">request</span><span class="p">:</span> <span class="n">Request</span><span class="p">,</span> <span class="n">query</span><span class="p">:</span> <span class="n">QueryRequest</span><span class="p">):</span>
+    <span class="c1"># Process query</span>
+    <span class="k">pass</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="monitoring-and-observability">
+<h2>Monitoring and Observability<a class="headerlink" href="#monitoring-and-observability" title="Link to this heading"></a></h2>
+<section id="application-monitoring">
+<h3>Application Monitoring<a class="headerlink" href="#application-monitoring" title="Link to this heading"></a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Prometheus metrics</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">prometheus_client</span><span class="w"> </span><span class="kn">import</span> <span class="n">Counter</span><span class="p">,</span> <span class="n">Histogram</span><span class="p">,</span> <span class="n">generate_latest</span>
+
+<span class="n">REQUEST_COUNT</span> <span class="o">=</span> <span class="n">Counter</span><span class="p">(</span><span class="s1">&#39;agentic_rag_requests_total&#39;</span><span class="p">,</span> <span class="s1">&#39;Total requests&#39;</span><span class="p">)</span>
+<span class="n">REQUEST_DURATION</span> <span class="o">=</span> <span class="n">Histogram</span><span class="p">(</span><span class="s1">&#39;agentic_rag_request_duration_seconds&#39;</span><span class="p">,</span> <span class="s1">&#39;Request duration&#39;</span><span class="p">)</span>
+
+<span class="nd">@REQUEST_DURATION</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">process_query</span><span class="p">(</span><span class="n">question</span><span class="p">,</span> <span class="n">sector</span><span class="p">):</span>
+    <span class="n">REQUEST_COUNT</span><span class="o">.</span><span class="n">inc</span><span class="p">()</span>
+    <span class="c1"># Process query</span>
+    <span class="k">pass</span>
+
+<span class="c1"># Health check endpoint</span>
+<span class="nd">@app</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;/health&quot;</span><span class="p">)</span>
+<span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">health_check</span><span class="p">():</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="c1"># Check Qdrant connection</span>
+        <span class="n">qdrant_healthy</span> <span class="o">=</span> <span class="n">check_qdrant_health</span><span class="p">()</span>
+        <span class="c1"># Check Azure OpenAI</span>
+        <span class="n">openai_healthy</span> <span class="o">=</span> <span class="n">check_openai_health</span><span class="p">()</span>
+
+        <span class="k">if</span> <span class="n">qdrant_healthy</span> <span class="ow">and</span> <span class="n">openai_healthy</span><span class="p">:</span>
+            <span class="k">return</span> <span class="p">{</span><span class="s2">&quot;status&quot;</span><span class="p">:</span> <span class="s2">&quot;healthy&quot;</span><span class="p">}</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="p">{</span><span class="s2">&quot;status&quot;</span><span class="p">:</span> <span class="s2">&quot;unhealthy&quot;</span><span class="p">},</span> <span class="mi">503</span>
+    <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+        <span class="k">return</span> <span class="p">{</span><span class="s2">&quot;status&quot;</span><span class="p">:</span> <span class="s2">&quot;error&quot;</span><span class="p">,</span> <span class="s2">&quot;message&quot;</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">)},</span> <span class="mi">503</span>
+</pre></div>
+</div>
+</section>
+<section id="logging-configuration">
+<h3>Logging Configuration<a class="headerlink" href="#logging-configuration" title="Link to this heading"></a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">logging</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">json</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">datetime</span><span class="w"> </span><span class="kn">import</span> <span class="n">datetime</span>
+
+<span class="k">class</span><span class="w"> </span><span class="nc">StructuredLogger</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="s2">&quot;agentic_rag&quot;</span><span class="p">)</span>
+        <span class="n">handler</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">StreamHandler</span><span class="p">()</span>
+        <span class="n">handler</span><span class="o">.</span><span class="n">setFormatter</span><span class="p">(</span><span class="n">StructuredFormatter</span><span class="p">())</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">addHandler</span><span class="p">(</span><span class="n">handler</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">setLevel</span><span class="p">(</span><span class="n">logging</span><span class="o">.</span><span class="n">INFO</span><span class="p">)</span>
+
+<span class="k">class</span><span class="w"> </span><span class="nc">StructuredFormatter</span><span class="p">(</span><span class="n">logging</span><span class="o">.</span><span class="n">Formatter</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">format</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">record</span><span class="p">):</span>
+        <span class="n">log_entry</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s2">&quot;timestamp&quot;</span><span class="p">:</span> <span class="n">datetime</span><span class="o">.</span><span class="n">utcnow</span><span class="p">()</span><span class="o">.</span><span class="n">isoformat</span><span class="p">(),</span>
+            <span class="s2">&quot;level&quot;</span><span class="p">:</span> <span class="n">record</span><span class="o">.</span><span class="n">levelname</span><span class="p">,</span>
+            <span class="s2">&quot;message&quot;</span><span class="p">:</span> <span class="n">record</span><span class="o">.</span><span class="n">getMessage</span><span class="p">(),</span>
+            <span class="s2">&quot;module&quot;</span><span class="p">:</span> <span class="n">record</span><span class="o">.</span><span class="n">module</span><span class="p">,</span>
+            <span class="s2">&quot;function&quot;</span><span class="p">:</span> <span class="n">record</span><span class="o">.</span><span class="n">funcName</span><span class="p">,</span>
+            <span class="s2">&quot;line&quot;</span><span class="p">:</span> <span class="n">record</span><span class="o">.</span><span class="n">lineno</span>
+        <span class="p">}</span>
+        <span class="k">return</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">log_entry</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="ci-cd-pipeline">
+<h2>CI/CD Pipeline<a class="headerlink" href="#ci-cd-pipeline" title="Link to this heading"></a></h2>
+<section id="github-actions-workflow">
+<h3>GitHub Actions Workflow<a class="headerlink" href="#github-actions-workflow" title="Link to this heading"></a></h3>
+<p>Create <cite>.github/workflows/deploy.yml</cite>:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Deploy to Production</span>
+
+<span class="nt">on</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">push</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">branches</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">main</span><span class="p p-Indicator">]</span>
+<span class="w">  </span><span class="nt">workflow_dispatch</span><span class="p">:</span>
+
+<span class="nt">jobs</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">test</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">runs-on</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ubuntu-latest</span>
+<span class="w">    </span><span class="nt">steps</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">uses</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">actions/checkout@v3</span>
+
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Set up Python</span>
+<span class="w">      </span><span class="nt">uses</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">actions/setup-python@v3</span>
+<span class="w">      </span><span class="nt">with</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">python-version</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;3.10&#39;</span>
+
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Install dependencies</span>
+<span class="w">      </span><span class="nt">run</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">|</span>
+<span class="w">        </span><span class="no">pip install -r requirements.txt</span>
+
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Run tests</span>
+<span class="w">      </span><span class="nt">run</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">|</span>
+<span class="w">        </span><span class="no">python -m pytest tests/</span>
+
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Run RAGAS evaluation</span>
+<span class="w">      </span><span class="nt">env</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">AZURE_OPENAI_API_KEY</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">${{ secrets.AZURE_OPENAI_API_KEY }}</span>
+<span class="w">      </span><span class="nt">run</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">|</span>
+<span class="w">        </span><span class="no">cd test_ragas</span>
+<span class="w">        </span><span class="no">python rag_ragas_qdrant.py</span>
+
+<span class="w">  </span><span class="nt">build</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">needs</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">test</span>
+<span class="w">    </span><span class="nt">runs-on</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ubuntu-latest</span>
+<span class="w">    </span><span class="nt">steps</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">uses</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">actions/checkout@v3</span>
+
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Build and push Docker image</span>
+<span class="w">      </span><span class="nt">uses</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">docker/build-push-action@v2</span>
+<span class="w">      </span><span class="nt">with</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">context</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">.</span>
+<span class="w">        </span><span class="nt">push</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">        </span><span class="nt">tags</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">${{ secrets.REGISTRY }}/agentic-rag:${{ github.sha }}</span>
+
+<span class="w">  </span><span class="nt">deploy</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">needs</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">build</span>
+<span class="w">    </span><span class="nt">runs-on</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ubuntu-latest</span>
+<span class="w">    </span><span class="nt">steps</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Deploy to Kubernetes</span>
+<span class="w">      </span><span class="nt">uses</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">azure/k8s-deploy@v1</span>
+<span class="w">      </span><span class="nt">with</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">manifests</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">|</span>
+<span class="w">          </span><span class="no">k8s/deployment.yaml</span>
+<span class="w">          </span><span class="no">k8s/service.yaml</span>
+<span class="w">        </span><span class="nt">images</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">|</span>
+<span class="w">          </span><span class="no">${{ secrets.REGISTRY }}/agentic-rag:${{ github.sha }}</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="performance-optimization">
+<h2>Performance Optimization<a class="headerlink" href="#performance-optimization" title="Link to this heading"></a></h2>
+<section id="application-performance">
+<h3>Application Performance<a class="headerlink" href="#application-performance" title="Link to this heading"></a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Connection pooling</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">qdrant_client</span><span class="w"> </span><span class="kn">import</span> <span class="n">QdrantClient</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">functools</span><span class="w"> </span><span class="kn">import</span> <span class="n">lru_cache</span>
+
+<span class="nd">@lru_cache</span><span class="p">(</span><span class="n">maxsize</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">get_qdrant_client</span><span class="p">():</span>
+    <span class="k">return</span> <span class="n">QdrantClient</span><span class="p">(</span>
+        <span class="n">url</span><span class="o">=</span><span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s2">&quot;QDRANT_URL&quot;</span><span class="p">),</span>
+        <span class="n">api_key</span><span class="o">=</span><span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s2">&quot;QDRANT_API_KEY&quot;</span><span class="p">),</span>
+        <span class="n">prefer_grpc</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">timeout</span><span class="o">=</span><span class="mi">30</span>
+    <span class="p">)</span>
+
+<span class="c1"># Caching</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">functools</span><span class="w"> </span><span class="kn">import</span> <span class="n">lru_cache</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">hashlib</span>
+
+<span class="nd">@lru_cache</span><span class="p">(</span><span class="n">maxsize</span><span class="o">=</span><span class="mi">1000</span><span class="p">)</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">cached_search</span><span class="p">(</span><span class="n">query_hash</span><span class="p">,</span> <span class="n">collection_name</span><span class="p">,</span> <span class="n">top_k</span><span class="p">):</span>
+    <span class="c1"># Perform search</span>
+    <span class="k">pass</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">search_with_cache</span><span class="p">(</span><span class="n">query</span><span class="p">,</span> <span class="n">collection_name</span><span class="p">,</span> <span class="n">top_k</span><span class="o">=</span><span class="mi">10</span><span class="p">):</span>
+    <span class="n">query_hash</span> <span class="o">=</span> <span class="n">hashlib</span><span class="o">.</span><span class="n">md5</span><span class="p">(</span><span class="n">query</span><span class="o">.</span><span class="n">encode</span><span class="p">())</span><span class="o">.</span><span class="n">hexdigest</span><span class="p">()</span>
+    <span class="k">return</span> <span class="n">cached_search</span><span class="p">(</span><span class="n">query_hash</span><span class="p">,</span> <span class="n">collection_name</span><span class="p">,</span> <span class="n">top_k</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="database-optimization">
+<h3>Database Optimization<a class="headerlink" href="#database-optimization" title="Link to this heading"></a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Qdrant optimization settings</span>
+<span class="n">QDRANT_CONFIG</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">&quot;search_params&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s2">&quot;hnsw_ef&quot;</span><span class="p">:</span> <span class="mi">128</span><span class="p">,</span>  <span class="c1"># Higher for better accuracy</span>
+        <span class="s2">&quot;exact&quot;</span><span class="p">:</span> <span class="kc">False</span>   <span class="c1"># Use approximate search</span>
+    <span class="p">},</span>
+    <span class="s2">&quot;quantization&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;scalar&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;quantile&quot;</span><span class="p">:</span> <span class="mf">0.99</span>
+    <span class="p">},</span>
+    <span class="s2">&quot;optimizer_config&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s2">&quot;deleted_threshold&quot;</span><span class="p">:</span> <span class="mf">0.2</span><span class="p">,</span>
+        <span class="s2">&quot;vacuum_min_vector_number&quot;</span><span class="p">:</span> <span class="mi">1000</span><span class="p">,</span>
+        <span class="s2">&quot;default_segment_number&quot;</span><span class="p">:</span> <span class="mi">2</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="troubleshooting">
+<h2>Troubleshooting<a class="headerlink" href="#troubleshooting" title="Link to this heading"></a></h2>
+<section id="common-issues">
+<h3>Common Issues<a class="headerlink" href="#common-issues" title="Link to this heading"></a></h3>
+<p><strong>1. Out of Memory Errors</strong></p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="c1"># Increase memory limits in Kubernetes</span>
+<span class="nt">resources</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">limits</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">memory</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;4Gi&quot;</span>
+<span class="w">  </span><span class="nt">requests</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">memory</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;2Gi&quot;</span>
+</pre></div>
+</div>
+<p><strong>2. Slow Response Times</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Enable connection pooling and caching</span>
+<span class="c1"># Use async/await for better concurrency</span>
+<span class="c1"># Optimize Qdrant search parameters</span>
+</pre></div>
+</div>
+<p><strong>3. API Rate Limits</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Implement exponential backoff</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">time</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">random</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">retry_with_backoff</span><span class="p">(</span><span class="n">func</span><span class="p">,</span> <span class="n">max_retries</span><span class="o">=</span><span class="mi">3</span><span class="p">):</span>
+    <span class="k">for</span> <span class="n">attempt</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">max_retries</span><span class="p">):</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">func</span><span class="p">()</span>
+        <span class="k">except</span> <span class="n">RateLimitError</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">attempt</span> <span class="o">==</span> <span class="n">max_retries</span> <span class="o">-</span> <span class="mi">1</span><span class="p">:</span>
+                <span class="k">raise</span>
+            <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">2</span> <span class="o">**</span> <span class="n">attempt</span> <span class="o">+</span> <span class="n">random</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
+</pre></div>
+</div>
+</section>
+<section id="monitoring-checklist">
+<h3>Monitoring Checklist<a class="headerlink" href="#monitoring-checklist" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p>[ ] Application health checks working</p></li>
+<li><p>[ ] Database connections monitored</p></li>
+<li><p>[ ] API response times tracked</p></li>
+<li><p>[ ] Error rates below threshold</p></li>
+<li><p>[ ] Resource usage within limits</p></li>
+<li><p>[ ] Logs properly structured and collected</p></li>
+<li><p>[ ] Alerts configured for critical issues</p></li>
+</ul>
+</section>
+</section>
+<section id="next-steps">
+<h2>Next Steps<a class="headerlink" href="#next-steps" title="Link to this heading"></a></h2>
+<p>After deployment:</p>
+<ol class="arabic simple">
+<li><p><strong>Monitor Performance</strong>: Set up comprehensive monitoring</p></li>
+<li><p><strong>Optimize Costs</strong>: Review resource usage and optimize</p></li>
+<li><p><strong>Scale Testing</strong>: Test system under load</p></li>
+<li><p><strong>Security Audit</strong>: Regular security reviews</p></li>
+<li><p><strong>Backup Strategy</strong>: Implement data backup and recovery</p></li>
+</ol>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="docker.html" class="btn btn-neutral float-left" title="Docker Deployment" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../examples/basic_usage.html" class="btn btn-neutral float-right" title="Basic Usage Examples" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, Luca Battaglione.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

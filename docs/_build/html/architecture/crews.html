@@ -1,0 +1,1074 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Agent Crews Architecture &mdash; Agentic RAG 0.1.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=e59714d7" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=01f34227"></script>
+      <script src="../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="RAGAS Evaluation System" href="../evaluation/ragas.html" />
+    <link rel="prev" title="Architecture Overview" href="overview.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search"  style="background: #2980B9" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            Agentic RAG
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">User Guide:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation Guide</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../installation.html#system-requirements">System Requirements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../installation.html#prerequisites">Prerequisites</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../installation.html#installing-uv">Installing UV</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../installation.html#quick-installation">Quick Installation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../installation.html#development-installation">Development Installation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../installation.html#setting-up-qdrant">Setting Up Qdrant</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../installation.html#azure-openai-setup">Azure OpenAI Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../installation.html#troubleshooting">Troubleshooting</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../installation.html#verification">Verification</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../installation.html#next-steps">Next Steps</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../quickstart.html">Quick Start Guide</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../quickstart.html#prerequisites">Prerequisites</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../quickstart.html#basic-usage">Basic Usage</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../quickstart.html#first-query-example">First Query Example</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../quickstart.html#understanding-the-flow">Understanding the Flow</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../quickstart.html#configuration-tips">Configuration Tips</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../quickstart.html#common-use-cases">Common Use Cases</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../quickstart.html#performance-optimization">Performance Optimization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../quickstart.html#troubleshooting-quick-issues">Troubleshooting Quick Issues</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../quickstart.html#next-steps">Next Steps</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../quickstart.html#need-help">Need Help?</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../configuration.html">Configuration Guide</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../configuration.html#environment-variables">Environment Variables</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../configuration.html#azure-openai-configuration">Azure OpenAI Configuration</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../configuration.html#qdrant-configuration">Qdrant Configuration</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../configuration.html#web-search-configuration">Web Search Configuration</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../configuration.html#monitoring-and-logging">Monitoring and Logging</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../configuration.html#crew-configuration">Crew Configuration</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../configuration.html#check-crew-configuration">Check Crew Configuration</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../configuration.html#web-search-crew-configuration">Web Search Crew Configuration</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../configuration.html#synthesis-crew-configuration">Synthesis Crew Configuration</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../configuration.html#rag-tool-configuration">RAG Tool Configuration</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../configuration.html#vector-search-parameters">Vector Search Parameters</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../configuration.html#document-processing-configuration">Document Processing Configuration</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../configuration.html#streamlit-interface-configuration">Streamlit Interface Configuration</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../configuration.html#ui-configuration">UI Configuration</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../configuration.html#ragas-evaluation-configuration">RAGAS Evaluation Configuration</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../configuration.html#evaluation-metrics">Evaluation Metrics</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../configuration.html#dataset-configuration">Dataset Configuration</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../configuration.html#advanced-configuration">Advanced Configuration</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../configuration.html#performance-tuning">Performance Tuning</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../configuration.html#security-configuration">Security Configuration</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../configuration.html#development-configuration">Development Configuration</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../configuration.html#configuration-validation">Configuration Validation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../configuration.html#environment-specific-configurations">Environment-Specific Configurations</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../configuration.html#development-environment">Development Environment</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../configuration.html#production-environment">Production Environment</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../configuration.html#testing-environment">Testing Environment</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../configuration.html#configuration-best-practices">Configuration Best Practices</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../configuration.html#next-steps">Next Steps</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../usage.html">Getting started</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../usage.html#installation">Installation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../usage.html#build-the-faiss-index-and-run-the-flow">Build the FAISS index and run the flow</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../usage.html#generate-docs">Generate docs</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Architecture:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="overview.html">Architecture Overview</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="overview.html#system-architecture">System Architecture</a></li>
+<li class="toctree-l2"><a class="reference internal" href="overview.html#core-components">Core Components</a></li>
+<li class="toctree-l2"><a class="reference internal" href="overview.html#data-flow-architecture">Data Flow Architecture</a></li>
+<li class="toctree-l2"><a class="reference internal" href="overview.html#component-interactions">Component Interactions</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="overview.html#agent-communication">Agent Communication</a></li>
+<li class="toctree-l3"><a class="reference internal" href="overview.html#tool-integration">Tool Integration</a></li>
+<li class="toctree-l3"><a class="reference internal" href="overview.html#state-management">State Management</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="overview.html#scalability-design">Scalability Design</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="overview.html#horizontal-scaling">Horizontal Scaling</a></li>
+<li class="toctree-l3"><a class="reference internal" href="overview.html#vertical-scaling">Vertical Scaling</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="overview.html#performance-characteristics">Performance Characteristics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="overview.html#security-architecture">Security Architecture</a></li>
+<li class="toctree-l2"><a class="reference internal" href="overview.html#monitoring-and-observability">Monitoring and Observability</a></li>
+<li class="toctree-l2"><a class="reference internal" href="overview.html#deployment-architecture">Deployment Architecture</a></li>
+<li class="toctree-l2"><a class="reference internal" href="overview.html#extensibility-points">Extensibility Points</a></li>
+<li class="toctree-l2"><a class="reference internal" href="overview.html#technology-stack">Technology Stack</a></li>
+<li class="toctree-l2"><a class="reference internal" href="overview.html#next-steps">Next Steps</a></li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Agent Crews Architecture</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#crew-overview">Crew Overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#check-crew">Check Crew</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#architecture">Architecture</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#agent-configuration">Agent Configuration</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#task-definition">Task Definition</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#decision-logic">Decision Logic</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#example-scenarios">Example Scenarios</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#web-search-crew">Web Search Crew</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id1">Architecture</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id2">Agent Configuration</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#available-tools">Available Tools</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#task-configuration">Task Configuration</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#search-strategy">Search Strategy</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#synthesis-crew">Synthesis Crew</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id3">Architecture</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id4">Agent Configuration</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#synthesis-process">Synthesis Process</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id5">Task Configuration</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#response-structure">Response Structure</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#crew-interaction-patterns">Crew Interaction Patterns</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#sequential-processing">Sequential Processing</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#parallel-processing">Parallel Processing</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#error-handling-and-fallbacks">Error Handling and Fallbacks</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#crew-level-error-handling">Crew-Level Error Handling</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#fallback-strategies">Fallback Strategies</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#performance-optimization">Performance Optimization</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#crew-caching">Crew Caching</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#async-execution">Async Execution</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#monitoring-and-observability">Monitoring and Observability</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#crew-performance-metrics">Crew Performance Metrics</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#custom-crew-development">Custom Crew Development</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#creating-custom-crews">Creating Custom Crews</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#extending-existing-crews">Extending Existing Crews</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#next-steps">Next Steps</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Evaluation:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../evaluation/ragas.html">RAGAS Evaluation System</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../evaluation/ragas.html#overview">Overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../evaluation/ragas.html#key-features">Key Features</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../evaluation/ragas.html#quick-start">Quick Start</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../evaluation/ragas.html#evaluation-metrics">Evaluation Metrics</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../evaluation/ragas.html#context-precision">Context Precision</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../evaluation/ragas.html#context-recall">Context Recall</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../evaluation/ragas.html#faithfulness">Faithfulness</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../evaluation/ragas.html#answer-relevancy">Answer Relevancy</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../evaluation/ragas.html#answer-correctness">Answer Correctness</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../evaluation/ragas.html#evaluation-setup">Evaluation Setup</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../evaluation/ragas.html#dataset-preparation">Dataset Preparation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../evaluation/ragas.html#custom-test-questions">Custom Test Questions</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../evaluation/ragas.html#running-evaluations">Running Evaluations</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../evaluation/ragas.html#basic-evaluation">Basic Evaluation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../evaluation/ragas.html#custom-evaluation">Custom Evaluation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../evaluation/ragas.html#sector-specific-evaluation">Sector-Specific Evaluation</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../evaluation/ragas.html#evaluation-analysis">Evaluation Analysis</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../evaluation/ragas.html#performance-benchmarks">Performance Benchmarks</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../evaluation/ragas.html#score-interpretation">Score Interpretation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../evaluation/ragas.html#improving-scores">Improving Scores</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../evaluation/ragas.html#advanced-evaluation">Advanced Evaluation</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../evaluation/ragas.html#batch-evaluation">Batch Evaluation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../evaluation/ragas.html#cross-validation">Cross-Validation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../evaluation/ragas.html#a-b-testing">A/B Testing</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../evaluation/ragas.html#troubleshooting">Troubleshooting</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../evaluation/ragas.html#common-issues">Common Issues</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../evaluation/ragas.html#performance-optimization">Performance Optimization</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../evaluation/ragas.html#next-steps">Next Steps</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../evaluation/metrics.html">Evaluation Metrics</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../evaluation/metrics.html#overview">Overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../evaluation/metrics.html#detailed-metric-descriptions">Detailed Metric Descriptions</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../evaluation/metrics.html#context-precision">Context Precision</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../evaluation/metrics.html#context-recall">Context Recall</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../evaluation/metrics.html#faithfulness">Faithfulness</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../evaluation/metrics.html#answer-relevancy">Answer Relevancy</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../evaluation/metrics.html#answer-correctness">Answer Correctness</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../evaluation/metrics.html#metric-relationships">Metric Relationships</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../evaluation/metrics.html#interpretation-guidelines">Interpretation Guidelines</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../evaluation/metrics.html#score-ranges-and-actions">Score Ranges and Actions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../evaluation/metrics.html#debugging-with-metrics">Debugging with Metrics</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../evaluation/metrics.html#metric-calculation-code">Metric Calculation Code</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../evaluation/metrics.html#custom-metrics">Custom Metrics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../evaluation/metrics.html#automated-monitoring">Automated Monitoring</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../evaluation/metrics.html#best-practices">Best Practices</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../evaluation/metrics.html#next-steps">Next Steps</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../evaluation/setup.html">Evaluation Setup</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../evaluation/setup.html#prerequisites">Prerequisites</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../evaluation/setup.html#environment-setup">Environment Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../evaluation/setup.html#configuration">Configuration</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../evaluation/setup.html#environment-variables">Environment Variables</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../evaluation/setup.html#evaluation-configuration-file">Evaluation Configuration File</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../evaluation/setup.html#loading-configuration">Loading Configuration</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../evaluation/setup.html#dataset-preparation">Dataset Preparation</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../evaluation/setup.html#ground-truth-dataset">Ground Truth Dataset</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../evaluation/setup.html#question-generation">Question Generation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../evaluation/setup.html#answer-generation">Answer Generation</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../evaluation/setup.html#evaluation-pipeline-setup">Evaluation Pipeline Setup</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../evaluation/setup.html#basic-evaluation-pipeline">Basic Evaluation Pipeline</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../evaluation/setup.html#advanced-configuration">Advanced Configuration</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../evaluation/setup.html#custom-metrics-configuration">Custom Metrics Configuration</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../evaluation/setup.html#parallel-evaluation-setup">Parallel Evaluation Setup</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../evaluation/setup.html#monitoring-and-alerts">Monitoring and Alerts</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../evaluation/setup.html#performance-monitoring">Performance Monitoring</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../evaluation/setup.html#automated-quality-checks">Automated Quality Checks</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../evaluation/setup.html#continuous-integration">Continuous Integration</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../evaluation/setup.html#ci-cd-pipeline-integration">CI/CD Pipeline Integration</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../evaluation/setup.html#next-steps">Next Steps</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">API Reference:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../api/index.html">API Reference</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../api/agentic_rag.html">agentic_rag package</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../api/agentic_rag.html#subpackages">Subpackages</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../api/agentic_rag.tools.html">agentic_rag.tools package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/agentic_rag.crews.html">agentic_rag.crews package</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../api/agentic_rag.tools.html">agentic_rag.tools package</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../api/agentic_rag.tools.html#rag-tool-module">rag_tool module</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../api/agentic_rag.crews.html">agentic_rag.crews package</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../api/agentic_rag.crews.html#subpackages">Subpackages</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../api/agentic_rag.crews.check_crew.html">agentic_rag.crews.check_crew package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/agentic_rag.crews.rag_crew.html">agentic_rag.crews.rag_crew package</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../api/agentic_rag.crews.check_crew.html">agentic_rag.crews.check_crew package</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../api/agentic_rag.crews.check_crew.html#module-agentic_rag.crews.check_crew.check_crew">check_crew module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../api/agentic_rag.crews.check_crew.html#agentic_rag.crews.check_crew.check_crew.Result"><code class="docutils literal notranslate"><span class="pre">Result</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../api/agentic_rag.crews.rag_crew.html">agentic_rag.crews.rag_crew package</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../api/agentic_rag.crews.rag_crew.html#rag-crew-module">rag_crew module</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Deployment:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../deployment/docker.html">Docker Deployment</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../deployment/docker.html#overview">Overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../deployment/docker.html#prerequisites">Prerequisites</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../deployment/docker.html#basic-docker-setup">Basic Docker Setup</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../deployment/docker.html#single-container-deployment">Single Container Deployment</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../deployment/docker.html#build-and-run">Build and Run</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../deployment/docker.html#multi-container-setup">Multi-Container Setup</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../deployment/docker.html#docker-compose-configuration">Docker Compose Configuration</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../deployment/docker.html#environment-configuration">Environment Configuration</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../deployment/docker.html#qdrant-configuration">Qdrant Configuration</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../deployment/docker.html#production-deployment">Production Deployment</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../deployment/docker.html#production-docker-compose">Production Docker Compose</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../deployment/docker.html#production-dockerfile">Production Dockerfile</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../deployment/docker.html#load-balancer-configuration">Load Balancer Configuration</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../deployment/docker.html#monitoring-setup">Monitoring Setup</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../deployment/docker.html#prometheus-configuration">Prometheus Configuration</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../deployment/docker.html#grafana-dashboard">Grafana Dashboard</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../deployment/docker.html#deployment-commands">Deployment Commands</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../deployment/docker.html#development-deployment">Development Deployment</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../deployment/docker.html#id1">Production Deployment</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../deployment/docker.html#data-management">Data Management</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../deployment/docker.html#volume-management">Volume Management</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../deployment/docker.html#document-indexing">Document Indexing</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../deployment/docker.html#troubleshooting">Troubleshooting</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../deployment/docker.html#common-issues">Common Issues</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../deployment/docker.html#debug-commands">Debug Commands</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../deployment/docker.html#scaling-and-performance">Scaling and Performance</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../deployment/docker.html#horizontal-scaling">Horizontal Scaling</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../deployment/docker.html#performance-optimization">Performance Optimization</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../deployment/docker.html#health-checks-and-monitoring">Health Checks and Monitoring</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../deployment/docker.html#security-best-practices">Security Best Practices</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../deployment/docker.html#container-security">Container Security</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../deployment/docker.html#network-security">Network Security</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../deployment/docker.html#next-steps">Next Steps</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../deployment/production.html">Production Deployment</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../deployment/production.html#deployment-overview">Deployment Overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../deployment/production.html#architecture-options">Architecture Options</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../deployment/production.html#single-server-deployment">Single Server Deployment</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../deployment/production.html#multi-server-deployment">Multi-Server Deployment</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../deployment/production.html#cloud-deployment">Cloud Deployment</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../deployment/production.html#docker-deployment">Docker Deployment</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../deployment/production.html#basic-docker-setup">Basic Docker Setup</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../deployment/production.html#multi-service-docker-compose">Multi-Service Docker Compose</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../deployment/production.html#nginx-configuration">Nginx Configuration</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../deployment/production.html#kubernetes-deployment">Kubernetes Deployment</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../deployment/production.html#kubernetes-manifests">Kubernetes Manifests</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../deployment/production.html#helm-chart-deployment">Helm Chart Deployment</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../deployment/production.html#cloud-specific-deployments">Cloud-Specific Deployments</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../deployment/production.html#azure-container-instances">Azure Container Instances</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../deployment/production.html#aws-ecs-deployment">AWS ECS Deployment</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../deployment/production.html#security-best-practices">Security Best Practices</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../deployment/production.html#environment-security">Environment Security</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../deployment/production.html#application-security">Application Security</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../deployment/production.html#monitoring-and-observability">Monitoring and Observability</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../deployment/production.html#application-monitoring">Application Monitoring</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../deployment/production.html#logging-configuration">Logging Configuration</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../deployment/production.html#ci-cd-pipeline">CI/CD Pipeline</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../deployment/production.html#github-actions-workflow">GitHub Actions Workflow</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../deployment/production.html#performance-optimization">Performance Optimization</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../deployment/production.html#application-performance">Application Performance</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../deployment/production.html#database-optimization">Database Optimization</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../deployment/production.html#troubleshooting">Troubleshooting</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../deployment/production.html#common-issues">Common Issues</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../deployment/production.html#monitoring-checklist">Monitoring Checklist</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../deployment/production.html#next-steps">Next Steps</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Examples:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../examples/basic_usage.html">Basic Usage Examples</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../examples/basic_usage.html#getting-started">Getting Started</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../examples/basic_usage.html#example-1-simple-query">Example 1: Simple Query</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../examples/basic_usage.html#example-2-multi-sector-analysis">Example 2: Multi-Sector Analysis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../examples/basic_usage.html#example-3-web-enhanced-search">Example 3: Web-Enhanced Search</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../examples/basic_usage.html#example-4-direct-rag-search">Example 4: Direct RAG Search</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../examples/basic_usage.html#example-5-streaming-interface">Example 5: Streaming Interface</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../examples/basic_usage.html#example-6-batch-processing">Example 6: Batch Processing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../examples/basic_usage.html#example-7-custom-tool-integration">Example 7: Custom Tool Integration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../examples/basic_usage.html#example-8-error-handling">Example 8: Error Handling</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../examples/basic_usage.html#example-9-performance-monitoring">Example 9: Performance Monitoring</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../examples/basic_usage.html#example-10-configuration-testing">Example 10: Configuration Testing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../examples/basic_usage.html#best-practices">Best Practices</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../examples/basic_usage.html#common-patterns">Common Patterns</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../examples/basic_usage.html#next-steps">Next Steps</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu"  style="background: #2980B9" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Agentic RAG</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Agent Crews Architecture</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/architecture/crews.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="agent-crews-architecture">
+<h1>Agent Crews Architecture<a class="headerlink" href="#agent-crews-architecture" title="Link to this heading"></a></h1>
+<p>This document provides detailed information about the multi-agent crews that power Agentic RAG.</p>
+<section id="crew-overview">
+<h2>Crew Overview<a class="headerlink" href="#crew-overview" title="Link to this heading"></a></h2>
+<p>Agentic RAG uses three specialized crews, each designed for specific tasks:</p>
+<ol class="arabic simple">
+<li><p><strong>Check Crew</strong>: Query relevance analysis and routing decisions</p></li>
+<li><p><strong>Web Search Crew</strong>: External information retrieval when needed</p></li>
+<li><p><strong>Synthesis Crew</strong>: Information combination and response generation</p></li>
+</ol>
+<p>Each crew consists of one or more AI agents working collaboratively to achieve their objectives.</p>
+</section>
+<section id="check-crew">
+<h2>Check Crew<a class="headerlink" href="#check-crew" title="Link to this heading"></a></h2>
+<p><strong>Purpose</strong>: Determines whether a user query is relevant to the local knowledge base and decides on the appropriate processing strategy.</p>
+<section id="architecture">
+<h3>Architecture<a class="headerlink" href="#architecture" title="Link to this heading"></a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span><span class="w"> </span><span class="nc">CheckCrew</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">relevance_checker</span> <span class="o">=</span> <span class="n">Agent</span><span class="p">(</span>
+            <span class="n">role</span><span class="o">=</span><span class="s2">&quot;Question Relevance Analyst&quot;</span><span class="p">,</span>
+            <span class="n">goal</span><span class="o">=</span><span class="s2">&quot;Determine query relevance to knowledge domains&quot;</span><span class="p">,</span>
+            <span class="n">backstory</span><span class="o">=</span><span class="s2">&quot;Expert analyst for domain-specific queries&quot;</span><span class="p">,</span>
+            <span class="n">llm</span><span class="o">=</span><span class="n">azure_openai_gpt4</span>
+        <span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="agent-configuration">
+<h3>Agent Configuration<a class="headerlink" href="#agent-configuration" title="Link to this heading"></a></h3>
+<p><strong>Relevance Checker Agent</strong>:</p>
+<ul class="simple">
+<li><p><strong>Role</strong>: Question Relevance Analyst</p></li>
+<li><p><strong>Goal</strong>: Determine if user questions are relevant to available knowledge domains</p></li>
+<li><p><strong>Backstory</strong>: Expert analyst who evaluates whether user queries can be effectively answered using available domain-specific knowledge bases</p></li>
+<li><p><strong>Tools</strong>: Query analysis tools, domain classification</p></li>
+<li><p><strong>LLM</strong>: Azure OpenAI GPT-4o</p></li>
+</ul>
+</section>
+<section id="task-definition">
+<h3>Task Definition<a class="headerlink" href="#task-definition" title="Link to this heading"></a></h3>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">check_relevance</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">&gt;</span>
+<span class="w">    </span><span class="no">Analyze the user&#39;s question: &quot;{question}&quot;</span>
+<span class="w">    </span><span class="no">Determine if it&#39;s relevant to banking, energy, or other available domains.</span>
+<span class="w">    </span><span class="no">Consider whether the question requires:</span>
+<span class="w">    </span><span class="no">1. Domain-specific knowledge from our documents</span>
+<span class="w">    </span><span class="no">2. Recent information not in our knowledge base</span>
+<span class="w">    </span><span class="no">3. General knowledge that might need web search</span>
+
+<span class="w">  </span><span class="nt">expected_output</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">&gt;</span>
+<span class="w">    </span><span class="no">A structured analysis containing:</span>
+<span class="w">    </span><span class="no">- Relevance score (0.0 to 1.0)</span>
+<span class="w">    </span><span class="no">- Recommended sectors to search</span>
+<span class="w">    </span><span class="no">- Processing strategy: &#39;rag_only&#39;, &#39;web_enhanced&#39;, or &#39;web_primary&#39;</span>
+<span class="w">    </span><span class="no">- Confidence level in the recommendation</span>
+</pre></div>
+</div>
+</section>
+<section id="decision-logic">
+<h3>Decision Logic<a class="headerlink" href="#decision-logic" title="Link to this heading"></a></h3>
+<p>The Check Crew uses the following decision tree:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">analyze_query_relevance</span><span class="p">(</span><span class="n">question</span><span class="p">,</span> <span class="n">available_sectors</span><span class="p">):</span>
+    <span class="n">analysis</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s2">&quot;relevance_score&quot;</span><span class="p">:</span> <span class="mf">0.0</span><span class="p">,</span>
+        <span class="s2">&quot;recommended_sectors&quot;</span><span class="p">:</span> <span class="p">[],</span>
+        <span class="s2">&quot;strategy&quot;</span><span class="p">:</span> <span class="s2">&quot;web_primary&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;confidence&quot;</span><span class="p">:</span> <span class="mf">0.0</span>
+    <span class="p">}</span>
+
+    <span class="c1"># Domain keyword analysis</span>
+    <span class="n">domain_keywords</span> <span class="o">=</span> <span class="n">extract_domain_keywords</span><span class="p">(</span><span class="n">question</span><span class="p">)</span>
+    <span class="n">sector_matches</span> <span class="o">=</span> <span class="n">match_sectors</span><span class="p">(</span><span class="n">domain_keywords</span><span class="p">,</span> <span class="n">available_sectors</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">sector_matches</span><span class="p">:</span>
+        <span class="n">analysis</span><span class="p">[</span><span class="s2">&quot;relevance_score&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">calculate_relevance_score</span><span class="p">(</span><span class="n">sector_matches</span><span class="p">)</span>
+        <span class="n">analysis</span><span class="p">[</span><span class="s2">&quot;recommended_sectors&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">sector_matches</span>
+
+        <span class="k">if</span> <span class="n">analysis</span><span class="p">[</span><span class="s2">&quot;relevance_score&quot;</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="mf">0.8</span><span class="p">:</span>
+            <span class="n">analysis</span><span class="p">[</span><span class="s2">&quot;strategy&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;rag_only&quot;</span>
+        <span class="k">elif</span> <span class="n">analysis</span><span class="p">[</span><span class="s2">&quot;relevance_score&quot;</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="mf">0.5</span><span class="p">:</span>
+            <span class="n">analysis</span><span class="p">[</span><span class="s2">&quot;strategy&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;web_enhanced&quot;</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">analysis</span><span class="p">[</span><span class="s2">&quot;strategy&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;web_primary&quot;</span>
+
+    <span class="k">return</span> <span class="n">analysis</span>
+</pre></div>
+</div>
+</section>
+<section id="example-scenarios">
+<h3>Example Scenarios<a class="headerlink" href="#example-scenarios" title="Link to this heading"></a></h3>
+<p><strong>High Relevance (RAG Only)</strong>:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>Question: &quot;What are the capital adequacy requirements under Basel III?&quot;
+Analysis:
+- Relevance Score: 0.95
+- Sectors: [&quot;bancario&quot;]
+- Strategy: &quot;rag_only&quot;
+- Confidence: 0.92
+</pre></div>
+</div>
+<p><strong>Medium Relevance (Web Enhanced)</strong>:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>Question: &quot;How do recent ESG regulations impact banking operations?&quot;
+Analysis:
+- Relevance Score: 0.65
+- Sectors: [&quot;bancario&quot;]
+- Strategy: &quot;web_enhanced&quot;
+- Confidence: 0.78
+</pre></div>
+</div>
+<p><strong>Low Relevance (Web Primary)</strong>:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>Question: &quot;What&#39;s the weather forecast for tomorrow?&quot;
+Analysis:
+- Relevance Score: 0.1
+- Sectors: []
+- Strategy: &quot;web_primary&quot;
+- Confidence: 0.95
+</pre></div>
+</div>
+</section>
+</section>
+<section id="web-search-crew">
+<h2>Web Search Crew<a class="headerlink" href="#web-search-crew" title="Link to this heading"></a></h2>
+<p><strong>Purpose</strong>: Retrieves current and comprehensive information from web sources when local knowledge is insufficient.</p>
+<section id="id1">
+<h3>Architecture<a class="headerlink" href="#id1" title="Link to this heading"></a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span><span class="w"> </span><span class="nc">WebSearchCrew</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">web_researcher</span> <span class="o">=</span> <span class="n">Agent</span><span class="p">(</span>
+            <span class="n">role</span><span class="o">=</span><span class="s2">&quot;Web Research Specialist&quot;</span><span class="p">,</span>
+            <span class="n">goal</span><span class="o">=</span><span class="s2">&quot;Find comprehensive and current information through web searches&quot;</span><span class="p">,</span>
+            <span class="n">backstory</span><span class="o">=</span><span class="s2">&quot;Skilled researcher with expertise in finding relevant information&quot;</span><span class="p">,</span>
+            <span class="n">tools</span><span class="o">=</span><span class="p">[</span><span class="n">web_search_tool</span><span class="p">,</span> <span class="n">url_scraper_tool</span><span class="p">],</span>
+            <span class="n">llm</span><span class="o">=</span><span class="n">azure_openai_gpt4</span>
+        <span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="id2">
+<h3>Agent Configuration<a class="headerlink" href="#id2" title="Link to this heading"></a></h3>
+<p><strong>Web Researcher Agent</strong>:</p>
+<ul class="simple">
+<li><p><strong>Role</strong>: Web Research Specialist</p></li>
+<li><p><strong>Goal</strong>: Find comprehensive and current information through web searches</p></li>
+<li><p><strong>Backstory</strong>: Skilled researcher who excels at finding relevant, current information from web sources</p></li>
+<li><p><strong>Tools</strong>: Web search, URL scraping, content extraction</p></li>
+<li><p><strong>LLM</strong>: Azure OpenAI GPT-4o</p></li>
+</ul>
+</section>
+<section id="available-tools">
+<h3>Available Tools<a class="headerlink" href="#available-tools" title="Link to this heading"></a></h3>
+<p><strong>1. Web Search Tool</strong>:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nd">@tool</span><span class="p">(</span><span class="s2">&quot;web_search&quot;</span><span class="p">)</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">web_search_tool</span><span class="p">(</span><span class="n">query</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">num_results</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">5</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Search the web for information related to the query&quot;&quot;&quot;</span>
+    <span class="c1"># Implementation using DuckDuckGo, Bing, or Google</span>
+    <span class="k">pass</span>
+</pre></div>
+</div>
+<p><strong>2. URL Scraper Tool</strong>:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nd">@tool</span><span class="p">(</span><span class="s2">&quot;scrape_url&quot;</span><span class="p">)</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">url_scraper_tool</span><span class="p">(</span><span class="n">url</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Extract content from a specific URL&quot;&quot;&quot;</span>
+    <span class="c1"># Implementation for content extraction</span>
+    <span class="k">pass</span>
+</pre></div>
+</div>
+<p><strong>3. Content Summarizer Tool</strong>:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nd">@tool</span><span class="p">(</span><span class="s2">&quot;summarize_content&quot;</span><span class="p">)</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">content_summarizer_tool</span><span class="p">(</span><span class="n">content</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">focus</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Summarize web content focusing on specific aspects&quot;&quot;&quot;</span>
+    <span class="c1"># Implementation for content summarization</span>
+    <span class="k">pass</span>
+</pre></div>
+</div>
+</section>
+<section id="task-configuration">
+<h3>Task Configuration<a class="headerlink" href="#task-configuration" title="Link to this heading"></a></h3>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">web_search_task</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">&gt;</span>
+<span class="w">    </span><span class="no">Search the web for information related to: &quot;{question}&quot;</span>
+<span class="w">    </span><span class="no">Focus on finding:</span>
+<span class="w">    </span><span class="no">1. Recent developments and updates</span>
+<span class="w">    </span><span class="no">2. Expert opinions and analysis</span>
+<span class="w">    </span><span class="no">3. Regulatory changes or announcements</span>
+<span class="w">    </span><span class="no">4. Industry trends and statistics</span>
+
+<span class="w">  </span><span class="nt">expected_output</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">&gt;</span>
+<span class="w">    </span><span class="no">A comprehensive summary of web findings including:</span>
+<span class="w">    </span><span class="no">- Key information points</span>
+<span class="w">    </span><span class="no">- Source URLs and credibility assessment</span>
+<span class="w">    </span><span class="no">- Relevance to the original question</span>
+<span class="w">    </span><span class="no">- Recency of information</span>
+</pre></div>
+</div>
+</section>
+<section id="search-strategy">
+<h3>Search Strategy<a class="headerlink" href="#search-strategy" title="Link to this heading"></a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span><span class="w"> </span><span class="nc">WebSearchStrategy</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">execute_search</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">question</span><span class="p">,</span> <span class="n">context</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="c1"># Step 1: Generate search queries</span>
+        <span class="n">search_queries</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">generate_search_queries</span><span class="p">(</span><span class="n">question</span><span class="p">,</span> <span class="n">context</span><span class="p">)</span>
+
+        <span class="c1"># Step 2: Execute searches</span>
+        <span class="n">search_results</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">query</span> <span class="ow">in</span> <span class="n">search_queries</span><span class="p">:</span>
+            <span class="n">results</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">web_search_tool</span><span class="p">(</span><span class="n">query</span><span class="p">,</span> <span class="n">num_results</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+            <span class="n">search_results</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">results</span><span class="p">)</span>
+
+        <span class="c1"># Step 3: Filter and rank results</span>
+        <span class="n">filtered_results</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">filter_results</span><span class="p">(</span><span class="n">search_results</span><span class="p">,</span> <span class="n">question</span><span class="p">)</span>
+
+        <span class="c1"># Step 4: Extract and summarize content</span>
+        <span class="n">summaries</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">result</span> <span class="ow">in</span> <span class="n">filtered_results</span><span class="p">[:</span><span class="mi">5</span><span class="p">]:</span>  <span class="c1"># Top 5 results</span>
+            <span class="n">content</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">url_scraper_tool</span><span class="p">(</span><span class="n">result</span><span class="p">[</span><span class="s1">&#39;url&#39;</span><span class="p">])</span>
+            <span class="n">summary</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">content_summarizer_tool</span><span class="p">(</span><span class="n">content</span><span class="p">,</span> <span class="n">question</span><span class="p">)</span>
+            <span class="n">summaries</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">summary</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">summaries</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="synthesis-crew">
+<h2>Synthesis Crew<a class="headerlink" href="#synthesis-crew" title="Link to this heading"></a></h2>
+<p><strong>Purpose</strong>: Combines information from multiple sources (RAG results and web search) to create comprehensive, coherent responses.</p>
+<section id="id3">
+<h3>Architecture<a class="headerlink" href="#id3" title="Link to this heading"></a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span><span class="w"> </span><span class="nc">SynthesisCrew</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">synthesis_agent</span> <span class="o">=</span> <span class="n">Agent</span><span class="p">(</span>
+            <span class="n">role</span><span class="o">=</span><span class="s2">&quot;Information Synthesis Expert&quot;</span><span class="p">,</span>
+            <span class="n">goal</span><span class="o">=</span><span class="s2">&quot;Combine information from multiple sources into comprehensive responses&quot;</span><span class="p">,</span>
+            <span class="n">backstory</span><span class="o">=</span><span class="s2">&quot;Expert at synthesizing information from various sources&quot;</span><span class="p">,</span>
+            <span class="n">tools</span><span class="o">=</span><span class="p">[</span><span class="n">citation_tool</span><span class="p">,</span> <span class="n">fact_checker_tool</span><span class="p">],</span>
+            <span class="n">llm</span><span class="o">=</span><span class="n">azure_openai_gpt4</span>
+        <span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="id4">
+<h3>Agent Configuration<a class="headerlink" href="#id4" title="Link to this heading"></a></h3>
+<p><strong>Synthesis Agent</strong>:</p>
+<ul class="simple">
+<li><p><strong>Role</strong>: Information Synthesis Expert</p></li>
+<li><p><strong>Goal</strong>: Combine information from multiple sources into comprehensive responses</p></li>
+<li><p><strong>Backstory</strong>: Expert at synthesizing information from various sources to create coherent, comprehensive, and accurate responses</p></li>
+<li><p><strong>Tools</strong>: Citation generation, fact checking, content structuring</p></li>
+<li><p><strong>LLM</strong>: Azure OpenAI GPT-4o</p></li>
+</ul>
+</section>
+<section id="synthesis-process">
+<h3>Synthesis Process<a class="headerlink" href="#synthesis-process" title="Link to this heading"></a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span><span class="w"> </span><span class="nc">SynthesisProcess</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">synthesize_response</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">question</span><span class="p">,</span> <span class="n">rag_results</span><span class="p">,</span> <span class="n">web_results</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="c1"># Step 1: Analyze information sources</span>
+        <span class="n">source_analysis</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">analyze_sources</span><span class="p">(</span><span class="n">rag_results</span><span class="p">,</span> <span class="n">web_results</span><span class="p">)</span>
+
+        <span class="c1"># Step 2: Identify key themes and topics</span>
+        <span class="n">themes</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">extract_themes</span><span class="p">(</span><span class="n">source_analysis</span><span class="p">)</span>
+
+        <span class="c1"># Step 3: Resolve conflicts and contradictions</span>
+        <span class="n">resolved_info</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">resolve_conflicts</span><span class="p">(</span><span class="n">source_analysis</span><span class="p">)</span>
+
+        <span class="c1"># Step 4: Structure response</span>
+        <span class="n">response_structure</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">create_response_structure</span><span class="p">(</span><span class="n">themes</span><span class="p">,</span> <span class="n">resolved_info</span><span class="p">)</span>
+
+        <span class="c1"># Step 5: Generate final response</span>
+        <span class="n">final_response</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">generate_response</span><span class="p">(</span><span class="n">question</span><span class="p">,</span> <span class="n">response_structure</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">final_response</span>
+</pre></div>
+</div>
+</section>
+<section id="id5">
+<h3>Task Configuration<a class="headerlink" href="#id5" title="Link to this heading"></a></h3>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">synthesis_task</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">&gt;</span>
+<span class="w">    </span><span class="no">Synthesize information from multiple sources to answer: &quot;{question}&quot;</span>
+
+<span class="w">    </span><span class="no">Available information:</span>
+<span class="w">    </span><span class="no">- RAG Results: {rag_context}</span>
+<span class="w">    </span><span class="no">- Web Search Results: {web_context}</span>
+
+<span class="w">    </span><span class="no">Create a comprehensive response that:</span>
+<span class="w">    </span><span class="no">1. Directly answers the question</span>
+<span class="w">    </span><span class="no">2. Provides supporting details and context</span>
+<span class="w">    </span><span class="no">3. Integrates information from all sources</span>
+<span class="w">    </span><span class="no">4. Identifies and resolves any contradictions</span>
+<span class="w">    </span><span class="no">5. Includes proper citations</span>
+
+<span class="w">  </span><span class="nt">expected_output</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">&gt;</span>
+<span class="w">    </span><span class="no">A well-structured response containing:</span>
+<span class="w">    </span><span class="no">- Clear answer to the question</span>
+<span class="w">    </span><span class="no">- Supporting evidence and details</span>
+<span class="w">    </span><span class="no">- Proper source attribution</span>
+<span class="w">    </span><span class="no">- Confidence indicators</span>
+<span class="w">    </span><span class="no">- Suggestions for further reading</span>
+</pre></div>
+</div>
+</section>
+<section id="response-structure">
+<h3>Response Structure<a class="headerlink" href="#response-structure" title="Link to this heading"></a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span><span class="w"> </span><span class="nc">ResponseFormatter</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">format_response</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">content</span><span class="p">,</span> <span class="n">sources</span><span class="p">):</span>
+        <span class="n">response</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s2">&quot;main_answer&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">extract_main_answer</span><span class="p">(</span><span class="n">content</span><span class="p">),</span>
+            <span class="s2">&quot;supporting_details&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">extract_details</span><span class="p">(</span><span class="n">content</span><span class="p">),</span>
+            <span class="s2">&quot;sources&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">format_sources</span><span class="p">(</span><span class="n">sources</span><span class="p">),</span>
+            <span class="s2">&quot;confidence_score&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">calculate_confidence</span><span class="p">(</span><span class="n">content</span><span class="p">,</span> <span class="n">sources</span><span class="p">),</span>
+            <span class="s2">&quot;limitations&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">identify_limitations</span><span class="p">(</span><span class="n">content</span><span class="p">,</span> <span class="n">sources</span><span class="p">)</span>
+        <span class="p">}</span>
+        <span class="k">return</span> <span class="n">response</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="crew-interaction-patterns">
+<h2>Crew Interaction Patterns<a class="headerlink" href="#crew-interaction-patterns" title="Link to this heading"></a></h2>
+<section id="sequential-processing">
+<h3>Sequential Processing<a class="headerlink" href="#sequential-processing" title="Link to this heading"></a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span><span class="w"> </span><span class="nc">SequentialFlow</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">process_query</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">question</span><span class="p">,</span> <span class="n">sector</span><span class="p">):</span>
+        <span class="c1"># Step 1: Check relevance</span>
+        <span class="n">check_result</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">check_crew</span><span class="o">.</span><span class="n">process</span><span class="p">(</span><span class="n">question</span><span class="p">)</span>
+
+        <span class="c1"># Step 2: Based on strategy, choose next step</span>
+        <span class="k">if</span> <span class="n">check_result</span><span class="o">.</span><span class="n">strategy</span> <span class="o">==</span> <span class="s2">&quot;rag_only&quot;</span><span class="p">:</span>
+            <span class="n">rag_results</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">rag_tool</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="n">question</span><span class="p">,</span> <span class="n">sector</span><span class="p">)</span>
+            <span class="n">final_response</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">synthesis_crew</span><span class="o">.</span><span class="n">process</span><span class="p">(</span><span class="n">question</span><span class="p">,</span> <span class="n">rag_results</span><span class="p">)</span>
+
+        <span class="k">elif</span> <span class="n">check_result</span><span class="o">.</span><span class="n">strategy</span> <span class="o">==</span> <span class="s2">&quot;web_enhanced&quot;</span><span class="p">:</span>
+            <span class="n">rag_results</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">rag_tool</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="n">question</span><span class="p">,</span> <span class="n">sector</span><span class="p">)</span>
+            <span class="n">web_results</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">web_search_crew</span><span class="o">.</span><span class="n">process</span><span class="p">(</span><span class="n">question</span><span class="p">)</span>
+            <span class="n">final_response</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">synthesis_crew</span><span class="o">.</span><span class="n">process</span><span class="p">(</span><span class="n">question</span><span class="p">,</span> <span class="n">rag_results</span><span class="p">,</span> <span class="n">web_results</span><span class="p">)</span>
+
+        <span class="k">else</span><span class="p">:</span>  <span class="c1"># web_primary</span>
+            <span class="n">web_results</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">web_search_crew</span><span class="o">.</span><span class="n">process</span><span class="p">(</span><span class="n">question</span><span class="p">)</span>
+            <span class="n">final_response</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">synthesis_crew</span><span class="o">.</span><span class="n">process</span><span class="p">(</span><span class="n">question</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="n">web_results</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">final_response</span>
+</pre></div>
+</div>
+</section>
+<section id="parallel-processing">
+<h3>Parallel Processing<a class="headerlink" href="#parallel-processing" title="Link to this heading"></a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">asyncio</span>
+
+<span class="k">class</span><span class="w"> </span><span class="nc">ParallelFlow</span><span class="p">:</span>
+    <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">process_query_parallel</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">question</span><span class="p">,</span> <span class="n">sector</span><span class="p">):</span>
+        <span class="c1"># Start check and RAG search in parallel</span>
+        <span class="n">check_task</span> <span class="o">=</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">create_task</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">check_crew</span><span class="o">.</span><span class="n">process_async</span><span class="p">(</span><span class="n">question</span><span class="p">))</span>
+        <span class="n">rag_task</span> <span class="o">=</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">create_task</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">rag_tool</span><span class="o">.</span><span class="n">search_async</span><span class="p">(</span><span class="n">question</span><span class="p">,</span> <span class="n">sector</span><span class="p">))</span>
+
+        <span class="c1"># Wait for check result to determine if web search is needed</span>
+        <span class="n">check_result</span> <span class="o">=</span> <span class="k">await</span> <span class="n">check_task</span>
+
+        <span class="k">if</span> <span class="n">check_result</span><span class="o">.</span><span class="n">strategy</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;web_enhanced&quot;</span><span class="p">,</span> <span class="s2">&quot;web_primary&quot;</span><span class="p">]:</span>
+            <span class="n">web_task</span> <span class="o">=</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">create_task</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">web_search_crew</span><span class="o">.</span><span class="n">process_async</span><span class="p">(</span><span class="n">question</span><span class="p">))</span>
+            <span class="n">rag_results</span><span class="p">,</span> <span class="n">web_results</span> <span class="o">=</span> <span class="k">await</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">gather</span><span class="p">(</span><span class="n">rag_task</span><span class="p">,</span> <span class="n">web_task</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">rag_results</span> <span class="o">=</span> <span class="k">await</span> <span class="n">rag_task</span>
+            <span class="n">web_results</span> <span class="o">=</span> <span class="kc">None</span>
+
+        <span class="c1"># Synthesize final response</span>
+        <span class="n">final_response</span> <span class="o">=</span> <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">synthesis_crew</span><span class="o">.</span><span class="n">process_async</span><span class="p">(</span>
+            <span class="n">question</span><span class="p">,</span> <span class="n">rag_results</span><span class="p">,</span> <span class="n">web_results</span>
+        <span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">final_response</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="error-handling-and-fallbacks">
+<h2>Error Handling and Fallbacks<a class="headerlink" href="#error-handling-and-fallbacks" title="Link to this heading"></a></h2>
+<section id="crew-level-error-handling">
+<h3>Crew-Level Error Handling<a class="headerlink" href="#crew-level-error-handling" title="Link to this heading"></a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span><span class="w"> </span><span class="nc">RobustCrewExecution</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">execute_with_fallback</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">crew</span><span class="p">,</span> <span class="n">task</span><span class="p">,</span> <span class="n">max_retries</span><span class="o">=</span><span class="mi">3</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">attempt</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">max_retries</span><span class="p">):</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">result</span> <span class="o">=</span> <span class="n">crew</span><span class="o">.</span><span class="n">kickoff</span><span class="p">(</span><span class="n">task</span><span class="p">)</span>
+                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">validate_result</span><span class="p">(</span><span class="n">result</span><span class="p">):</span>
+                    <span class="k">return</span> <span class="n">result</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Invalid result format&quot;</span><span class="p">)</span>
+
+            <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">attempt</span> <span class="o">==</span> <span class="n">max_retries</span> <span class="o">-</span> <span class="mi">1</span><span class="p">:</span>
+                    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_fallback_response</span><span class="p">(</span><span class="n">task</span><span class="p">,</span> <span class="n">e</span><span class="p">)</span>
+
+                <span class="c1"># Wait before retry with exponential backoff</span>
+                <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">2</span> <span class="o">**</span> <span class="n">attempt</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_fallback_response</span><span class="p">(</span><span class="n">task</span><span class="p">,</span> <span class="s2">&quot;Max retries exceeded&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="fallback-strategies">
+<h3>Fallback Strategies<a class="headerlink" href="#fallback-strategies" title="Link to this heading"></a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span><span class="w"> </span><span class="nc">FallbackManager</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_fallback_response</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">question</span><span class="p">,</span> <span class="n">error_context</span><span class="p">):</span>
+        <span class="k">if</span> <span class="s2">&quot;check_crew&quot;</span> <span class="ow">in</span> <span class="n">error_context</span><span class="p">:</span>
+            <span class="c1"># Default to web-enhanced strategy</span>
+            <span class="k">return</span> <span class="p">{</span><span class="s2">&quot;strategy&quot;</span><span class="p">:</span> <span class="s2">&quot;web_enhanced&quot;</span><span class="p">,</span> <span class="s2">&quot;confidence&quot;</span><span class="p">:</span> <span class="mf">0.5</span><span class="p">}</span>
+
+        <span class="k">elif</span> <span class="s2">&quot;web_search_crew&quot;</span> <span class="ow">in</span> <span class="n">error_context</span><span class="p">:</span>
+            <span class="c1"># Fall back to RAG-only</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">rag_tool</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="n">question</span><span class="p">,</span> <span class="p">[</span><span class="s2">&quot;all&quot;</span><span class="p">])</span>
+
+        <span class="k">elif</span> <span class="s2">&quot;synthesis_crew&quot;</span> <span class="ow">in</span> <span class="n">error_context</span><span class="p">:</span>
+            <span class="c1"># Return simple formatted response</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">simple_response_formatter</span><span class="p">(</span><span class="n">question</span><span class="p">,</span> <span class="n">raw_results</span><span class="p">)</span>
+
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="p">{</span><span class="s2">&quot;error&quot;</span><span class="p">:</span> <span class="s2">&quot;Unable to process query&quot;</span><span class="p">,</span> <span class="s2">&quot;suggestion&quot;</span><span class="p">:</span> <span class="s2">&quot;Please try again&quot;</span><span class="p">}</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="performance-optimization">
+<h2>Performance Optimization<a class="headerlink" href="#performance-optimization" title="Link to this heading"></a></h2>
+<section id="crew-caching">
+<h3>Crew Caching<a class="headerlink" href="#crew-caching" title="Link to this heading"></a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">functools</span><span class="w"> </span><span class="kn">import</span> <span class="n">lru_cache</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">hashlib</span>
+
+<span class="k">class</span><span class="w"> </span><span class="nc">CrewCache</span><span class="p">:</span>
+    <span class="nd">@lru_cache</span><span class="p">(</span><span class="n">maxsize</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">cached_check_result</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">question_hash</span><span class="p">):</span>
+        <span class="c1"># Cache check crew results for similar questions</span>
+        <span class="k">pass</span>
+
+    <span class="nd">@lru_cache</span><span class="p">(</span><span class="n">maxsize</span><span class="o">=</span><span class="mi">200</span><span class="p">)</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">cached_web_search</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">query_hash</span><span class="p">):</span>
+        <span class="c1"># Cache web search results</span>
+        <span class="k">pass</span>
+</pre></div>
+</div>
+</section>
+<section id="async-execution">
+<h3>Async Execution<a class="headerlink" href="#async-execution" title="Link to this heading"></a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span><span class="w"> </span><span class="nc">AsyncCrewManager</span><span class="p">:</span>
+    <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">execute_crews_async</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">question</span><span class="p">,</span> <span class="n">sector</span><span class="p">):</span>
+        <span class="c1"># Use asyncio for concurrent execution where possible</span>
+        <span class="n">tasks</span> <span class="o">=</span> <span class="p">[]</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">should_run_check</span><span class="p">():</span>
+            <span class="n">tasks</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">check_crew</span><span class="o">.</span><span class="n">process_async</span><span class="p">(</span><span class="n">question</span><span class="p">))</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">should_run_rag</span><span class="p">():</span>
+            <span class="n">tasks</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">rag_tool</span><span class="o">.</span><span class="n">search_async</span><span class="p">(</span><span class="n">question</span><span class="p">,</span> <span class="n">sector</span><span class="p">))</span>
+
+        <span class="n">results</span> <span class="o">=</span> <span class="k">await</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">gather</span><span class="p">(</span><span class="o">*</span><span class="n">tasks</span><span class="p">,</span> <span class="n">return_exceptions</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">process_results</span><span class="p">(</span><span class="n">results</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="monitoring-and-observability">
+<h2>Monitoring and Observability<a class="headerlink" href="#monitoring-and-observability" title="Link to this heading"></a></h2>
+<section id="crew-performance-metrics">
+<h3>Crew Performance Metrics<a class="headerlink" href="#crew-performance-metrics" title="Link to this heading"></a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">opik</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">datetime</span><span class="w"> </span><span class="kn">import</span> <span class="n">datetime</span>
+
+<span class="k">class</span><span class="w"> </span><span class="nc">CrewMonitoring</span><span class="p">:</span>
+    <span class="nd">@opik</span><span class="o">.</span><span class="n">track</span><span class="p">(</span><span class="n">project_name</span><span class="o">=</span><span class="s2">&quot;crew_performance&quot;</span><span class="p">)</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">monitor_crew_execution</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">crew_name</span><span class="p">,</span> <span class="n">task</span><span class="p">,</span> <span class="n">execution_time</span><span class="p">):</span>
+        <span class="n">opik</span><span class="o">.</span><span class="n">log_metric</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">crew_name</span><span class="si">}</span><span class="s2">_execution_time&quot;</span><span class="p">,</span> <span class="n">execution_time</span><span class="p">)</span>
+        <span class="n">opik</span><span class="o">.</span><span class="n">log_metric</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">crew_name</span><span class="si">}</span><span class="s2">_success_rate&quot;</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">log_crew_failure</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">crew_name</span><span class="p">,</span> <span class="n">error</span><span class="p">):</span>
+        <span class="n">opik</span><span class="o">.</span><span class="n">log_metric</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">crew_name</span><span class="si">}</span><span class="s2">_success_rate&quot;</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">)</span>
+        <span class="n">opik</span><span class="o">.</span><span class="n">log_event</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">crew_name</span><span class="si">}</span><span class="s2">_error&quot;</span><span class="p">,</span> <span class="p">{</span><span class="s2">&quot;error&quot;</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="n">error</span><span class="p">)})</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="custom-crew-development">
+<h2>Custom Crew Development<a class="headerlink" href="#custom-crew-development" title="Link to this heading"></a></h2>
+<section id="creating-custom-crews">
+<h3>Creating Custom Crews<a class="headerlink" href="#creating-custom-crews" title="Link to this heading"></a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span><span class="w"> </span><span class="nc">CustomAnalysisCrew</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">analyst</span> <span class="o">=</span> <span class="n">Agent</span><span class="p">(</span>
+            <span class="n">role</span><span class="o">=</span><span class="s2">&quot;Domain Expert Analyst&quot;</span><span class="p">,</span>
+            <span class="n">goal</span><span class="o">=</span><span class="s2">&quot;Provide specialized analysis for specific domains&quot;</span><span class="p">,</span>
+            <span class="n">backstory</span><span class="o">=</span><span class="s2">&quot;Expert analyst with deep domain knowledge&quot;</span><span class="p">,</span>
+            <span class="n">tools</span><span class="o">=</span><span class="p">[</span><span class="n">custom_analysis_tool</span><span class="p">],</span>
+            <span class="n">llm</span><span class="o">=</span><span class="n">azure_openai_gpt4</span>
+        <span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">task</span> <span class="o">=</span> <span class="n">Task</span><span class="p">(</span>
+            <span class="n">description</span><span class="o">=</span><span class="s2">&quot;Analyze </span><span class="si">{input}</span><span class="s2"> using domain expertise&quot;</span><span class="p">,</span>
+            <span class="n">expected_output</span><span class="o">=</span><span class="s2">&quot;Detailed analysis with recommendations&quot;</span><span class="p">,</span>
+            <span class="n">agent</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">analyst</span>
+        <span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">analyze</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">input_data</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">crew</span><span class="o">.</span><span class="n">kickoff</span><span class="p">({</span><span class="s2">&quot;input&quot;</span><span class="p">:</span> <span class="n">input_data</span><span class="p">})</span>
+</pre></div>
+</div>
+</section>
+<section id="extending-existing-crews">
+<h3>Extending Existing Crews<a class="headerlink" href="#extending-existing-crews" title="Link to this heading"></a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span><span class="w"> </span><span class="nc">ExtendedSynthesisCrew</span><span class="p">(</span><span class="n">SynthesisCrew</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+
+        <span class="c1"># Add additional agent</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">fact_checker</span> <span class="o">=</span> <span class="n">Agent</span><span class="p">(</span>
+            <span class="n">role</span><span class="o">=</span><span class="s2">&quot;Fact Verification Specialist&quot;</span><span class="p">,</span>
+            <span class="n">goal</span><span class="o">=</span><span class="s2">&quot;Verify accuracy of synthesized information&quot;</span><span class="p">,</span>
+            <span class="n">backstory</span><span class="o">=</span><span class="s2">&quot;Expert at fact-checking and verification&quot;</span><span class="p">,</span>
+            <span class="n">tools</span><span class="o">=</span><span class="p">[</span><span class="n">fact_check_tool</span><span class="p">,</span> <span class="n">source_verification_tool</span><span class="p">],</span>
+            <span class="n">llm</span><span class="o">=</span><span class="n">azure_openai_gpt4</span>
+        <span class="p">)</span>
+
+        <span class="c1"># Add fact-checking task</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">fact_check_task</span> <span class="o">=</span> <span class="n">Task</span><span class="p">(</span>
+            <span class="n">description</span><span class="o">=</span><span class="s2">&quot;Verify facts in the synthesized response&quot;</span><span class="p">,</span>
+            <span class="n">expected_output</span><span class="o">=</span><span class="s2">&quot;Fact-checked response with confidence scores&quot;</span><span class="p">,</span>
+            <span class="n">agent</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">fact_checker</span>
+        <span class="p">)</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="next-steps">
+<h2>Next Steps<a class="headerlink" href="#next-steps" title="Link to this heading"></a></h2>
+<p>To learn more about crews:</p>
+<ol class="arabic simple">
+<li><p><strong>Explore Tools</strong>: <span class="xref std std-doc">tools</span> - Understanding the tools available to crews</p></li>
+<li><p><strong>Study Flows</strong>: <span class="xref std std-doc">flows</span> - How crews are orchestrated in flows</p></li>
+<li><p><strong>API Reference</strong>: <a class="reference internal" href="../api/index.html"><span class="doc">API Reference</span></a> - Detailed code documentation</p></li>
+<li><p><strong>Custom Development</strong>: Create your own specialized crews</p></li>
+</ol>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="overview.html" class="btn btn-neutral float-left" title="Architecture Overview" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../evaluation/ragas.html" class="btn btn-neutral float-right" title="RAGAS Evaluation System" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, Luca Battaglione.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

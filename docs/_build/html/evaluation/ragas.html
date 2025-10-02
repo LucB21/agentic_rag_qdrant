@@ -1,0 +1,1022 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>RAGAS Evaluation System &mdash; Agentic RAG 0.1.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=e59714d7" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=01f34227"></script>
+      <script src="../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Evaluation Metrics" href="metrics.html" />
+    <link rel="prev" title="Agent Crews Architecture" href="../architecture/crews.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search"  style="background: #2980B9" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            Agentic RAG
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">User Guide:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation Guide</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../installation.html#system-requirements">System Requirements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../installation.html#prerequisites">Prerequisites</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../installation.html#installing-uv">Installing UV</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../installation.html#quick-installation">Quick Installation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../installation.html#development-installation">Development Installation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../installation.html#setting-up-qdrant">Setting Up Qdrant</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../installation.html#azure-openai-setup">Azure OpenAI Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../installation.html#troubleshooting">Troubleshooting</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../installation.html#verification">Verification</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../installation.html#next-steps">Next Steps</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../quickstart.html">Quick Start Guide</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../quickstart.html#prerequisites">Prerequisites</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../quickstart.html#basic-usage">Basic Usage</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../quickstart.html#first-query-example">First Query Example</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../quickstart.html#understanding-the-flow">Understanding the Flow</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../quickstart.html#configuration-tips">Configuration Tips</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../quickstart.html#common-use-cases">Common Use Cases</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../quickstart.html#performance-optimization">Performance Optimization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../quickstart.html#troubleshooting-quick-issues">Troubleshooting Quick Issues</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../quickstart.html#next-steps">Next Steps</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../quickstart.html#need-help">Need Help?</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../configuration.html">Configuration Guide</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../configuration.html#environment-variables">Environment Variables</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../configuration.html#azure-openai-configuration">Azure OpenAI Configuration</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../configuration.html#qdrant-configuration">Qdrant Configuration</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../configuration.html#web-search-configuration">Web Search Configuration</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../configuration.html#monitoring-and-logging">Monitoring and Logging</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../configuration.html#crew-configuration">Crew Configuration</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../configuration.html#check-crew-configuration">Check Crew Configuration</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../configuration.html#web-search-crew-configuration">Web Search Crew Configuration</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../configuration.html#synthesis-crew-configuration">Synthesis Crew Configuration</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../configuration.html#rag-tool-configuration">RAG Tool Configuration</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../configuration.html#vector-search-parameters">Vector Search Parameters</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../configuration.html#document-processing-configuration">Document Processing Configuration</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../configuration.html#streamlit-interface-configuration">Streamlit Interface Configuration</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../configuration.html#ui-configuration">UI Configuration</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../configuration.html#ragas-evaluation-configuration">RAGAS Evaluation Configuration</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../configuration.html#evaluation-metrics">Evaluation Metrics</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../configuration.html#dataset-configuration">Dataset Configuration</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../configuration.html#advanced-configuration">Advanced Configuration</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../configuration.html#performance-tuning">Performance Tuning</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../configuration.html#security-configuration">Security Configuration</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../configuration.html#development-configuration">Development Configuration</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../configuration.html#configuration-validation">Configuration Validation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../configuration.html#environment-specific-configurations">Environment-Specific Configurations</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../configuration.html#development-environment">Development Environment</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../configuration.html#production-environment">Production Environment</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../configuration.html#testing-environment">Testing Environment</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../configuration.html#configuration-best-practices">Configuration Best Practices</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../configuration.html#next-steps">Next Steps</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../usage.html">Getting started</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../usage.html#installation">Installation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../usage.html#build-the-faiss-index-and-run-the-flow">Build the FAISS index and run the flow</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../usage.html#generate-docs">Generate docs</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Architecture:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../architecture/overview.html">Architecture Overview</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../architecture/overview.html#system-architecture">System Architecture</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../architecture/overview.html#core-components">Core Components</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../architecture/overview.html#data-flow-architecture">Data Flow Architecture</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../architecture/overview.html#component-interactions">Component Interactions</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../architecture/overview.html#agent-communication">Agent Communication</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../architecture/overview.html#tool-integration">Tool Integration</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../architecture/overview.html#state-management">State Management</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../architecture/overview.html#scalability-design">Scalability Design</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../architecture/overview.html#horizontal-scaling">Horizontal Scaling</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../architecture/overview.html#vertical-scaling">Vertical Scaling</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../architecture/overview.html#performance-characteristics">Performance Characteristics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../architecture/overview.html#security-architecture">Security Architecture</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../architecture/overview.html#monitoring-and-observability">Monitoring and Observability</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../architecture/overview.html#deployment-architecture">Deployment Architecture</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../architecture/overview.html#extensibility-points">Extensibility Points</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../architecture/overview.html#technology-stack">Technology Stack</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../architecture/overview.html#next-steps">Next Steps</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../architecture/crews.html">Agent Crews Architecture</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../architecture/crews.html#crew-overview">Crew Overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../architecture/crews.html#check-crew">Check Crew</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../architecture/crews.html#architecture">Architecture</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../architecture/crews.html#agent-configuration">Agent Configuration</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../architecture/crews.html#task-definition">Task Definition</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../architecture/crews.html#decision-logic">Decision Logic</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../architecture/crews.html#example-scenarios">Example Scenarios</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../architecture/crews.html#web-search-crew">Web Search Crew</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../architecture/crews.html#id1">Architecture</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../architecture/crews.html#id2">Agent Configuration</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../architecture/crews.html#available-tools">Available Tools</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../architecture/crews.html#task-configuration">Task Configuration</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../architecture/crews.html#search-strategy">Search Strategy</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../architecture/crews.html#synthesis-crew">Synthesis Crew</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../architecture/crews.html#id3">Architecture</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../architecture/crews.html#id4">Agent Configuration</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../architecture/crews.html#synthesis-process">Synthesis Process</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../architecture/crews.html#id5">Task Configuration</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../architecture/crews.html#response-structure">Response Structure</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../architecture/crews.html#crew-interaction-patterns">Crew Interaction Patterns</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../architecture/crews.html#sequential-processing">Sequential Processing</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../architecture/crews.html#parallel-processing">Parallel Processing</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../architecture/crews.html#error-handling-and-fallbacks">Error Handling and Fallbacks</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../architecture/crews.html#crew-level-error-handling">Crew-Level Error Handling</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../architecture/crews.html#fallback-strategies">Fallback Strategies</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../architecture/crews.html#performance-optimization">Performance Optimization</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../architecture/crews.html#crew-caching">Crew Caching</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../architecture/crews.html#async-execution">Async Execution</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../architecture/crews.html#monitoring-and-observability">Monitoring and Observability</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../architecture/crews.html#crew-performance-metrics">Crew Performance Metrics</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../architecture/crews.html#custom-crew-development">Custom Crew Development</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../architecture/crews.html#creating-custom-crews">Creating Custom Crews</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../architecture/crews.html#extending-existing-crews">Extending Existing Crews</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../architecture/crews.html#next-steps">Next Steps</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Evaluation:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">RAGAS Evaluation System</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#overview">Overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#key-features">Key Features</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#quick-start">Quick Start</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#evaluation-metrics">Evaluation Metrics</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#context-precision">Context Precision</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#context-recall">Context Recall</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#faithfulness">Faithfulness</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#answer-relevancy">Answer Relevancy</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#answer-correctness">Answer Correctness</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#evaluation-setup">Evaluation Setup</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#dataset-preparation">Dataset Preparation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#custom-test-questions">Custom Test Questions</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#running-evaluations">Running Evaluations</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#basic-evaluation">Basic Evaluation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#custom-evaluation">Custom Evaluation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#sector-specific-evaluation">Sector-Specific Evaluation</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#evaluation-analysis">Evaluation Analysis</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#performance-benchmarks">Performance Benchmarks</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#score-interpretation">Score Interpretation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#improving-scores">Improving Scores</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#advanced-evaluation">Advanced Evaluation</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#batch-evaluation">Batch Evaluation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#cross-validation">Cross-Validation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#a-b-testing">A/B Testing</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#troubleshooting">Troubleshooting</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#common-issues">Common Issues</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#performance-optimization">Performance Optimization</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#next-steps">Next Steps</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="metrics.html">Evaluation Metrics</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="metrics.html#overview">Overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="metrics.html#detailed-metric-descriptions">Detailed Metric Descriptions</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="metrics.html#context-precision">Context Precision</a></li>
+<li class="toctree-l3"><a class="reference internal" href="metrics.html#context-recall">Context Recall</a></li>
+<li class="toctree-l3"><a class="reference internal" href="metrics.html#faithfulness">Faithfulness</a></li>
+<li class="toctree-l3"><a class="reference internal" href="metrics.html#answer-relevancy">Answer Relevancy</a></li>
+<li class="toctree-l3"><a class="reference internal" href="metrics.html#answer-correctness">Answer Correctness</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="metrics.html#metric-relationships">Metric Relationships</a></li>
+<li class="toctree-l2"><a class="reference internal" href="metrics.html#interpretation-guidelines">Interpretation Guidelines</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="metrics.html#score-ranges-and-actions">Score Ranges and Actions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="metrics.html#debugging-with-metrics">Debugging with Metrics</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="metrics.html#metric-calculation-code">Metric Calculation Code</a></li>
+<li class="toctree-l2"><a class="reference internal" href="metrics.html#custom-metrics">Custom Metrics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="metrics.html#automated-monitoring">Automated Monitoring</a></li>
+<li class="toctree-l2"><a class="reference internal" href="metrics.html#best-practices">Best Practices</a></li>
+<li class="toctree-l2"><a class="reference internal" href="metrics.html#next-steps">Next Steps</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="setup.html">Evaluation Setup</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="setup.html#prerequisites">Prerequisites</a></li>
+<li class="toctree-l2"><a class="reference internal" href="setup.html#environment-setup">Environment Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="setup.html#configuration">Configuration</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="setup.html#environment-variables">Environment Variables</a></li>
+<li class="toctree-l3"><a class="reference internal" href="setup.html#evaluation-configuration-file">Evaluation Configuration File</a></li>
+<li class="toctree-l3"><a class="reference internal" href="setup.html#loading-configuration">Loading Configuration</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="setup.html#dataset-preparation">Dataset Preparation</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="setup.html#ground-truth-dataset">Ground Truth Dataset</a></li>
+<li class="toctree-l3"><a class="reference internal" href="setup.html#question-generation">Question Generation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="setup.html#answer-generation">Answer Generation</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="setup.html#evaluation-pipeline-setup">Evaluation Pipeline Setup</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="setup.html#basic-evaluation-pipeline">Basic Evaluation Pipeline</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="setup.html#advanced-configuration">Advanced Configuration</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="setup.html#custom-metrics-configuration">Custom Metrics Configuration</a></li>
+<li class="toctree-l3"><a class="reference internal" href="setup.html#parallel-evaluation-setup">Parallel Evaluation Setup</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="setup.html#monitoring-and-alerts">Monitoring and Alerts</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="setup.html#performance-monitoring">Performance Monitoring</a></li>
+<li class="toctree-l3"><a class="reference internal" href="setup.html#automated-quality-checks">Automated Quality Checks</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="setup.html#continuous-integration">Continuous Integration</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="setup.html#ci-cd-pipeline-integration">CI/CD Pipeline Integration</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="setup.html#next-steps">Next Steps</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">API Reference:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../api/index.html">API Reference</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../api/agentic_rag.html">agentic_rag package</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../api/agentic_rag.html#subpackages">Subpackages</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../api/agentic_rag.tools.html">agentic_rag.tools package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/agentic_rag.crews.html">agentic_rag.crews package</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../api/agentic_rag.tools.html">agentic_rag.tools package</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../api/agentic_rag.tools.html#rag-tool-module">rag_tool module</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../api/agentic_rag.crews.html">agentic_rag.crews package</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../api/agentic_rag.crews.html#subpackages">Subpackages</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../api/agentic_rag.crews.check_crew.html">agentic_rag.crews.check_crew package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/agentic_rag.crews.rag_crew.html">agentic_rag.crews.rag_crew package</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../api/agentic_rag.crews.check_crew.html">agentic_rag.crews.check_crew package</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../api/agentic_rag.crews.check_crew.html#module-agentic_rag.crews.check_crew.check_crew">check_crew module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../api/agentic_rag.crews.check_crew.html#agentic_rag.crews.check_crew.check_crew.Result"><code class="docutils literal notranslate"><span class="pre">Result</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../api/agentic_rag.crews.rag_crew.html">agentic_rag.crews.rag_crew package</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../api/agentic_rag.crews.rag_crew.html#rag-crew-module">rag_crew module</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Deployment:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../deployment/docker.html">Docker Deployment</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../deployment/docker.html#overview">Overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../deployment/docker.html#prerequisites">Prerequisites</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../deployment/docker.html#basic-docker-setup">Basic Docker Setup</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../deployment/docker.html#single-container-deployment">Single Container Deployment</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../deployment/docker.html#build-and-run">Build and Run</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../deployment/docker.html#multi-container-setup">Multi-Container Setup</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../deployment/docker.html#docker-compose-configuration">Docker Compose Configuration</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../deployment/docker.html#environment-configuration">Environment Configuration</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../deployment/docker.html#qdrant-configuration">Qdrant Configuration</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../deployment/docker.html#production-deployment">Production Deployment</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../deployment/docker.html#production-docker-compose">Production Docker Compose</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../deployment/docker.html#production-dockerfile">Production Dockerfile</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../deployment/docker.html#load-balancer-configuration">Load Balancer Configuration</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../deployment/docker.html#monitoring-setup">Monitoring Setup</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../deployment/docker.html#prometheus-configuration">Prometheus Configuration</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../deployment/docker.html#grafana-dashboard">Grafana Dashboard</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../deployment/docker.html#deployment-commands">Deployment Commands</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../deployment/docker.html#development-deployment">Development Deployment</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../deployment/docker.html#id1">Production Deployment</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../deployment/docker.html#data-management">Data Management</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../deployment/docker.html#volume-management">Volume Management</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../deployment/docker.html#document-indexing">Document Indexing</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../deployment/docker.html#troubleshooting">Troubleshooting</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../deployment/docker.html#common-issues">Common Issues</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../deployment/docker.html#debug-commands">Debug Commands</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../deployment/docker.html#scaling-and-performance">Scaling and Performance</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../deployment/docker.html#horizontal-scaling">Horizontal Scaling</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../deployment/docker.html#performance-optimization">Performance Optimization</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../deployment/docker.html#health-checks-and-monitoring">Health Checks and Monitoring</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../deployment/docker.html#security-best-practices">Security Best Practices</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../deployment/docker.html#container-security">Container Security</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../deployment/docker.html#network-security">Network Security</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../deployment/docker.html#next-steps">Next Steps</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../deployment/production.html">Production Deployment</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../deployment/production.html#deployment-overview">Deployment Overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../deployment/production.html#architecture-options">Architecture Options</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../deployment/production.html#single-server-deployment">Single Server Deployment</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../deployment/production.html#multi-server-deployment">Multi-Server Deployment</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../deployment/production.html#cloud-deployment">Cloud Deployment</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../deployment/production.html#docker-deployment">Docker Deployment</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../deployment/production.html#basic-docker-setup">Basic Docker Setup</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../deployment/production.html#multi-service-docker-compose">Multi-Service Docker Compose</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../deployment/production.html#nginx-configuration">Nginx Configuration</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../deployment/production.html#kubernetes-deployment">Kubernetes Deployment</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../deployment/production.html#kubernetes-manifests">Kubernetes Manifests</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../deployment/production.html#helm-chart-deployment">Helm Chart Deployment</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../deployment/production.html#cloud-specific-deployments">Cloud-Specific Deployments</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../deployment/production.html#azure-container-instances">Azure Container Instances</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../deployment/production.html#aws-ecs-deployment">AWS ECS Deployment</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../deployment/production.html#security-best-practices">Security Best Practices</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../deployment/production.html#environment-security">Environment Security</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../deployment/production.html#application-security">Application Security</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../deployment/production.html#monitoring-and-observability">Monitoring and Observability</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../deployment/production.html#application-monitoring">Application Monitoring</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../deployment/production.html#logging-configuration">Logging Configuration</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../deployment/production.html#ci-cd-pipeline">CI/CD Pipeline</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../deployment/production.html#github-actions-workflow">GitHub Actions Workflow</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../deployment/production.html#performance-optimization">Performance Optimization</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../deployment/production.html#application-performance">Application Performance</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../deployment/production.html#database-optimization">Database Optimization</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../deployment/production.html#troubleshooting">Troubleshooting</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../deployment/production.html#common-issues">Common Issues</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../deployment/production.html#monitoring-checklist">Monitoring Checklist</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../deployment/production.html#next-steps">Next Steps</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Examples:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../examples/basic_usage.html">Basic Usage Examples</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../examples/basic_usage.html#getting-started">Getting Started</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../examples/basic_usage.html#example-1-simple-query">Example 1: Simple Query</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../examples/basic_usage.html#example-2-multi-sector-analysis">Example 2: Multi-Sector Analysis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../examples/basic_usage.html#example-3-web-enhanced-search">Example 3: Web-Enhanced Search</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../examples/basic_usage.html#example-4-direct-rag-search">Example 4: Direct RAG Search</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../examples/basic_usage.html#example-5-streaming-interface">Example 5: Streaming Interface</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../examples/basic_usage.html#example-6-batch-processing">Example 6: Batch Processing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../examples/basic_usage.html#example-7-custom-tool-integration">Example 7: Custom Tool Integration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../examples/basic_usage.html#example-8-error-handling">Example 8: Error Handling</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../examples/basic_usage.html#example-9-performance-monitoring">Example 9: Performance Monitoring</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../examples/basic_usage.html#example-10-configuration-testing">Example 10: Configuration Testing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../examples/basic_usage.html#best-practices">Best Practices</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../examples/basic_usage.html#common-patterns">Common Patterns</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../examples/basic_usage.html#next-steps">Next Steps</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu"  style="background: #2980B9" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Agentic RAG</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">RAGAS Evaluation System</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/evaluation/ragas.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="ragas-evaluation-system">
+<h1>RAGAS Evaluation System<a class="headerlink" href="#ragas-evaluation-system" title="Link to this heading"></a></h1>
+<p>RAGAS (Retrieval-Augmented Generation Assessment) is a comprehensive framework for evaluating RAG systems. Agentic RAG includes a complete RAGAS evaluation pipeline with Qdrant integration.</p>
+<section id="overview">
+<h2>Overview<a class="headerlink" href="#overview" title="Link to this heading"></a></h2>
+<p>The RAGAS evaluation system in Agentic RAG provides:</p>
+<ul class="simple">
+<li><p><strong>Automated Evaluation</strong>: End-to-end evaluation pipeline</p></li>
+<li><p><strong>Multiple Metrics</strong>: Comprehensive assessment across different dimensions</p></li>
+<li><p><strong>Qdrant Integration</strong>: Native support for Qdrant vector database</p></li>
+<li><p><strong>Azure OpenAI Support</strong>: Evaluation using Azure OpenAI models</p></li>
+<li><p><strong>CSV Reporting</strong>: Detailed results export for analysis</p></li>
+</ul>
+</section>
+<section id="key-features">
+<h2>Key Features<a class="headerlink" href="#key-features" title="Link to this heading"></a></h2>
+<dl class="simple">
+<dt>🎯 <strong>Comprehensive Metrics</strong></dt><dd><ul class="simple">
+<li><p>Context Precision: Quality of retrieved context</p></li>
+<li><p>Context Recall: Completeness of retrieved context</p></li>
+<li><p>Faithfulness: Alignment between answer and context</p></li>
+<li><p>Answer Relevancy: Relevance of answer to question</p></li>
+<li><p>Answer Correctness: Overall accuracy of responses</p></li>
+</ul>
+</dd>
+<dt>📊 <strong>Automated Reporting</strong></dt><dd><ul class="simple">
+<li><p>CSV export with detailed metrics</p></li>
+<li><p>Per-question breakdown</p></li>
+<li><p>Aggregate statistics</p></li>
+<li><p>Performance benchmarking</p></li>
+</ul>
+</dd>
+<dt>🔄 <strong>Hybrid Search Evaluation</strong></dt><dd><ul class="simple">
+<li><p>Tests both semantic and keyword search</p></li>
+<li><p>Evaluates MMR diversification</p></li>
+<li><p>Assesses multi-sector performance</p></li>
+</ul>
+</dd>
+</dl>
+</section>
+<section id="quick-start">
+<h2>Quick Start<a class="headerlink" href="#quick-start" title="Link to this heading"></a></h2>
+<p><strong>1. Basic Evaluation Run</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>test_ragas
+python<span class="w"> </span>rag_ragas_qdrant.py
+</pre></div>
+</div>
+<p><strong>2. View Results</strong></p>
+<p>Results are saved to <cite>test_ragas/output/ragas_metrics.csv</cite>:</p>
+<div class="highlight-csv notranslate"><div class="highlight"><pre><span></span>question,answer,contexts,ground_truth,context_precision,context_recall,faithfulness,answer_relevancy,answer_correctness
+&quot;What is Basel III?&quot;,&quot;Basel III is...&quot;,&quot;[context1, context2]&quot;,&quot;Basel III regulation...&quot;,0.85,0.92,0.78,0.88,0.83
+</pre></div>
+</div>
+<p><strong>3. Analyze Results</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+
+<span class="c1"># Load results</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;test_ragas/output/ragas_metrics.csv&#39;</span><span class="p">)</span>
+
+<span class="c1"># Calculate average scores</span>
+<span class="n">avg_scores</span> <span class="o">=</span> <span class="n">df</span><span class="p">[[</span><span class="s1">&#39;context_precision&#39;</span><span class="p">,</span> <span class="s1">&#39;context_recall&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;faithfulness&#39;</span><span class="p">,</span> <span class="s1">&#39;answer_relevancy&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;answer_correctness&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Average RAGAS Scores:&quot;</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">metric</span><span class="p">,</span> <span class="n">score</span> <span class="ow">in</span> <span class="n">avg_scores</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">metric</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">score</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="evaluation-metrics">
+<h2>Evaluation Metrics<a class="headerlink" href="#evaluation-metrics" title="Link to this heading"></a></h2>
+<section id="context-precision">
+<h3>Context Precision<a class="headerlink" href="#context-precision" title="Link to this heading"></a></h3>
+<p><strong>What it measures</strong>: Quality and relevance of retrieved context chunks.</p>
+<ul class="simple">
+<li><p><strong>Range</strong>: 0.0 to 1.0 (higher is better)</p></li>
+<li><p><strong>Interpretation</strong>:
+- 1.0 = All retrieved context is highly relevant
+- 0.5 = Half the context is relevant
+- 0.0 = No relevant context retrieved</p></li>
+</ul>
+<p><strong>Example</strong>:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># High precision: All 3 chunks are relevant to &quot;Basel III requirements&quot;</span>
+<span class="n">contexts</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="s2">&quot;Basel III capital requirements...&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;Basel III liquidity ratios...&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;Basel III implementation timeline...&quot;</span>
+<span class="p">]</span>
+<span class="c1"># Score: ~0.95</span>
+
+<span class="c1"># Low precision: Only 1 of 3 chunks is relevant</span>
+<span class="n">contexts</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="s2">&quot;Basel III capital requirements...&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;Weather forecast for tomorrow...&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;Recipe for chocolate cake...&quot;</span>
+<span class="p">]</span>
+<span class="c1"># Score: ~0.33</span>
+</pre></div>
+</div>
+</section>
+<section id="context-recall">
+<h3>Context Recall<a class="headerlink" href="#context-recall" title="Link to this heading"></a></h3>
+<p><strong>What it measures</strong>: Completeness of retrieved context relative to ground truth.</p>
+<ul class="simple">
+<li><p><strong>Range</strong>: 0.0 to 1.0 (higher is better)</p></li>
+<li><p><strong>Interpretation</strong>:
+- 1.0 = All relevant information was retrieved
+- 0.5 = Half of relevant information was retrieved
+- 0.0 = No relevant information was retrieved</p></li>
+</ul>
+<p><strong>Example</strong>:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># High recall: Retrieved contexts cover most ground truth aspects</span>
+<span class="n">ground_truth</span> <span class="o">=</span> <span class="s2">&quot;Basel III includes capital, liquidity, and leverage requirements&quot;</span>
+<span class="n">contexts</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="s2">&quot;Basel III capital requirements: 8% minimum...&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;Basel III liquidity coverage ratio...&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;Basel III leverage ratio requirements...&quot;</span>
+<span class="p">]</span>
+<span class="c1"># Score: ~0.90</span>
+
+<span class="c1"># Low recall: Retrieved contexts miss key aspects</span>
+<span class="n">contexts</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="s2">&quot;Basel III capital requirements: 8% minimum...&quot;</span>
+<span class="p">]</span>
+<span class="c1"># Score: ~0.30</span>
+</pre></div>
+</div>
+</section>
+<section id="faithfulness">
+<h3>Faithfulness<a class="headerlink" href="#faithfulness" title="Link to this heading"></a></h3>
+<p><strong>What it measures</strong>: How well the generated answer aligns with the retrieved context.</p>
+<ul class="simple">
+<li><p><strong>Range</strong>: 0.0 to 1.0 (higher is better)</p></li>
+<li><p><strong>Interpretation</strong>:
+- 1.0 = Answer is completely supported by context
+- 0.5 = Answer is partially supported by context
+- 0.0 = Answer contradicts or ignores context</p></li>
+</ul>
+<p><strong>Example</strong>:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># High faithfulness</span>
+<span class="n">context</span> <span class="o">=</span> <span class="s2">&quot;Basel III requires banks to maintain 8</span><span class="si">% c</span><span class="s2">apital ratio&quot;</span>
+<span class="n">answer</span> <span class="o">=</span> <span class="s2">&quot;According to Basel III, banks must maintain a minimum 8</span><span class="si">% c</span><span class="s2">apital ratio&quot;</span>
+<span class="c1"># Score: ~0.95</span>
+
+<span class="c1"># Low faithfulness</span>
+<span class="n">context</span> <span class="o">=</span> <span class="s2">&quot;Basel III requires banks to maintain 8</span><span class="si">% c</span><span class="s2">apital ratio&quot;</span>
+<span class="n">answer</span> <span class="o">=</span> <span class="s2">&quot;Basel III requires a 15</span><span class="si">% c</span><span class="s2">apital ratio&quot;</span>  <span class="c1"># Incorrect information</span>
+<span class="c1"># Score: ~0.10</span>
+</pre></div>
+</div>
+</section>
+<section id="answer-relevancy">
+<h3>Answer Relevancy<a class="headerlink" href="#answer-relevancy" title="Link to this heading"></a></h3>
+<p><strong>What it measures</strong>: How well the answer addresses the specific question asked.</p>
+<ul class="simple">
+<li><p><strong>Range</strong>: 0.0 to 1.0 (higher is better)</p></li>
+<li><p><strong>Interpretation</strong>:
+- 1.0 = Answer directly and completely addresses the question
+- 0.5 = Answer partially addresses the question
+- 0.0 = Answer doesn’t address the question</p></li>
+</ul>
+<p><strong>Example</strong>:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># High relevancy</span>
+<span class="n">question</span> <span class="o">=</span> <span class="s2">&quot;What are the main Basel III capital requirements?&quot;</span>
+<span class="n">answer</span> <span class="o">=</span> <span class="s2">&quot;Basel III requires banks to maintain 8% minimum capital ratio...&quot;</span>
+<span class="c1"># Score: ~0.90</span>
+
+<span class="c1"># Low relevancy</span>
+<span class="n">question</span> <span class="o">=</span> <span class="s2">&quot;What are the main Basel III capital requirements?&quot;</span>
+<span class="n">answer</span> <span class="o">=</span> <span class="s2">&quot;Banking has a long history dating back to ancient times...&quot;</span>
+<span class="c1"># Score: ~0.15</span>
+</pre></div>
+</div>
+</section>
+<section id="answer-correctness">
+<h3>Answer Correctness<a class="headerlink" href="#answer-correctness" title="Link to this heading"></a></h3>
+<p><strong>What it measures</strong>: Overall accuracy and completeness of the answer compared to ground truth.</p>
+<ul class="simple">
+<li><p><strong>Range</strong>: 0.0 to 1.0 (higher is better)</p></li>
+<li><p><strong>Interpretation</strong>:
+- 1.0 = Answer is completely correct and comprehensive
+- 0.5 = Answer is partially correct
+- 0.0 = Answer is incorrect</p></li>
+</ul>
+<p><strong>Example</strong>:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># High correctness</span>
+<span class="n">ground_truth</span> <span class="o">=</span> <span class="s2">&quot;Basel III requires 8</span><span class="si">% c</span><span class="s2">apital ratio and liquidity coverage&quot;</span>
+<span class="n">answer</span> <span class="o">=</span> <span class="s2">&quot;Basel III mandates 8% minimum capital ratio and liquidity coverage requirements&quot;</span>
+<span class="c1"># Score: ~0.88</span>
+
+<span class="c1"># Low correctness</span>
+<span class="n">answer</span> <span class="o">=</span> <span class="s2">&quot;Basel III requires 5</span><span class="si">% c</span><span class="s2">apital ratio&quot;</span>  <span class="c1"># Factually incorrect</span>
+<span class="c1"># Score: ~0.25</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="evaluation-setup">
+<h2>Evaluation Setup<a class="headerlink" href="#evaluation-setup" title="Link to this heading"></a></h2>
+<section id="dataset-preparation">
+<h3>Dataset Preparation<a class="headerlink" href="#dataset-preparation" title="Link to this heading"></a></h3>
+<p>The evaluation system uses a structured dataset:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Example evaluation dataset</span>
+<span class="n">evaluation_dataset</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="p">{</span>
+        <span class="s2">&quot;question&quot;</span><span class="p">:</span> <span class="s2">&quot;What are Basel III capital requirements?&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;ground_truth&quot;</span><span class="p">:</span> <span class="s2">&quot;Basel III requires banks to maintain a minimum 8</span><span class="si">% c</span><span class="s2">apital adequacy ratio...&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;sector&quot;</span><span class="p">:</span> <span class="s2">&quot;bancario&quot;</span>
+    <span class="p">},</span>
+    <span class="p">{</span>
+        <span class="s2">&quot;question&quot;</span><span class="p">:</span> <span class="s2">&quot;How does renewable energy affect grid stability?&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;ground_truth&quot;</span><span class="p">:</span> <span class="s2">&quot;Renewable energy sources introduce variability that affects grid stability...&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;sector&quot;</span><span class="p">:</span> <span class="s2">&quot;energia&quot;</span>
+    <span class="p">}</span>
+<span class="p">]</span>
+</pre></div>
+</div>
+</section>
+<section id="custom-test-questions">
+<h3>Custom Test Questions<a class="headerlink" href="#custom-test-questions" title="Link to this heading"></a></h3>
+<p>You can add custom test questions by editing the dataset in <cite>rag_ragas_qdrant.py</cite>:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">create_evaluation_dataset</span><span class="p">():</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Create evaluation dataset with questions and ground truth&quot;&quot;&quot;</span>
+
+    <span class="k">return</span> <span class="p">[</span>
+        <span class="p">{</span>
+            <span class="s2">&quot;question&quot;</span><span class="p">:</span> <span class="s2">&quot;Your custom question here&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;ground_truth&quot;</span><span class="p">:</span> <span class="s2">&quot;Expected comprehensive answer&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;sector&quot;</span><span class="p">:</span> <span class="s2">&quot;relevant_sector&quot;</span>
+        <span class="p">},</span>
+        <span class="c1"># Add more questions...</span>
+    <span class="p">]</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="running-evaluations">
+<h2>Running Evaluations<a class="headerlink" href="#running-evaluations" title="Link to this heading"></a></h2>
+<section id="basic-evaluation">
+<h3>Basic Evaluation<a class="headerlink" href="#basic-evaluation" title="Link to this heading"></a></h3>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>test_ragas
+python<span class="w"> </span>rag_ragas_qdrant.py
+</pre></div>
+</div>
+<p>This will:</p>
+<ol class="arabic simple">
+<li><p>Initialize Qdrant connection</p></li>
+<li><p>Index sample documents if needed</p></li>
+<li><p>Run evaluation on predefined dataset</p></li>
+<li><p>Generate and save metrics to CSV</p></li>
+</ol>
+</section>
+<section id="custom-evaluation">
+<h3>Custom Evaluation<a class="headerlink" href="#custom-evaluation" title="Link to this heading"></a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">rag_ragas_qdrant</span><span class="w"> </span><span class="kn">import</span> <span class="n">QdrantRagasEvaluator</span>
+
+<span class="c1"># Initialize evaluator</span>
+<span class="n">evaluator</span> <span class="o">=</span> <span class="n">QdrantRagasEvaluator</span><span class="p">()</span>
+
+<span class="c1"># Custom evaluation dataset</span>
+<span class="n">custom_dataset</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="p">{</span>
+        <span class="s2">&quot;question&quot;</span><span class="p">:</span> <span class="s2">&quot;Your question&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;ground_truth&quot;</span><span class="p">:</span> <span class="s2">&quot;Expected answer&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;sector&quot;</span><span class="p">:</span> <span class="s2">&quot;bancario&quot;</span>
+    <span class="p">}</span>
+<span class="p">]</span>
+
+<span class="c1"># Run evaluation</span>
+<span class="n">results</span> <span class="o">=</span> <span class="n">evaluator</span><span class="o">.</span><span class="n">evaluate_dataset</span><span class="p">(</span><span class="n">custom_dataset</span><span class="p">)</span>
+
+<span class="c1"># Save results</span>
+<span class="n">evaluator</span><span class="o">.</span><span class="n">save_results</span><span class="p">(</span><span class="n">results</span><span class="p">,</span> <span class="s2">&quot;custom_evaluation.csv&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="sector-specific-evaluation">
+<h3>Sector-Specific Evaluation<a class="headerlink" href="#sector-specific-evaluation" title="Link to this heading"></a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Evaluate specific sector</span>
+<span class="n">banking_questions</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="p">{</span>
+        <span class="s2">&quot;question&quot;</span><span class="p">:</span> <span class="s2">&quot;What is regulatory capital?&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;ground_truth&quot;</span><span class="p">:</span> <span class="s2">&quot;Regulatory capital refers to...&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;sector&quot;</span><span class="p">:</span> <span class="s2">&quot;bancario&quot;</span>
+    <span class="p">}</span>
+<span class="p">]</span>
+
+<span class="n">results</span> <span class="o">=</span> <span class="n">evaluator</span><span class="o">.</span><span class="n">evaluate_dataset</span><span class="p">(</span>
+    <span class="n">banking_questions</span><span class="p">,</span>
+    <span class="n">collection_name</span><span class="o">=</span><span class="s2">&quot;agentic_rag_docs_bancario&quot;</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="evaluation-analysis">
+<h2>Evaluation Analysis<a class="headerlink" href="#evaluation-analysis" title="Link to this heading"></a></h2>
+<section id="performance-benchmarks">
+<h3>Performance Benchmarks<a class="headerlink" href="#performance-benchmarks" title="Link to this heading"></a></h3>
+<p><strong>Good RAGAS Scores</strong> (for most RAG systems):</p>
+<ul class="simple">
+<li><p>Context Precision: &gt; 0.70</p></li>
+<li><p>Context Recall: &gt; 0.65</p></li>
+<li><p>Faithfulness: &gt; 0.75</p></li>
+<li><p>Answer Relevancy: &gt; 0.80</p></li>
+<li><p>Answer Correctness: &gt; 0.70</p></li>
+</ul>
+<p><strong>Excellent RAGAS Scores</strong>:</p>
+<ul class="simple">
+<li><p>Context Precision: &gt; 0.85</p></li>
+<li><p>Context Recall: &gt; 0.80</p></li>
+<li><p>Faithfulness: &gt; 0.90</p></li>
+<li><p>Answer Relevancy: &gt; 0.90</p></li>
+<li><p>Answer Correctness: &gt; 0.85</p></li>
+</ul>
+</section>
+<section id="score-interpretation">
+<h3>Score Interpretation<a class="headerlink" href="#score-interpretation" title="Link to this heading"></a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">interpret_ragas_scores</span><span class="p">(</span><span class="n">df</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Interpret RAGAS evaluation results&quot;&quot;&quot;</span>
+
+    <span class="n">avg_scores</span> <span class="o">=</span> <span class="n">df</span><span class="p">[[</span><span class="s1">&#39;context_precision&#39;</span><span class="p">,</span> <span class="s1">&#39;context_recall&#39;</span><span class="p">,</span>
+                    <span class="s1">&#39;faithfulness&#39;</span><span class="p">,</span> <span class="s1">&#39;answer_relevancy&#39;</span><span class="p">,</span>
+                    <span class="s1">&#39;answer_correctness&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+
+    <span class="n">interpretations</span> <span class="o">=</span> <span class="p">{}</span>
+
+    <span class="k">for</span> <span class="n">metric</span><span class="p">,</span> <span class="n">score</span> <span class="ow">in</span> <span class="n">avg_scores</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+        <span class="k">if</span> <span class="n">score</span> <span class="o">&gt;=</span> <span class="mf">0.85</span><span class="p">:</span>
+            <span class="n">level</span> <span class="o">=</span> <span class="s2">&quot;Excellent&quot;</span>
+        <span class="k">elif</span> <span class="n">score</span> <span class="o">&gt;=</span> <span class="mf">0.70</span><span class="p">:</span>
+            <span class="n">level</span> <span class="o">=</span> <span class="s2">&quot;Good&quot;</span>
+        <span class="k">elif</span> <span class="n">score</span> <span class="o">&gt;=</span> <span class="mf">0.50</span><span class="p">:</span>
+            <span class="n">level</span> <span class="o">=</span> <span class="s2">&quot;Fair&quot;</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">level</span> <span class="o">=</span> <span class="s2">&quot;Needs Improvement&quot;</span>
+
+        <span class="n">interpretations</span><span class="p">[</span><span class="n">metric</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s2">&quot;score&quot;</span><span class="p">:</span> <span class="n">score</span><span class="p">,</span>
+            <span class="s2">&quot;level&quot;</span><span class="p">:</span> <span class="n">level</span>
+        <span class="p">}</span>
+
+    <span class="k">return</span> <span class="n">interpretations</span>
+</pre></div>
+</div>
+</section>
+<section id="improving-scores">
+<h3>Improving Scores<a class="headerlink" href="#improving-scores" title="Link to this heading"></a></h3>
+<p><strong>Low Context Precision</strong>:
+- Improve document chunking strategy
+- Adjust hybrid search weights
+- Enhance query preprocessing</p>
+<p><strong>Low Context Recall</strong>:
+- Increase search result count (top_k)
+- Improve document coverage in index
+- Adjust MMR diversity parameters</p>
+<p><strong>Low Faithfulness</strong>:
+- Improve prompt engineering
+- Use more conservative generation parameters
+- Enhance context formatting</p>
+<p><strong>Low Answer Relevancy</strong>:
+- Improve question understanding in agents
+- Enhance routing logic in Check Crew
+- Better context selection algorithms</p>
+<p><strong>Low Answer Correctness</strong>:
+- Improve knowledge base quality
+- Better ground truth preparation
+- Enhanced synthesis agent prompts</p>
+</section>
+</section>
+<section id="advanced-evaluation">
+<h2>Advanced Evaluation<a class="headerlink" href="#advanced-evaluation" title="Link to this heading"></a></h2>
+<section id="batch-evaluation">
+<h3>Batch Evaluation<a class="headerlink" href="#batch-evaluation" title="Link to this heading"></a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Large-scale evaluation</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">run_batch_evaluation</span><span class="p">(</span><span class="n">questions_file</span><span class="p">,</span> <span class="n">batch_size</span><span class="o">=</span><span class="mi">10</span><span class="p">):</span>
+    <span class="n">evaluator</span> <span class="o">=</span> <span class="n">QdrantRagasEvaluator</span><span class="p">()</span>
+
+    <span class="c1"># Load questions from file</span>
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">questions_file</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+        <span class="n">questions</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
+
+    <span class="c1"># Process in batches</span>
+    <span class="n">all_results</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">questions</span><span class="p">),</span> <span class="n">batch_size</span><span class="p">):</span>
+        <span class="n">batch</span> <span class="o">=</span> <span class="n">questions</span><span class="p">[</span><span class="n">i</span><span class="p">:</span><span class="n">i</span><span class="o">+</span><span class="n">batch_size</span><span class="p">]</span>
+        <span class="n">results</span> <span class="o">=</span> <span class="n">evaluator</span><span class="o">.</span><span class="n">evaluate_dataset</span><span class="p">(</span><span class="n">batch</span><span class="p">)</span>
+        <span class="n">all_results</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">results</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">all_results</span>
+</pre></div>
+</div>
+</section>
+<section id="cross-validation">
+<h3>Cross-Validation<a class="headerlink" href="#cross-validation" title="Link to this heading"></a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># K-fold cross-validation for robust evaluation</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.model_selection</span><span class="w"> </span><span class="kn">import</span> <span class="n">KFold</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">cross_validate_rag</span><span class="p">(</span><span class="n">dataset</span><span class="p">,</span> <span class="n">k</span><span class="o">=</span><span class="mi">5</span><span class="p">):</span>
+    <span class="n">kfold</span> <span class="o">=</span> <span class="n">KFold</span><span class="p">(</span><span class="n">n_splits</span><span class="o">=</span><span class="n">k</span><span class="p">,</span> <span class="n">shuffle</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
+    <span class="n">scores</span> <span class="o">=</span> <span class="p">[]</span>
+
+    <span class="k">for</span> <span class="n">train_idx</span><span class="p">,</span> <span class="n">test_idx</span> <span class="ow">in</span> <span class="n">kfold</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">dataset</span><span class="p">):</span>
+        <span class="n">test_data</span> <span class="o">=</span> <span class="p">[</span><span class="n">dataset</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">test_idx</span><span class="p">]</span>
+        <span class="n">results</span> <span class="o">=</span> <span class="n">evaluator</span><span class="o">.</span><span class="n">evaluate_dataset</span><span class="p">(</span><span class="n">test_data</span><span class="p">)</span>
+
+        <span class="c1"># Calculate average scores for this fold</span>
+        <span class="n">fold_scores</span> <span class="o">=</span> <span class="n">calculate_average_scores</span><span class="p">(</span><span class="n">results</span><span class="p">)</span>
+        <span class="n">scores</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">fold_scores</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">scores</span>
+</pre></div>
+</div>
+</section>
+<section id="a-b-testing">
+<h3>A/B Testing<a class="headerlink" href="#a-b-testing" title="Link to this heading"></a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Compare different RAG configurations</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">compare_rag_configs</span><span class="p">(</span><span class="n">dataset</span><span class="p">,</span> <span class="n">config_a</span><span class="p">,</span> <span class="n">config_b</span><span class="p">):</span>
+    <span class="c1"># Evaluate with configuration A</span>
+    <span class="n">evaluator_a</span> <span class="o">=</span> <span class="n">QdrantRagasEvaluator</span><span class="p">(</span><span class="n">config_a</span><span class="p">)</span>
+    <span class="n">results_a</span> <span class="o">=</span> <span class="n">evaluator_a</span><span class="o">.</span><span class="n">evaluate_dataset</span><span class="p">(</span><span class="n">dataset</span><span class="p">)</span>
+
+    <span class="c1"># Evaluate with configuration B</span>
+    <span class="n">evaluator_b</span> <span class="o">=</span> <span class="n">QdrantRagasEvaluator</span><span class="p">(</span><span class="n">config_b</span><span class="p">)</span>
+    <span class="n">results_b</span> <span class="o">=</span> <span class="n">evaluator_b</span><span class="o">.</span><span class="n">evaluate_dataset</span><span class="p">(</span><span class="n">dataset</span><span class="p">)</span>
+
+    <span class="c1"># Compare results</span>
+    <span class="n">comparison</span> <span class="o">=</span> <span class="n">compare_results</span><span class="p">(</span><span class="n">results_a</span><span class="p">,</span> <span class="n">results_b</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">comparison</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="troubleshooting">
+<h2>Troubleshooting<a class="headerlink" href="#troubleshooting" title="Link to this heading"></a></h2>
+<section id="common-issues">
+<h3>Common Issues<a class="headerlink" href="#common-issues" title="Link to this heading"></a></h3>
+<dl class="simple">
+<dt><strong>1. Low Scores Across All Metrics</strong></dt><dd><ul class="simple">
+<li><p>Check document quality and relevance</p></li>
+<li><p>Verify Qdrant indexing completed successfully</p></li>
+<li><p>Ensure embedding model consistency</p></li>
+</ul>
+</dd>
+<dt><strong>2. Evaluation Takes Too Long</strong></dt><dd><ul class="simple">
+<li><p>Reduce dataset size for testing</p></li>
+<li><p>Increase batch processing</p></li>
+<li><p>Optimize Qdrant connection settings</p></li>
+</ul>
+</dd>
+<dt><strong>3. Inconsistent Results</strong></dt><dd><ul class="simple">
+<li><p>Set random seeds for reproducibility</p></li>
+<li><p>Use larger evaluation datasets</p></li>
+<li><p>Check for model temperature settings</p></li>
+</ul>
+</dd>
+<dt><strong>4. Memory Issues</strong></dt><dd><ul class="simple">
+<li><p>Reduce batch sizes</p></li>
+<li><p>Clear cache between evaluations</p></li>
+<li><p>Monitor system resources</p></li>
+</ul>
+</dd>
+</dl>
+</section>
+<section id="performance-optimization">
+<h3>Performance Optimization<a class="headerlink" href="#performance-optimization" title="Link to this heading"></a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Optimized evaluation configuration</span>
+<span class="n">EVAL_CONFIG</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">&quot;batch_size&quot;</span><span class="p">:</span> <span class="mi">5</span><span class="p">,</span>           <span class="c1"># Smaller batches for memory</span>
+    <span class="s2">&quot;max_workers&quot;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span>          <span class="c1"># Parallel processing</span>
+    <span class="s2">&quot;timeout&quot;</span><span class="p">:</span> <span class="mi">60</span><span class="p">,</span>             <span class="c1"># Per-question timeout</span>
+    <span class="s2">&quot;cache_embeddings&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>  <span class="c1"># Cache for reuse</span>
+    <span class="s2">&quot;async_evaluation&quot;</span><span class="p">:</span> <span class="kc">True</span>   <span class="c1"># Non-blocking evaluation</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="next-steps">
+<h2>Next Steps<a class="headerlink" href="#next-steps" title="Link to this heading"></a></h2>
+<p>After setting up RAGAS evaluation:</p>
+<ol class="arabic simple">
+<li><p><strong>Understand Metrics</strong>: <a class="reference internal" href="metrics.html"><span class="doc">Evaluation Metrics</span></a> - Deep dive into each metric</p></li>
+<li><p><strong>Evaluation Setup</strong>: <a class="reference internal" href="setup.html"><span class="doc">Evaluation Setup</span></a> - Advanced configuration options</p></li>
+<li><p><strong>Custom Evaluation</strong>: Create domain-specific evaluation datasets</p></li>
+<li><p><strong>Continuous Monitoring</strong>: Set up automated evaluation pipelines</p></li>
+</ol>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="../architecture/crews.html" class="btn btn-neutral float-left" title="Agent Crews Architecture" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="metrics.html" class="btn btn-neutral float-right" title="Evaluation Metrics" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, Luca Battaglione.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
