@@ -1,1 +1,0 @@
-FIBA dropped the distinction between amateur and professional players in 1989. This change allowed professional players to compete in international tournaments, including the Olympic Games, where professional players first participated in 1992.

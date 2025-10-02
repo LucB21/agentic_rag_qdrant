@@ -1,0 +1,54 @@
+synthesize_information:
+  description: >
+    Combine RAG findings {chunk} from internal documents with web search results {search_summary} to create
+    a comprehensive answer to: {question}.
+    
+    You will receive:
+    - RAG context: {chunk} (INTERNAL TRUSTED sources - highest priority)
+    - Web search results: {search_summary} (Mix of TRUSTED and UNTRUSTED web sources)
+    
+    Apply STRICT TRUST HIERARCHY:
+    1. INTERNAL DOCUMENTS (from RAG): Always trusted, highest priority for core information
+    2. WEB TRUSTED SOURCES (from whitelist domains): Can support and supplement internal findings
+    3. WEB UNTRUSTED SOURCES (other domains): Use only as additional context, clearly marked as supplementary
+    
+    Create a complete answer that:
+    1. Bases core information on internal trusted sources
+    2. Uses web trusted sources to provide additional reliable context or recent updates
+    3. Uses web untrusted sources only as supplementary information (clearly marked as such)
+    4. Handles conflicts by prioritizing: Internal > Web Trusted > Web Untrusted
+    5. Provides proper source attribution with trust level indicators
+    6. Creates a cohesive, well-structured response
+  agent: information_synthesizer
+  expected_output: >
+    Create a comprehensive answer in JSON format with the following exact structure:
+    
+    {
+      "answer": "Your final synthesized and coherent response, built respecting the trust hierarchy. This should be a complete, well-structured answer that combines internal documents (highest priority), web trusted sources (medium priority), and web untrusted sources (lowest priority, clearly marked as supplementary).",
+      "sources": [
+        {
+          "title": "Title or description of the internal document source",
+          "ID": "Document identifier from the RAG system",
+          "trust_level": "internal"
+        },
+        {
+          "title": "Title or description of the web trusted source",
+          "url": "Complete URL link to the trusted web source",
+          "trust_level": "web_trusted"
+        },
+        {
+          "title": "Title or description of the web untrusted source", 
+          "url": "Complete URL link to the untrusted web source",
+          "trust_level": "web_untrusted"
+        }
+      ]
+    }
+    
+    IMPORTANT FORMATTING RULES:
+    - The "answer" field must contain the complete synthesized response
+    - Each source must have "trust_level" set to exactly one of: "internal", "web_trusted", or "web_untrusted"
+    - Internal sources use "ID" field, web sources use "url" field
+    - Include ALL sources that contributed to the answer
+    - Organize sources by trust level (internal first, then web_trusted, then web_untrusted)
+    - The JSON must be valid and properly formatted
+  output_file: output/final_report.md

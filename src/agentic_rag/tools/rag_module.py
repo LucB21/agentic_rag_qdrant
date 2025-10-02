@@ -173,6 +173,24 @@ load_dotenv()
 
 @dataclass
 class Settings:
+    # =========================
+    # Document Path Configuration
+    # =========================
+    PATH_TO_DOCUMENTS: str = "PATH_TO_DOCUMENTS"
+    """
+    Environment variable name for the path to documents directory.
+   
+    Configuration:
+    - Set PATH_TO_DOCUMENTS environment variable to point to your documents folder
+    - Supports absolute and relative paths
+    - Example: PATH_TO_DOCUMENTS=C:/path/to/your/documents
+   
+    Supported file types:
+    - PDF files (.pdf)
+    - Text files (.txt)
+    - Markdown files (.md)
+    - Word documents (.docx)
+    """
     """
     Comprehensive configuration settings for the RAG pipeline.
     
@@ -559,25 +577,6 @@ class Settings:
     - Consider LLM context window limits
     - Balance between detail and cost
     """
-    
-    # =========================
-    # Document Path Configuration
-    # =========================
-    PATH_TO_DOCUMENTS: str = "PATH_TO_DOCUMENTS"
-    """
-    Environment variable name for the path to documents directory.
-    
-    Configuration:
-    - Set PATH_TO_DOCUMENTS environment variable to point to your documents folder
-    - Supports absolute and relative paths
-    - Example: PATH_TO_DOCUMENTS=C:/path/to/your/documents
-    
-    Supported file types:
-    - PDF files (.pdf)
-    - Text files (.txt)
-    - Markdown files (.md)
-    - Word documents (.docx)
-    """
 
 SETTINGS = Settings()
 
@@ -693,7 +692,7 @@ def split_documents(docs: List[Document], settings: Settings) -> List[Document]:
     splitter = RecursiveCharacterTextSplitter(
         chunk_size=settings.chunk_size,
         chunk_overlap=settings.chunk_overlap,
-        separators=["\n\n", "\n", ". ", "? ", "! ", "; ", ": ", ", ", " ", ""],
+        separators=["# ", "## ", "### ", "\n\n", "\n", ". ", "? ", "! ", "; ", ": ", ", ", " ", ""],
     )
     return splitter.split_documents(docs)
 
@@ -1537,8 +1536,8 @@ def rag_tool(question: str) -> Dict[str, Any]:
 
     # 2) Dati -> chunk
     #docs = simulate_corpus()
-
     docs = load_documents_from_dir(os.getenv(s.PATH_TO_DOCUMENTS))
+ 
     chunks = split_documents(docs, s)
 
     # 3) Crea (o ricrea) collection
@@ -1617,69 +1616,5 @@ def rag_tool(question: str) -> Dict[str, Any]:
             "error": f"Context formatting failed: {str(e)}"
         }
 
-# def execute_rag_search(question: str) -> str:
-#     """
-#     Direct function to execute RAG search and return context string.
-#     This function can be called directly without CrewAI tool wrapper.
-    
-#     Args:
-#         question: The user's question
-        
-#     Returns:
-#         str: Formatted context from retrieved documents
-#     """
-#     s = SETTINGS
-    
-#     try:
-#         # Initialize Azure components
-#         embeddings = get_azure_embeddings(s)
-#         print("Azure embeddings initialized successfully")
-        
-#         # Get Qdrant client
-#         client = get_qdrant_client(s)
-        
-#         # Check if collection exists, if not create it
-#         try:
-#             collections = client.get_collections()
-#             collection_names = [col.name for col in collections.collections]
-            
-#             if s.collection not in collection_names:
-#                 print(f"Collection '{s.collection}' not found. Creating and indexing documents...")
-                
-#                 # Load and process documents
-#                 docs = load_documents_from_dir(r"C:\Users\ED813KK\agentic_rag_qdrant\document")
-#                 chunks = split_documents(docs, s)
-                
-#                 # Create collection
-#                 vector_size = get_azure_embedding_dimension(embeddings)
-#                 print(f"Using vector size: {vector_size}")
-#                 recreate_collection_for_rag(client, s, vector_size)
-                
-#                 # Index documents
-#                 upsert_chunks_azure(client, s, chunks, embeddings)
-#                 print(f"Indexed {len(chunks)} chunks to Qdrant collection '{s.collection}'")
-#             else:
-#                 print(f"Using existing collection '{s.collection}'")
-                
-#         except Exception as e:
-#             print(f"Error with collection: {e}")
-#             return f"Error: Could not access or create collection: {str(e)}"
-        
-#         # Perform hybrid search
-#         hits = hybrid_search_azure(client, s, question, embeddings)
-        
-#         if not hits:
-#             return "No relevant information found in the document collection."
-        
-#         # Format context for return
-#         ctx = format_docs_for_prompt(hits)
-#         print(f"Retrieved {len(hits)} relevant chunks")
-        
-#         return ctx
-        
-#     except Exception as e:
-#         error_msg = f"RAG search failed: {str(e)}"
-#         print(error_msg)
-#         return error_msg
 
     

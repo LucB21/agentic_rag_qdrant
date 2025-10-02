@@ -1,0 +1,28 @@
+# Core RAGAS and evaluation dependencies
+ragas
+pandas
+
+# LangChain ecosystem
+langchain
+langchain-core
+langchain-community
+langchain-openai
+langchain-qdrant
+
+# Vector database
+qdrant-client
+
+# CrewAI for tools integration
+crewai
+
+# Environment management
+python-dotenv
+
+# Document loaders
+pypdf
+python-docx
+docx2txt
+
+# Additional utilities
+pydantic
+numpy

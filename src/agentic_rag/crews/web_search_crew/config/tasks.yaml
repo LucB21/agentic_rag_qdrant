@@ -1,0 +1,19 @@
+web_search:
+  description: >
+    Perform a comprehensive web search to find current and relevant information about: {question}.
+    Search for recent developments, multiple perspectives, expert opinions, and up-to-date data.
+    For each source found, classify it as TRUSTED (if from whitelist domains like .gov, .edu, 
+    wikipedia.org, etc.) or UNTRUSTED (if from other domains).
+    Document all sources with URLs and provide a structured summary of findings.
+  agent: web_researcher
+  expected_output: >
+    Structured report of web search findings including:
+    - Key information found with trust level classification
+    - TRUSTED sources: from whitelisted domains (.gov, .edu, wikipedia.org, etc.)
+    - UNTRUSTED sources: from other web domains
+    - Source URLs and credibility assessment
+    - Recent developments or updates
+    - Multiple perspectives if available
+    - Clear distinction between trusted and untrusted web sources
+    - Summary organized by trust level
+  output_file: output/web_search_results.md

@@ -1,27 +1,28 @@
 import os
 from crewai.flow.flow import Flow, start, listen, router, or_
 from dotenv import load_dotenv
-from agentic_rag.tools.rag_tool import rag_tool  # importiamo il tool definito in rag_tool.py
+from agentic_rag.tools.rag_module import rag_tool #, execute_rag_search  # importiamo il tool e la funzione diretta
 from pydantic import BaseModel, Field
 from agentic_rag.crews.check_crew.check_crew import CheckCrew
-from agentic_rag.crews.rag_crew.rag_crew import RagCrew
+from agentic_rag.crews.synthesis_crew.synthesis_crew import SynthesisCrew
+from agentic_rag.crews.web_search_crew.web_search_crew import WebSearchCrew
 
 import opik
 
-# Configurazione Opik per usare il server locale
-# Il server Opik è ora disponibile sulla porta 5173 (frontend) e 8080 (backend)
 opik.configure(use_local=True)
 
 from opik.integrations.crewai import track_crewai
 
-track_crewai(project_name="crewai-opik-demo2")
+track_crewai(project_name="provaaaaa")
+
 
 load_dotenv()
 
 class GuideOutline(BaseModel):
     question: str = ""
     sector: str = ""
-    #ethics_result: bool = True
+    chunk: dict = {}
+    search_summary: str = ""
 
 
 class RagFlow(Flow[GuideOutline]):
@@ -37,10 +38,12 @@ class RagFlow(Flow[GuideOutline]):
         GuideOutline
             The updated state containing the selected sector and user question.
         """
-        self.state.sector = ["Basket", "Francia"]    # Qui definisci il settore su cui lavorare
+        self.state.sector = ["Financial Services"]    # Qui definisci il settore su cui lavorare
         print(f"\n=== RAG Tool on: {self.state.sector} ===\n")
-        self.state.question ="In what year did FIBA eliminate the distinction between amateur and professional players?" #input("Insert your question: ")
-        #Who is James Naismith?
+        self.state.question = "Which sectors are covered by ETS?"
+        #"As a company operating in the financial sector within the EU, what requirements do I need to comply with under the DORA regulation?"
+        #input("Insert your question: ")
+        
         return self.state
     
     @router(get_user_question)
@@ -57,8 +60,8 @@ class RagFlow(Flow[GuideOutline]):
         """
         results = []
         for sector in self.state.sector:
-            temp = CheckCrew().crew().kickoff(inputs={"sector":sector, "question":self.state.question})
-            results.append(temp['FinalResult'])
+            #temp = CheckCrew().crew().kickoff(inputs={"sector":sector, "question":self.state.question})
+            results.append(True)  #(temp['FinalResult'])
         if True in results:
             return "success"
         else:
@@ -66,70 +69,60 @@ class RagFlow(Flow[GuideOutline]):
 
     
     @listen("success")
-    def rag_search(self, state):
-        """Execute the RAG crew to answer the user question.
+    def rag_search(self):
+        """Execute the RAG to retrieve relevant information."""
+        # Use the direct function instead of the CrewAI tool
+        #chunk = execute_rag_search(self.state.question)
+        self.state.chunk = rag_tool(self.state.question)
+        # state["rag_answer"] = response
+
+        return self.state
+
+
+    @listen(rag_search)
+    def web_search(self):
+        """Execute the Web Search crew to gather additional information."""
+        web_result = WebSearchCrew().crew().kickoff(inputs={"question": self.state.question})
+        # Convert CrewOutput to string
+        self.state.search_summary = str(web_result)
+        print(f"\n=== Web Search Summary ===\n{self.state.search_summary}\n")
+        print(f"\n{type(self.state.search_summary)}\n")
+        return self.state
+    
+    
+    @listen(web_search)
+    def synthesize_information(self):
+        """Execute the Synthesis crew to combine RAG and web information.
 
         Parameters
         ----------
         state : GuideOutline
-            Current flow state. The question is read from ``self.state``.
+            Current flow state with both RAG and web context populated.
         """
-        chunk = rag_tool(self.state.question)
-        #chunk è Dict
-        rag_crew = RagCrew().crew()
-        response = rag_crew.kickoff(inputs={"question":self.state.question, "context": chunk})
-        print(f"\n🤖 RAG Answer: {response}")
-        # state["rag_answer"] = response
+        synthesis_crew = SynthesisCrew().crew()
+        final_response = synthesis_crew.kickoff(inputs={
+            "question": self.state.question,
+            "chunk": self.state.chunk,
+            "search_summary": self.state.search_summary
+        })
+        print(f"\n🤖 Final Answer: {final_response["answer"]}")
+        print(f"\n🤖 Final Sources: {final_response["sources"]}")
+
 
         return {
-            #"crew": rag_crew,
             "question": self.state.question,
-            "output": response,
-            "chunk": chunk
-            }
-        #per vedere su opik scrivere output.output, output.chunk e output.question (in quanto non riusciamo a vederlo)
-
-        # # Salva la risposta in un file .md
-        # os.makedirs("outputs", exist_ok=True)
-        # with open("outputs/answer.md", "w", encoding="utf-8") as f:
-        #     f.write(f"# Domanda\n{state['question']}\n\n")
-        #     f.write(f"# Risposta\n{state['rag_answer']}\n")
-
-        # print("\n📄 Risposta salvata in outputs/answer.md\n")
-        #return self.evaluate
-
-    # def evaluate(self, state):
-    #     # Usa l'agente rag_evaluator per valutare con RAGAS
-    #     crew = Crew()
-    #     result = crew.kickoff(task_id="evaluation", inputs=state)
-
-    #     print("\n📊 Risultati valutazione RAGAS:")
-    #     print(result["output"])
-    #     return state
-
-    # # Bonus 1: ricerca web
-    # def web_search(self, state):
-    #     crew = Crew()
-    #     result = crew.kickoff(task_id="web_search", inputs=state)
-    #     state["combined_answer"] = result["output"]
-    #     return state
-
-    # # Bonus 2: validazione delle info web
-    # def validate_web(self, state):
-    #     crew = Crew()
-    #     result = crew.kickoff(task_id="validate_web", inputs=state)
-    #     state["validated_info"] = result["output"]
-    #     return state
-
-    @listen(rag_search)
+            "chunk": self.state.chunk,
+            "search_summary": self.state.search_summary,
+            "output": final_response
+        }
+    
+    @listen(synthesize_information)
     def save_response(self, payload):
         """Save response locally and return payload for Opik eval visibility."""
         print("Saving response")
-        # with open("response.txt", "w", encoding="utf-8") as f:
-        #     f.write(payload["output"])
-        # print("Response saved to response.txt")
-
         return payload
+    
+
 
 def kickoff():
     """Run the guide creator flow"""

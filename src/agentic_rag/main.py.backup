@@ -1,0 +1,171 @@
+import os
+from crewai.flow.flow import Flow, start, listen, router, or    @listen("success")
+    def rag_search(self, state):
+        """Execute direct RAG search using rag_module.py.
+
+        Parameters
+        ----------
+        state : GuideOutline
+            Current flow state. The question is read from ``self.state``.
+        """
+        print(f"\n🔍 Phase 1: Searching internal documents with RAG module...")
+        
+        # Call the RAG module directly - this does the real vector search
+        rag_response = rag_tool(self.state.question)
+        
+        # Extract structured chunks from the response
+        chunks = rag_response.get('chunks', [])
+        print(f"\n📄 Retrieved {len(chunks)} relevant chunks from internal documents")
+        
+        # Store RAG context in state
+        self.state.rag_context = str(rag_response)
+        return self.stateport load_dotenv
+from pydantic import BaseModel, Field
+from agentic_rag.crews.check_crew.check_crew import CheckCrew
+from agentic_rag.crews.web_search_crew.web_search_crew import WebSearchCrew
+from agentic_rag.crews.synthesis_crew.synthesis_crew import SynthesisCrew
+from agentic_rag.tools.rag_module import rag_tool  # Import del modulo RAG diretto
+
+import opik
+
+# Configurazione Opik per usare il server locale
+# Il server Opik è ora disponibile sulla porta 5173 (frontend) e 8080 (backend)
+opik.configure(use_local=True)
+
+from opik.integrations.crewai import track_crewai
+
+track_crewai(project_name="crewai-opik-demo2")
+
+load_dotenv()
+
+class GuideOutline(BaseModel):
+    question: str = ""
+    sector: str = ""
+    rag_context: str = ""
+    web_context: str = ""
+
+
+class RagFlow(Flow[GuideOutline]):
+    """Flow principale per il RAG tool"""
+
+
+    @start("failed")
+    def get_user_question(self):
+        """Prompt for user input and initialize the flow state.
+
+        Returns
+        -------
+        GuideOutline
+            The updated state containing the selected sector and user question.
+        """
+        self.state.sector = ["Basket", "Francia", "Basilea Framework"]    # Qui definisci il settore su cui lavorare
+        print(f"\n=== RAG Tool on: {self.state.sector} ===\n")
+        self.state.question = "Per una banca che opera in Italia, come vanno calcolati i requisiti patrimoniali in base a Basilea III?"
+        #input("Insert your question: ")
+        #Who is James Naismith?
+        #"In what year did FIBA eliminate the distinction between amateur and professional players?"
+        return self.state
+    
+    @router(get_user_question)
+    def evaluate_relevance(self):
+        """Route the flow based on question relevance to the chosen sector.
+
+        Uses a crew to validate the question. If relevant, returns ``"success"``,
+        otherwise returns ``"failed"`` to restart from the beginning.
+
+        Returns
+        -------
+        str
+            Either ``"success"`` or ``"failed"`` depending on the evaluation.
+        """
+        results = []
+        for sector in self.state.sector:
+            temp = CheckCrew().crew().kickoff(inputs={"sector":sector, "question":self.state.question})
+            results.append(temp['FinalResult'])
+        if True in results:
+            return "success"
+        else:
+            return "failed"
+
+    
+    @listen("success")
+    def rag_search(self, state):
+        """Execute the RAG crew to retrieve document chunks.
+
+        Parameters
+        ----------
+        state : GuideOutline
+            Current flow state. The question is read from ``self.state``.
+        """
+        print(f"\n🔍 Phase 1: Retrieving relevant document chunks...")
+        rag_crew = RagCrew().crew()
+        rag_response = rag_crew.kickoff(inputs={"question": self.state.question})
+        print(f"\n� Document Chunks Retrieved: {rag_response}")
+        
+        # Store RAG chunks in state
+        self.state.rag_context = str(rag_response)
+        return self.state
+
+    @listen(rag_search)
+    def web_search(self, state):
+        """Execute the Web Search crew to gather external information.
+
+        Parameters
+        ----------
+        state : GuideOutline
+            Current flow state with RAG context already populated.
+        """
+        print(f"\n🌐 Phase 2: Searching web for additional information...")
+        web_search_crew = WebSearchCrew().crew()
+        web_response = web_search_crew.kickoff(inputs={"question": self.state.question})
+        print(f"\n🔗 Web Context: {web_response}")
+        
+        # Store web context in state
+        self.state.web_context = str(web_response)
+        return self.state
+
+    @listen(web_search)
+    def synthesize_information(self, state):
+        """Execute the Synthesis crew to combine RAG and web information.
+
+        Parameters
+        ----------
+        state : GuideOutline
+            Current flow state with both RAG and web context populated.
+        """
+        print(f"\n🔗 Phase 3: Synthesizing chunks and web information...")
+        synthesis_crew = SynthesisCrew().crew()
+        final_response = synthesis_crew.kickoff(inputs={
+            "question": self.state.question,
+            "rag_context": self.state.rag_context,
+            "web_context": self.state.web_context
+        })
+        print(f"\n🤖 Synthesized Final Answer: {final_response}")
+
+        return {
+            "question": self.state.question,
+            "rag_context": self.state.rag_context,
+            "web_context": self.state.web_context,
+            "final_output": final_response
+        }
+
+
+    @listen(rag_search)
+    def save_response(self, payload):
+        """Save response locally and return payload for Opik eval visibility."""
+        print("Saving response")
+        # with open("response.txt", "w", encoding="utf-8") as f:
+        #     f.write(payload["output"])
+        # print("Response saved to response.txt")
+
+        return payload
+
+def kickoff():
+    """Run the guide creator flow"""
+    RagFlow().kickoff()
+    print("\n=== Flow Complete ===")
+    print("Your comprehensive guide is ready in the output directory.")
+    print("Open output/complete_guide.md to view it.")
+
+if __name__ == "__main__":
+    RagFlow().start()
